@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>registerWindow</class>
+ <widget class="QMainWindow" name="registerWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>789</width>
+    <height>389</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Register new Supplier</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icon.qrc">
+    <normaloff>:/images/a8abd29a96d4222680540c6bd2e3595e.png</normaloff>:/images/a8abd29a96d4222680540c6bd2e3595e.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_30">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>192</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>SQIE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_45">
+    <property name="geometry">
+     <rect>
+      <x>516</x>
+      <y>42</y>
+      <width>73</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Supplier</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="new_category">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>138</y>
+      <width>607</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QComboBox:disabled, QComboBox:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}
+
+QComboBox::down-arrow {
+    image: none;
+}
+
+QComboBox::drop-down {
+    width: 0;
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_27">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>36</y>
+      <width>79</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Vendor</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_28">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>114</y>
+      <width>73</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Category</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="supplier_register">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>516</x>
+      <y>60</y>
+      <width>247</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QLineEdit:disabled, QLineEdit:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_29">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>192</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Continuity</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_41">
+    <property name="geometry">
+     <rect>
+      <x>648</x>
+      <y>120</y>
+      <width>73</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>BU</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_31">
+    <property name="geometry">
+     <rect>
+      <x>282</x>
+      <y>192</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Sourcing</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_save_new_supplier">
+    <property name="geometry">
+     <rect>
+      <x>642</x>
+      <y>348</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Save supplier</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="bu_register_new">
+    <property name="geometry">
+     <rect>
+      <x>648</x>
+      <y>138</y>
+      <width>115</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QComboBox:disabled, QComboBox:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}
+
+QComboBox::down-arrow {
+    image: none;
+}
+
+QComboBox::drop-down {
+    width: 0;
+}</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="vendor_register_new">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>60</y>
+      <width>469</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QLineEdit:disabled, QLineEdit:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="region_register_new">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>294</y>
+      <width>145</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QLineEdit:disabled, QLineEdit:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_49">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>270</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>SSID</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_51">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>270</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Region</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_52">
+    <property name="geometry">
+     <rect>
+      <x>558</x>
+      <y>270</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Document</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_50">
+    <property name="geometry">
+     <rect>
+      <x>204</x>
+      <y>270</y>
+      <width>150</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:transparent;
+color:rgb(130,130,130)</string>
+    </property>
+    <property name="text">
+     <string>Country</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="document_register_new">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>558</x>
+      <y>294</y>
+      <width>205</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QLineEdit:disabled, QLineEdit:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ssid_register_new">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>294</y>
+      <width>157</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QLineEdit:disabled, QLineEdit:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="country_register_new">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>204</x>
+      <y>294</y>
+      <width>163</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QLineEdit:disabled, QLineEdit:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="sqie_register_new">
+    <property name="geometry">
+     <rect>
+      <x>24</x>
+      <y>216</y>
+      <width>235</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QComboBox:disabled, QComboBox:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}
+
+QComboBox::down-arrow {
+    image: none;
+}
+
+QComboBox::drop-down {
+    width: 0;
+}</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="sourcing_register_new">
+    <property name="geometry">
+     <rect>
+      <x>282</x>
+      <y>216</y>
+      <width>241</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QComboBox:disabled, QComboBox:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}
+
+QComboBox::down-arrow {
+    image: none;
+}
+
+QComboBox::drop-down {
+    width: 0;
+}</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="continuity_register_new">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>216</y>
+      <width>223</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox {
+    border: none;
+    border-bottom: 1px solid rgb(90, 54, 247);
+    border-radius: 0;
+    background-color: transparent;
+}
+
+QComboBox:disabled, QComboBox:!focus {
+    border-bottom: 1px solid rgb(120, 120, 120);
+}
+
+QComboBox::down-arrow {
+    image: none;
+}
+
+QComboBox::drop-down {
+    width: 0;
+}</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>vendor_register_new</tabstop>
+  <tabstop>supplier_register</tabstop>
+  <tabstop>new_category</tabstop>
+  <tabstop>bu_register_new</tabstop>
+  <tabstop>sqie_register_new</tabstop>
+  <tabstop>sourcing_register_new</tabstop>
+  <tabstop>continuity_register_new</tabstop>
+  <tabstop>ssid_register_new</tabstop>
+  <tabstop>country_register_new</tabstop>
+  <tabstop>region_register_new</tabstop>
+  <tabstop>document_register_new</tabstop>
+  <tabstop>btn_save_new_supplier</tabstop>
+ </tabstops>
+ <resources>
+  <include location="icon.qrc"/>
+ </resources>
+ <connections/>
+</ui>

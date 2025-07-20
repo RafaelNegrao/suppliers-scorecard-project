@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LoginWindow</class>
+ <widget class="QMainWindow" name="LoginWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>537</width>
+    <height>318</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Preparing environment...</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/icons/a8abd29a96d4222680540c6bd2e3595e.png</normaloff>:/icons/a8abd29a96d4222680540c6bd2e3595e.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QProgressBar" name="barra_progresso">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>294</y>
+      <width>247</width>
+      <height>10</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QProgressBar {
+    background: rgba(255, 255, 255, 180);
+    border-style: none;
+    border-radius: 5px;
+    color: rgba(200, 200, 200, 0); /* Esta cor está transparente, então o texto não aparecerá */
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    border-radius: 5px;
+    background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(136, 0, 0, 255), stop:1 rgba(255, 85, 0, 255)) /* missing value here, assuming you will put one */
+}</string>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="textVisible">
+     <bool>false</bool>
+    </property>
+    <property name="textDirection">
+     <enum>QProgressBar::TopToBottom</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>48</y>
+      <width>217</width>
+      <height>223</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="icon.qrc">:/images/cummins.ico</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="campoStats">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>264</x>
+      <y>48</y>
+      <width>247</width>
+      <height>229</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;
+border: none</string>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>-5</y>
+      <width>253</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 9, 1, 255), stop:1 rgba(255, 100, 0, 255))</string>
+    </property>
+   </widget>
+   <zorder>widget</zorder>
+   <zorder>barra_progresso</zorder>
+   <zorder>campoStats</zorder>
+   <zorder>label</zorder>
+  </widget>
+ </widget>
+ <resources>
+  <include location="icon.qrc"/>
+  <include location="icon.qrc"/>
+  <include location="icon.qrc"/>
+  <include location="../icon.qrc"/>
+ </resources>
+ <connections/>
+</ui>

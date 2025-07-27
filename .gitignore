@@ -4,6 +4,7 @@ dist/
 *.pkg
 *.exe
 *.spec
+send_email.py
 database.db
 comandos.txt
 __pycache__/

@@ -14,27 +14,165 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1139, 844)
+        MainWindow.resize(1139, 846)
         MainWindow.setMinimumSize(QtCore.QSize(0, 600))
         MainWindow.setMaximumSize(QtCore.QSize(16777215, 16777215))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Scorecard - Copia/a8abd29a96d4222680540c6bd2e3595e.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/images/cummins.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("QScrollArea{\n"
-"    background-color: transparent;\n"
-"    border:none}\n"
-"QLineEdit, QTextEdit, QPlainTextEdit {\n"
-"    border-radius: 20px;\n"
-"}\n"
-"/*QScrollArea {\n"
+        MainWindow.setStyleSheet("/*---------------------------------------\n"
+"|   SCROLL AREA & SCROLLBAR             |\n"
+"----------------------------------------*/\n"
+"QScrollArea {\n"
 "    background: transparent;\n"
+"    border: none;\n"
 "}\n"
-"QScrollArea > QWidget {\n"
-"    background: transparent;\n"
-"}\n"
+"\n"
+"QScrollArea > QWidget,\n"
 "QScrollArea > QWidget > QWidget {\n"
 "    background: transparent;\n"
-"}")
+"}\n"
+"\n"
+"/*QWidget{\n"
+" border:1px solid;\n"
+"}*/\n"
+"\n"
+"QWidget > QLineEdit > QScrollArea {\n"
+"    background-color: rgb(200, 200, 200);\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"outline: none;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"/* Restaurar a seta padrão */\n"
+"QComboBox::down-arrow {\n"
+"    image: none; /* Remova esta linha para usar seta padrão do Qt */\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"}\n"
+"\n"
+"/* Dar espaço para a seta aparecer */\n"
+"QComboBox::drop-down {\n"
+"    width: 20px;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"QScrollBar:vertical,\n"
+"QScrollBar:horizontal {\n"
+"    background: transparent;\n"
+"    border: none;\n"
+"    width: 8px;\n"
+"    height: 8px;\n"
+"    margin: 2px;\n"
+"}\n"
+"\n"
+"QScrollBar::handle:vertical,\n"
+"QScrollBar::handle:horizontal {\n"
+"    background: rgba(180, 180, 180, 255);\n"
+"    border-radius: 4px;\n"
+"    min-height: 20px;\n"
+"    min-width: 20px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line,\n"
+"QScrollBar::sub-line {\n"
+"    background: none;\n"
+"    border: none;\n"
+"    height: 0px;\n"
+"    width: 0px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-page,\n"
+"QScrollBar::sub-page {\n"
+"    background: none;\n"
+"}\n"
+"\n"
+"\n"
+"/*---------------------------------------\n"
+"|   LINE EDITS & TEXT INPUTS            |\n"
+"----------------------------------------*/\n"
+"QLineEdit,\n"
+"QTextEdit,\n"
+"QPlainTextEdit {\n"
+"    border-radius: 20px;\n"
+"}\n"
+"\n"
+"\n"
+"/*---------------------------------------\n"
+"|   QTABLEWIDGET                        |\n"
+"----------------------------------------*/\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"/*---------------------------------------\n"
+"|   QTOOLBOX                            |\n"
+"----------------------------------------*/\n"
+"QToolBox {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    border-radius: 10px;\n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"QToolBox > QWidget {\n"
+"    background-color: transparent;\n"
+"    border: none;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QToolBox::tab {\n"
+"    background-color: rgb(200, 200, 200);\n"
+"    color: black;\n"
+"    border: none;\n"
+"    border-radius: 10px;\n"
+"    padding: 6px 12px;\n"
+"}\n"
+"\n"
+"QToolBox::tab:selected {\n"
+"    background-color: rgb(98, 114, 164);\n"
+"    color: rgb(248, 248, 242);\n"
+"}\n"
+"\n"
+"QLabel{\n"
+"background-color:transparent;\n"
+"color:rgb(130,130,130)\n"
+"}\n"
+"\n"
+"")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -83,6 +221,7 @@ class Ui_MainWindow(object):
 "    text-align: left;\n"
 "    padding: 10px;\n"
 "    color: black;  /* Cor do texto padrão */\n"
+"    outline: none;\n"
 "")
         self.btn_ocultar.setText("")
         icon1 = QtGui.QIcon()
@@ -96,28 +235,30 @@ class Ui_MainWindow(object):
         self.btn_home.setMaximumSize(QtCore.QSize(180, 40))
         self.btn_home.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
+        font.setFamily("Poppins")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.btn_home.setFont(font)
         self.btn_home.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_home.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.btn_home.setStyleSheet("QPushButton {\n"
-"    background-color: rgba(199, 191, 191, 200);  /* #c76b6b */\n"
+"    background-color: transparent;  /* #c76b6b */\n"
 "    border-top-right-radius: 0px;\n"
 "    border-bottom-right-radius: 0px;\n"
 "    text-align: left;\n"
-"    border-top-right-radius: 15px; border-bottom-right-radius: 15px;\n"
-"    border-left: 5px solid rgba(200, 0, 0, 255);\n"
+"    border-left: 3px solid rgb(98, 114, 164);\n"
 "    padding: 10px;\n"
-"    color: black;  /* Cor do texto padrão */\n"
+"    color: rgb(98, 114, 164);  /* Cor do texto padrão */\n"
+"\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgba(180, 180, 180, 255);  /* #cc3f3f */\n"
-"}\n"
-"")
+"    background-color: transparent;  /* #cc3f3f */\n"
+"    color: rgb(98, 114, 164);  /* Cor do texto padrão */\n"
+"    border-left: 3px solid rgb(98, 114, 164);\n"
+"\n"
+"}")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/images/home.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_home.setIcon(icon2)
@@ -130,7 +271,7 @@ class Ui_MainWindow(object):
         self.btn_score.setMinimumSize(QtCore.QSize(180, 40))
         self.btn_score.setMaximumSize(QtCore.QSize(180, 40))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
+        font.setFamily("Poppins")
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
@@ -142,11 +283,14 @@ class Ui_MainWindow(object):
 "    border-bottom-right-radius: 0px;\n"
 "    text-align: left;\n"
 "    padding: 10px;\n"
-"    color: black;  /* Cor do texto padrão */\n"
+"    color: rgb(150,150,150);  /* Cor do texto padrão */\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgba(180, 180, 180, 255);  /* #cc3f3f */\n"
+"    background-color: transparent;\n"
+"    color: rgb(98, 114, 164);  /* Cor do texto padrão */\n"
+"    font-weight: bold;  /* Negrito */\n"
+"    border-left: 3px solid rgb(98, 114, 164);\n"
 "}\n"
 "")
         icon3 = QtGui.QIcon()
@@ -159,7 +303,7 @@ class Ui_MainWindow(object):
         self.btn_timeline.setMinimumSize(QtCore.QSize(180, 40))
         self.btn_timeline.setMaximumSize(QtCore.QSize(180, 40))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
+        font.setFamily("Poppins")
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
@@ -171,11 +315,14 @@ class Ui_MainWindow(object):
 "    border-bottom-right-radius: 0px;\n"
 "    text-align: left;\n"
 "    padding: 10px;\n"
-"    color: black;  /* Cor do texto padrão */\n"
+"    color: rgb(150,150,150);  /* Cor do texto padrão */\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgba(180, 180, 180, 255);  /* #cc3f3f */\n"
+"    background-color: transparent;\n"
+"    color: rgb(98, 114, 164);  /* Cor do texto padrão */\n"
+"    font-weight: bold;  /* Negrito */\n"
+"    border-left: 3px solid rgb(98, 114, 164);\n"
 "}\n"
 "")
         icon4 = QtGui.QIcon()
@@ -184,40 +331,11 @@ class Ui_MainWindow(object):
         self.btn_timeline.setIconSize(QtCore.QSize(24, 24))
         self.btn_timeline.setObjectName("btn_timeline")
         self.verticalLayout.addWidget(self.btn_timeline)
-        self.btn_send_mail = QtWidgets.QPushButton(self.sidebar)
-        self.btn_send_mail.setMinimumSize(QtCore.QSize(180, 40))
-        self.btn_send_mail.setMaximumSize(QtCore.QSize(180, 40))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.btn_send_mail.setFont(font)
-        self.btn_send_mail.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_send_mail.setStyleSheet("QPushButton {\n"
-"    background-color:transparent;\n"
-"    border-top-right-radius: 0px;\n"
-"    border-bottom-right-radius: 0px;\n"
-"    text-align: left;\n"
-"    padding: 10px;\n"
-"    color: black;  /* Cor do texto padrão */\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background-color: rgba(180, 180, 180, 255);  /* #cc3f3f */\n"
-"}\n"
-"")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/images/email.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_send_mail.setIcon(icon5)
-        self.btn_send_mail.setIconSize(QtCore.QSize(23, 23))
-        self.btn_send_mail.setObjectName("btn_send_mail")
-        self.verticalLayout.addWidget(self.btn_send_mail)
         self.btn_risks = QtWidgets.QPushButton(self.sidebar)
         self.btn_risks.setMinimumSize(QtCore.QSize(180, 40))
         self.btn_risks.setMaximumSize(QtCore.QSize(180, 40))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
+        font.setFamily("Poppins")
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
@@ -229,16 +347,19 @@ class Ui_MainWindow(object):
 "    border-bottom-right-radius: 0px;\n"
 "    text-align: left;\n"
 "    padding: 10px;\n"
-"    color: black;  /* Cor do texto padrão */\n"
+"    color: rgb(150,150,150);  /* Cor do texto padrão */\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgba(180, 180, 180, 255);  /* #cc3f3f */\n"
+"    background-color: transparent;\n"
+"    color: rgb(98, 114, 164);  /* Cor do texto padrão */\n"
+"    font-weight: bold;  /* Negrito */\n"
+"    border-left: 3px solid rgb(98, 114, 164);\n"
 "}\n"
 "")
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(":/images/risk-management.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_risks.setIcon(icon6)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/images/risk-management.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_risks.setIcon(icon5)
         self.btn_risks.setIconSize(QtCore.QSize(24, 24))
         self.btn_risks.setObjectName("btn_risks")
         self.verticalLayout.addWidget(self.btn_risks)
@@ -246,7 +367,7 @@ class Ui_MainWindow(object):
         self.btn_configs.setMinimumSize(QtCore.QSize(180, 40))
         self.btn_configs.setMaximumSize(QtCore.QSize(180, 40))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
+        font.setFamily("Poppins")
         font.setPointSize(12)
         font.setBold(False)
         font.setWeight(50)
@@ -258,16 +379,19 @@ class Ui_MainWindow(object):
 "    border-bottom-right-radius: 0px;\n"
 "    text-align: left;\n"
 "    padding: 10px;\n"
-"    color: black;  /* Cor do texto padrão */\n"
+"    color: rgb(150,150,150);  /* Cor do texto padrão */\n"
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgba(180, 180, 180, 255);  /* #cc3f3f */\n"
+"    background-color: transparent;\n"
+"    color: rgb(98, 114, 164);  /* Cor do texto padrão */\n"
+"    font-weight: bold;  /* Negrito */\n"
+"    border-left: 3px solid rgb(98, 114, 164);\n"
 "}\n"
 "")
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(":/images/settings.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_configs.setIcon(icon7)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/images/settings.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_configs.setIcon(icon6)
         self.btn_configs.setIconSize(QtCore.QSize(24, 24))
         self.btn_configs.setObjectName("btn_configs")
         self.verticalLayout.addWidget(self.btn_configs)
@@ -292,26 +416,34 @@ class Ui_MainWindow(object):
 "  ")
         self.btn_info.setObjectName("btn_info")
         self.horizontalLayout_2.addWidget(self.btn_info)
-        self.label_11 = QtWidgets.QLabel(self.widget_2)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
+        self.label_version = QtWidgets.QLabel(self.widget_2)
+        self.label_version.setMinimumSize(QtCore.QSize(0, 0))
+        self.label_version.setMaximumSize(QtCore.QSize(60, 16777215))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.label_11.setFont(font)
-        self.label_11.setStyleSheet("background-color:transparent;\n"
+        self.label_version.setFont(font)
+        self.label_version.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.label_version.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_11.setObjectName("label_11")
-        self.horizontalLayout_2.addWidget(self.label_11)
-        self.label_43 = QtWidgets.QLabel(self.widget_2)
+        self.label_version.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_version.setObjectName("label_version")
+        self.horizontalLayout_2.addWidget(self.label_version)
+        self.label_version_number = QtWidgets.QLabel(self.widget_2)
+        self.label_version_number.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.label_version_number.setSizeIncrement(QtCore.QSize(40, 0))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.label_43.setFont(font)
-        self.label_43.setStyleSheet("background-color:transparent;\n"
+        self.label_version_number.setFont(font)
+        self.label_version_number.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_43.setObjectName("label_43")
-        self.horizontalLayout_2.addWidget(self.label_43)
+        self.label_version_number.setObjectName("label_version_number")
+        self.horizontalLayout_2.addWidget(self.label_version_number, 0, QtCore.Qt.AlignLeft)
         self.verticalLayout.addWidget(self.widget_2)
         self.horizontalLayout.addWidget(self.sidebar)
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setMinimumSize(QtCore.QSize(800, 580))
+        self.tabWidget.setMinimumSize(QtCore.QSize(550, 580))
         self.tabWidget.setMaximumSize(QtCore.QSize(16000, 16000))
         font = QtGui.QFont()
         font.setFamily("Calibri")
@@ -329,233 +461,326 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName("tabWidget")
         self.tab_7 = QtWidgets.QWidget()
         self.tab_7.setObjectName("tab_7")
+        self.gridLayout_39 = QtWidgets.QGridLayout(self.tab_7)
+        self.gridLayout_39.setObjectName("gridLayout_39")
+        self.widget_26 = QtWidgets.QWidget(self.tab_7)
+        self.widget_26.setObjectName("widget_26")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_26)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.label_69 = QtWidgets.QLabel(self.widget_26)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.label_69.setFont(font)
+        self.label_69.setObjectName("label_69")
+        self.horizontalLayout_4.addWidget(self.label_69)
+        self.label_last_update = QtWidgets.QLabel(self.widget_26)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.label_last_update.setFont(font)
+        self.label_last_update.setObjectName("label_last_update")
+        self.horizontalLayout_4.addWidget(self.label_last_update)
+        self.gridLayout_39.addWidget(self.widget_26, 0, 0, 1, 1, QtCore.Qt.AlignRight|QtCore.Qt.AlignBottom)
         self.tabWidget.addTab(self.tab_7, "")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.tab)
         self.gridLayout_3.setObjectName("gridLayout_3")
-        self.groupBox = QtWidgets.QGroupBox(self.tab)
-        self.groupBox.setMaximumSize(QtCore.QSize(280, 16777215))
+        self.tabWidget_5 = QtWidgets.QTabWidget(self.tab)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        self.tabWidget_5.setFont(font)
+        self.tabWidget_5.setObjectName("tabWidget_5")
+        self.tab_12 = QtWidgets.QWidget()
+        self.tab_12.setObjectName("tab_12")
+        self.gridLayout_11 = QtWidgets.QGridLayout(self.tab_12)
+        self.gridLayout_11.setObjectName("gridLayout_11")
+        self.widget_93 = QtWidgets.QWidget(self.tab_12)
+        self.widget_93.setObjectName("widget_93")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.widget_93)
+        self.gridLayout_10.setContentsMargins(10, 10, 10, 10)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.widget_97 = QtWidgets.QWidget(self.widget_93)
+        self.widget_97.setObjectName("widget_97")
+        self.verticalLayout_71 = QtWidgets.QVBoxLayout(self.widget_97)
+        self.verticalLayout_71.setContentsMargins(9, -1, 9, 0)
+        self.verticalLayout_71.setObjectName("verticalLayout_71")
+        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        self.verticalLayout_71.addItem(spacerItem2)
+        self.label_4 = QtWidgets.QLabel(self.widget_97)
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
-        self.groupBox.setFont(font)
-        self.groupBox.setObjectName("groupBox")
-        self.gridLayout_10 = QtWidgets.QGridLayout(self.groupBox)
-        self.gridLayout_10.setObjectName("gridLayout_10")
-        self.scrollArea = QtWidgets.QScrollArea(self.groupBox)
-        self.scrollArea.setStyleSheet("")
-        self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
-        self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 260, 453))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.gridLayout_20 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
-        self.gridLayout_20.setObjectName("gridLayout_20")
-        self.widget_54 = QtWidgets.QWidget(self.scrollAreaWidgetContents)
-        self.widget_54.setObjectName("widget_54")
-        self.gridLayout_23 = QtWidgets.QGridLayout(self.widget_54)
-        self.gridLayout_23.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_23.setObjectName("gridLayout_23")
-        self.frame = QtWidgets.QFrame(self.widget_54)
-        self.frame.setMinimumSize(QtCore.QSize(0, 60))
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.label_5 = QtWidgets.QLabel(self.frame)
-        self.label_5.setMinimumSize(QtCore.QSize(0, 10))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_5.setFont(font)
-        self.label_5.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_5.setObjectName("label_5")
-        self.verticalLayout_3.addWidget(self.label_5)
-        self.quality_pickup_input = QtWidgets.QSpinBox(self.frame)
-        self.quality_pickup_input.setMinimumSize(QtCore.QSize(0, 28))
-        self.quality_pickup_input.setMaximumSize(QtCore.QSize(1000, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.quality_pickup_input.setFont(font)
-        self.quality_pickup_input.setStyleSheet("QSpinBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color:transparent\n"
-";\n"
-"}\n"
-"\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}\n"
+        self.label_4.setFont(font)
+        self.label_4.setStyleSheet("background-color:transparent;\n"
 "")
-        self.quality_pickup_input.setMaximum(10)
-        self.quality_pickup_input.setObjectName("quality_pickup_input")
-        self.verticalLayout_3.addWidget(self.quality_pickup_input)
-        self.gridLayout_23.addWidget(self.frame, 3, 0, 1, 2)
-        self.widget_8 = QtWidgets.QWidget(self.widget_54)
-        self.widget_8.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_8.setObjectName("widget_8")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.widget_8)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.label_8 = QtWidgets.QLabel(self.widget_8)
-        self.label_8.setMinimumSize(QtCore.QSize(0, 10))
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout_71.addWidget(self.label_4)
+        self.comments = QtWidgets.QTextEdit(self.widget_97)
+        self.comments.setMaximumSize(QtCore.QSize(16777215, 16000))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(9)
+        font.setPointSize(14)
         font.setBold(False)
         font.setWeight(50)
-        self.label_8.setFont(font)
-        self.label_8.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_8.setObjectName("label_8")
-        self.verticalLayout_4.addWidget(self.label_8)
-        self.nil_input = QtWidgets.QSpinBox(self.widget_8)
-        self.nil_input.setMinimumSize(QtCore.QSize(0, 28))
-        self.nil_input.setMaximumSize(QtCore.QSize(10000, 16777215))
+        self.comments.setFont(font)
+        self.comments.setStyleSheet("background:transparent;\n"
+"border: 1px solid rgb(210,210, 210);\n"
+"padding:10px\n"
+"")
+        self.comments.setObjectName("comments")
+        self.verticalLayout_71.addWidget(self.comments)
+        self.gridLayout_10.addWidget(self.widget_97, 5, 0, 1, 1)
+        self.widget_61 = QtWidgets.QWidget(self.widget_93)
+        self.widget_61.setMinimumSize(QtCore.QSize(0, 0))
+        self.widget_61.setObjectName("widget_61")
+        self.gridLayout_58 = QtWidgets.QGridLayout(self.widget_61)
+        self.gridLayout_58.setObjectName("gridLayout_58")
+        self.widget_96 = QtWidgets.QWidget(self.widget_61)
+        self.widget_96.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_96.setObjectName("widget_96")
+        self.verticalLayout_73 = QtWidgets.QVBoxLayout(self.widget_96)
+        self.verticalLayout_73.setObjectName("verticalLayout_73")
+        self.label_113 = QtWidgets.QLabel(self.widget_96)
+        self.label_113.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_113.setMaximumSize(QtCore.QSize(16777215, 600))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.label_113.setFont(font)
+        self.label_113.setWordWrap(True)
+        self.label_113.setObjectName("label_113")
+        self.verticalLayout_73.addWidget(self.label_113)
+        self.nil_input = QtWidgets.QSpinBox(self.widget_96)
+        self.nil_input.setMinimumSize(QtCore.QSize(50, 35))
+        self.nil_input.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
         self.nil_input.setFont(font)
         self.nil_input.setStyleSheet("QSpinBox {\n"
 "    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color:transparent\n"
 ";\n"
 "}\n"
 "\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}\n"
 "")
         self.nil_input.setMaximum(10)
         self.nil_input.setObjectName("nil_input")
-        self.verticalLayout_4.addWidget(self.nil_input)
-        self.gridLayout_23.addWidget(self.widget_8, 4, 0, 1, 2)
-        self.widget_7 = QtWidgets.QWidget(self.widget_54)
-        self.widget_7.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_7.setObjectName("widget_7")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_7)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.label_6 = QtWidgets.QLabel(self.widget_7)
-        self.label_6.setMinimumSize(QtCore.QSize(0, 10))
+        self.verticalLayout_73.addWidget(self.nil_input)
+        self.gridLayout_58.addWidget(self.widget_96, 0, 0, 1, 1)
+        self.widget_98 = QtWidgets.QWidget(self.widget_61)
+        self.widget_98.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_98.setObjectName("widget_98")
+        self.verticalLayout_69 = QtWidgets.QVBoxLayout(self.widget_98)
+        self.verticalLayout_69.setObjectName("verticalLayout_69")
+        self.label_114 = QtWidgets.QLabel(self.widget_98)
+        self.label_114.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_114.setMaximumSize(QtCore.QSize(16777215, 600))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_6.setFont(font)
-        self.label_6.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_6.setObjectName("label_6")
-        self.verticalLayout_2.addWidget(self.label_6)
-        self.quality_package_input = QtWidgets.QSpinBox(self.widget_7)
-        self.quality_package_input.setMinimumSize(QtCore.QSize(0, 28))
-        self.quality_package_input.setMaximumSize(QtCore.QSize(16000, 16777215))
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.label_114.setFont(font)
+        self.label_114.setWordWrap(True)
+        self.label_114.setObjectName("label_114")
+        self.verticalLayout_69.addWidget(self.label_114)
+        self.otif_input = QtWidgets.QSpinBox(self.widget_98)
+        self.otif_input.setMinimumSize(QtCore.QSize(50, 35))
+        self.otif_input.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.quality_package_input.setFont(font)
-        self.quality_package_input.setStyleSheet("QSpinBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color:transparent\n"
-";\n"
-"}\n"
-"\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}\n"
-"")
-        self.quality_package_input.setMaximum(10)
-        self.quality_package_input.setObjectName("quality_package_input")
-        self.verticalLayout_2.addWidget(self.quality_package_input)
-        self.gridLayout_23.addWidget(self.widget_7, 2, 0, 1, 2)
-        self.widget_10 = QtWidgets.QWidget(self.widget_54)
-        self.widget_10.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_10.setObjectName("widget_10")
-        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.widget_10)
-        self.verticalLayout_5.setObjectName("verticalLayout_5")
-        self.label_7 = QtWidgets.QLabel(self.widget_10)
-        self.label_7.setMinimumSize(QtCore.QSize(0, 10))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_7.setFont(font)
-        self.label_7.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_7.setObjectName("label_7")
-        self.verticalLayout_5.addWidget(self.label_7)
-        self.otif_input = QtWidgets.QSpinBox(self.widget_10)
-        self.otif_input.setMinimumSize(QtCore.QSize(0, 28))
-        self.otif_input.setMaximumSize(QtCore.QSize(10000, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
         self.otif_input.setFont(font)
         self.otif_input.setStyleSheet("QSpinBox {\n"
 "    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color:transparent\n"
 ";\n"
 "}\n"
 "\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}\n"
 "")
         self.otif_input.setMaximum(10)
         self.otif_input.setObjectName("otif_input")
-        self.verticalLayout_5.addWidget(self.otif_input)
-        self.gridLayout_23.addWidget(self.widget_10, 1, 0, 1, 2)
-        self.widget_11 = QtWidgets.QWidget(self.widget_54)
-        self.widget_11.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_11.setObjectName("widget_11")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.widget_11)
-        self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.label_36 = QtWidgets.QLabel(self.widget_11)
-        self.label_36.setMinimumSize(QtCore.QSize(0, 10))
+        self.verticalLayout_69.addWidget(self.otif_input)
+        self.gridLayout_58.addWidget(self.widget_98, 0, 2, 1, 1)
+        self.widget_100 = QtWidgets.QWidget(self.widget_61)
+        self.widget_100.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_100.setObjectName("widget_100")
+        self.verticalLayout_72 = QtWidgets.QVBoxLayout(self.widget_100)
+        self.verticalLayout_72.setObjectName("verticalLayout_72")
+        self.label_115 = QtWidgets.QLabel(self.widget_100)
+        self.label_115.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_115.setMaximumSize(QtCore.QSize(16777215, 600))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_36.setFont(font)
-        self.label_36.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_36.setObjectName("label_36")
-        self.verticalLayout_6.addWidget(self.label_36)
-        self.total_score = QtWidgets.QLineEdit(self.widget_11)
-        self.total_score.setEnabled(True)
-        self.total_score.setMinimumSize(QtCore.QSize(0, 28))
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.label_115.setFont(font)
+        self.label_115.setWordWrap(True)
+        self.label_115.setObjectName("label_115")
+        self.verticalLayout_72.addWidget(self.label_115)
+        self.quality_package_input = QtWidgets.QSpinBox(self.widget_100)
+        self.quality_package_input.setMinimumSize(QtCore.QSize(50, 35))
+        self.quality_package_input.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.quality_package_input.setFont(font)
+        self.quality_package_input.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"    border-radius: 0;\n"
+"    background-color:transparent\n"
+";\n"
+"}\n"
+"\n"
+"")
+        self.quality_package_input.setMaximum(10)
+        self.quality_package_input.setObjectName("quality_package_input")
+        self.verticalLayout_72.addWidget(self.quality_package_input)
+        self.gridLayout_58.addWidget(self.widget_100, 0, 3, 1, 1)
+        self.widget_102 = QtWidgets.QWidget(self.widget_61)
+        self.widget_102.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_102.setObjectName("widget_102")
+        self.verticalLayout_75 = QtWidgets.QVBoxLayout(self.widget_102)
+        self.verticalLayout_75.setObjectName("verticalLayout_75")
+        self.label_117 = QtWidgets.QLabel(self.widget_102)
+        self.label_117.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_117.setMaximumSize(QtCore.QSize(16777215, 600))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.label_117.setFont(font)
+        self.label_117.setWordWrap(True)
+        self.label_117.setObjectName("label_117")
+        self.verticalLayout_75.addWidget(self.label_117)
+        self.total_score = QtWidgets.QSpinBox(self.widget_102)
+        self.total_score.setMinimumSize(QtCore.QSize(50, 35))
+        self.total_score.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(22)
+        font.setBold(True)
+        font.setWeight(75)
         self.total_score.setFont(font)
-        self.total_score.setStyleSheet("QLineEdit {\n"
+        self.total_score.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QSpinBox:disabled, QSpinBox:!focus {\n"
+"\n"
+"}\n"
+"\n"
+"/* Remove as setas */\n"
+"QSpinBox::up-button, QSpinBox::down-button {\n"
+"    width: 0;\n"
+"    height: 0;\n"
+"    border: none;\n"
+"}")
+        self.total_score.setAlignment(QtCore.Qt.AlignCenter)
+        self.total_score.setReadOnly(True)
+        self.total_score.setMaximum(1000)
+        self.total_score.setObjectName("total_score")
+        self.verticalLayout_75.addWidget(self.total_score)
+        self.gridLayout_58.addWidget(self.widget_102, 0, 4, 1, 1)
+        self.widget_99 = QtWidgets.QWidget(self.widget_61)
+        self.widget_99.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_99.setObjectName("widget_99")
+        self.verticalLayout_74 = QtWidgets.QVBoxLayout(self.widget_99)
+        self.verticalLayout_74.setObjectName("verticalLayout_74")
+        self.label_116 = QtWidgets.QLabel(self.widget_99)
+        self.label_116.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_116.setMaximumSize(QtCore.QSize(16777215, 600))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setItalic(False)
+        font.setWeight(75)
+        self.label_116.setFont(font)
+        self.label_116.setWordWrap(True)
+        self.label_116.setObjectName("label_116")
+        self.verticalLayout_74.addWidget(self.label_116)
+        self.quality_pickup_input = QtWidgets.QSpinBox(self.widget_99)
+        self.quality_pickup_input.setMinimumSize(QtCore.QSize(50, 35))
+        self.quality_pickup_input.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.quality_pickup_input.setFont(font)
+        self.quality_pickup_input.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"    border-radius: 0;\n"
+"    background-color:transparent\n"
+";\n"
+"}\n"
+"\n"
+"")
+        self.quality_pickup_input.setMaximum(10)
+        self.quality_pickup_input.setObjectName("quality_pickup_input")
+        self.verticalLayout_74.addWidget(self.quality_pickup_input)
+        self.gridLayout_58.addWidget(self.widget_99, 0, 1, 1, 1)
+        self.gridLayout_10.addWidget(self.widget_61, 4, 0, 1, 1)
+        self.widget_59 = QtWidgets.QWidget(self.widget_93)
+        self.widget_59.setObjectName("widget_59")
+        self.gridLayout_57 = QtWidgets.QGridLayout(self.widget_59)
+        self.gridLayout_57.setObjectName("gridLayout_57")
+        self.widget_10 = QtWidgets.QWidget(self.widget_59)
+        self.widget_10.setMaximumSize(QtCore.QSize(150, 16777215))
+        self.widget_10.setObjectName("widget_10")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_10)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label_5 = QtWidgets.QLabel(self.widget_10)
+        self.label_5.setObjectName("label_5")
+        self.verticalLayout_2.addWidget(self.label_5)
+        self.status_query = QtWidgets.QLineEdit(self.widget_10)
+        self.status_query.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.status_query.setFont(font)
+        self.status_query.setStyleSheet("QLineEdit {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
@@ -565,90 +790,191 @@ class Ui_MainWindow(object):
 "QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
 "}")
-        self.total_score.setReadOnly(True)
-        self.total_score.setObjectName("total_score")
-        self.verticalLayout_6.addWidget(self.total_score)
-        self.gridLayout_23.addWidget(self.widget_11, 5, 0, 1, 2)
-        self.widget_6 = QtWidgets.QWidget(self.widget_54)
-        self.widget_6.setMinimumSize(QtCore.QSize(0, 60))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        self.widget_6.setFont(font)
+        self.status_query.setReadOnly(True)
+        self.status_query.setObjectName("status_query")
+        self.verticalLayout_2.addWidget(self.status_query)
+        self.gridLayout_57.addWidget(self.widget_10, 0, 1, 1, 1)
+        self.widget_6 = QtWidgets.QWidget(self.widget_59)
+        self.widget_6.setMaximumSize(QtCore.QSize(100, 16777215))
         self.widget_6.setObjectName("widget_6")
-        self.gridLayout = QtWidgets.QGridLayout(self.widget_6)
-        self.gridLayout.setObjectName("gridLayout")
-        self.year = QtWidgets.QComboBox(self.widget_6)
-        self.year.setMinimumSize(QtCore.QSize(0, 28))
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.widget_6)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.label_6 = QtWidgets.QLabel(self.widget_6)
+        self.label_6.setObjectName("label_6")
+        self.verticalLayout_4.addWidget(self.label_6)
+        self.id_query = QtWidgets.QLineEdit(self.widget_6)
+        self.id_query.setMinimumSize(QtCore.QSize(0, 35))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.year.setFont(font)
-        self.year.setStyleSheet("QComboBox {\n"
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.id_query.setFont(font)
+        self.id_query.setStyleSheet("QLineEdit {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color: transparent;\n"
 "}\n"
 "\n"
-"QComboBox:disabled, QComboBox:!focus {\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: none;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    width: 0;\n"
 "}")
-        self.year.setObjectName("year")
-        self.year.addItem("")
-        self.year.setItemText(0, "")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.year.addItem("")
-        self.gridLayout.addWidget(self.year, 1, 1, 1, 1)
-        self.label_10 = QtWidgets.QLabel(self.widget_6)
-        self.label_10.setMinimumSize(QtCore.QSize(0, 10))
+        self.id_query.setReadOnly(True)
+        self.id_query.setObjectName("id_query")
+        self.verticalLayout_4.addWidget(self.id_query)
+        self.gridLayout_57.addWidget(self.widget_6, 0, 3, 1, 1)
+        self.widget_35 = QtWidgets.QWidget(self.widget_59)
+        self.widget_35.setMinimumSize(QtCore.QSize(0, 70))
+        self.widget_35.setObjectName("widget_35")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.widget_35)
+        self.gridLayout_2.setContentsMargins(0, -1, -1, -1)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.btn_vendor_score = QtWidgets.QPushButton(self.widget_35)
+        self.btn_vendor_score.setMinimumSize(QtCore.QSize(30, 30))
+        self.btn_vendor_score.setMaximumSize(QtCore.QSize(30, 30))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setWeight(50)
+        self.btn_vendor_score.setFont(font)
+        self.btn_vendor_score.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_vendor_score.setStyleSheet("background-color:transparent")
+        self.btn_vendor_score.setObjectName("btn_vendor_score")
+        self.gridLayout_2.addWidget(self.btn_vendor_score, 1, 2, 1, 1)
+        self.vendor_select = QtWidgets.QLineEdit(self.widget_35)
+        self.vendor_select.setEnabled(True)
+        self.vendor_select.setMinimumSize(QtCore.QSize(0, 30))
+        self.vendor_select.setMaximumSize(QtCore.QSize(4409, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.vendor_select.setFont(font)
+        self.vendor_select.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.vendor_select.setText("")
+        self.vendor_select.setReadOnly(True)
+        self.vendor_select.setObjectName("vendor_select")
+        self.gridLayout_2.addWidget(self.vendor_select, 1, 1, 1, 1)
+        self.label_3 = QtWidgets.QLabel(self.widget_35)
+        self.label_3.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_3.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(9)
         font.setBold(False)
         font.setWeight(50)
-        self.label_10.setFont(font)
-        self.label_10.setStyleSheet("background-color:transparent;\n"
+        self.label_3.setFont(font)
+        self.label_3.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_10.setObjectName("label_10")
-        self.gridLayout.addWidget(self.label_10, 0, 1, 1, 1)
-        self.label_9 = QtWidgets.QLabel(self.widget_6)
-        self.label_9.setMinimumSize(QtCore.QSize(0, 10))
+        self.label_3.setObjectName("label_3")
+        self.gridLayout_2.addWidget(self.label_3, 0, 1, 1, 1)
+        self.gridLayout_57.addWidget(self.widget_35, 0, 0, 1, 1)
+        self.widget_8 = QtWidgets.QWidget(self.widget_59)
+        self.widget_8.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.widget_8.setObjectName("widget_8")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.widget_8)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.label_8 = QtWidgets.QLabel(self.widget_8)
+        self.label_8.setObjectName("label_8")
+        self.verticalLayout_5.addWidget(self.label_8)
+        self.number_query = QtWidgets.QLineEdit(self.widget_8)
+        self.number_query.setMinimumSize(QtCore.QSize(0, 35))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(9)
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.number_query.setFont(font)
+        self.number_query.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.number_query.setReadOnly(True)
+        self.number_query.setObjectName("number_query")
+        self.verticalLayout_5.addWidget(self.number_query)
+        self.gridLayout_57.addWidget(self.widget_8, 0, 4, 1, 1)
+        self.widget_7 = QtWidgets.QWidget(self.widget_59)
+        self.widget_7.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.widget_7.setObjectName("widget_7")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget_7)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.label_7 = QtWidgets.QLabel(self.widget_7)
+        self.label_7.setObjectName("label_7")
+        self.verticalLayout_3.addWidget(self.label_7)
+        self.bu_query = QtWidgets.QLineEdit(self.widget_7)
+        self.bu_query.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.bu_query.setFont(font)
+        self.bu_query.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.bu_query.setReadOnly(True)
+        self.bu_query.setObjectName("bu_query")
+        self.verticalLayout_3.addWidget(self.bu_query)
+        self.gridLayout_57.addWidget(self.widget_7, 0, 2, 1, 1)
+        self.frame_2 = QtWidgets.QFrame(self.widget_59)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.gridLayout_12 = QtWidgets.QGridLayout(self.frame_2)
+        self.gridLayout_12.setContentsMargins(0, -1, -1, -1)
+        self.gridLayout_12.setObjectName("gridLayout_12")
+        self.widget_94 = QtWidgets.QWidget(self.frame_2)
+        self.widget_94.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_94.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.widget_94.setObjectName("widget_94")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.widget_94)
+        self.verticalLayout_6.setContentsMargins(0, -1, -1, -1)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.label_9 = QtWidgets.QLabel(self.widget_94)
+        self.label_9.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_9.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(10)
         font.setBold(False)
         font.setWeight(50)
         self.label_9.setFont(font)
         self.label_9.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
         self.label_9.setObjectName("label_9")
-        self.gridLayout.addWidget(self.label_9, 0, 0, 1, 1)
-        self.month = QtWidgets.QComboBox(self.widget_6)
-        self.month.setMinimumSize(QtCore.QSize(0, 28))
+        self.verticalLayout_6.addWidget(self.label_9)
+        self.month = QtWidgets.QComboBox(self.widget_94)
+        self.month.setMinimumSize(QtCore.QSize(0, 35))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
         self.month.setFont(font)
         self.month.setStyleSheet("QComboBox {\n"
 "    border: none;\n"
@@ -683,688 +1009,289 @@ class Ui_MainWindow(object):
         self.month.addItem("")
         self.month.addItem("")
         self.month.addItem("")
-        self.gridLayout.addWidget(self.month, 1, 0, 1, 1)
-        self.gridLayout_23.addWidget(self.widget_6, 0, 0, 1, 2)
-        self.gridLayout_20.addWidget(self.widget_54, 0, 0, 1, 1)
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.gridLayout_10.addWidget(self.scrollArea, 1, 0, 1, 1)
-        self.widget_55 = QtWidgets.QWidget(self.groupBox)
-        self.widget_55.setObjectName("widget_55")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.widget_55)
-        self.gridLayout_4.setContentsMargins(-1, 0, -1, 0)
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.btn_clear_score = QtWidgets.QPushButton(self.widget_55)
-        self.btn_clear_score.setMinimumSize(QtCore.QSize(100, 30))
-        self.btn_clear_score.setMaximumSize(QtCore.QSize(100, 30))
+        self.verticalLayout_6.addWidget(self.month)
+        self.gridLayout_12.addWidget(self.widget_94, 0, 0, 1, 1)
+        self.widget_95 = QtWidgets.QWidget(self.frame_2)
+        self.widget_95.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_95.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.widget_95.setObjectName("widget_95")
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.widget_95)
+        self.verticalLayout_7.setContentsMargins(-1, -1, 0, -1)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.label_10 = QtWidgets.QLabel(self.widget_95)
+        self.label_10.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_10.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_10.setFont(font)
+        self.label_10.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_10.setObjectName("label_10")
+        self.verticalLayout_7.addWidget(self.label_10)
+        self.year = QtWidgets.QComboBox(self.widget_95)
+        self.year.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.year.setFont(font)
+        self.year.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.year.setObjectName("year")
+        self.year.addItem("")
+        self.year.setItemText(0, "")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.year.addItem("")
+        self.verticalLayout_7.addWidget(self.year)
+        self.gridLayout_12.addWidget(self.widget_95, 0, 1, 1, 1)
+        self.gridLayout_57.addWidget(self.frame_2, 1, 0, 1, 1, QtCore.Qt.AlignLeft)
+        self.gridLayout_10.addWidget(self.widget_59, 3, 0, 1, 3)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_10.addItem(spacerItem3, 6, 0, 1, 1)
+        self.gridLayout_11.addWidget(self.widget_93, 5, 0, 1, 4)
+        self.btn_clear_score = QtWidgets.QPushButton(self.tab_12)
+        self.btn_clear_score.setMinimumSize(QtCore.QSize(80, 30))
+        self.btn_clear_score.setMaximumSize(QtCore.QSize(100, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.btn_clear_score.setFont(font)
         self.btn_clear_score.setObjectName("btn_clear_score")
-        self.gridLayout_4.addWidget(self.btn_clear_score, 1, 1, 1, 1)
-        self.btn_save_new_score = QtWidgets.QPushButton(self.widget_55)
-        self.btn_save_new_score.setMinimumSize(QtCore.QSize(100, 30))
-        self.btn_save_new_score.setMaximumSize(QtCore.QSize(100, 30))
+        self.gridLayout_11.addWidget(self.btn_clear_score, 6, 3, 1, 1)
+        self.btn_save_new_score = QtWidgets.QPushButton(self.tab_12)
+        self.btn_save_new_score.setMinimumSize(QtCore.QSize(80, 30))
+        self.btn_save_new_score.setMaximumSize(QtCore.QSize(100, 16777215))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.btn_save_new_score.setFont(font)
         self.btn_save_new_score.setObjectName("btn_save_new_score")
-        self.gridLayout_4.addWidget(self.btn_save_new_score, 1, 0, 1, 1)
-        self.gridLayout_10.addWidget(self.widget_55, 2, 0, 1, 1)
-        self.gridLayout_3.addWidget(self.groupBox, 3, 2, 6, 1)
-        self.groupBox_3 = QtWidgets.QGroupBox(self.tab)
-        self.groupBox_3.setMinimumSize(QtCore.QSize(0, 230))
+        self.gridLayout_11.addWidget(self.btn_save_new_score, 6, 2, 1, 1)
+        self.tabWidget_5.addTab(self.tab_12, "")
+        self.tab_21 = QtWidgets.QWidget()
+        self.tab_21.setObjectName("tab_21")
+        self.gridLayout = QtWidgets.QGridLayout(self.tab_21)
+        self.gridLayout.setObjectName("gridLayout")
+        self.frame_6 = QtWidgets.QFrame(self.tab_21)
+        self.frame_6.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_6.setObjectName("frame_6")
+        self.gridLayout_20 = QtWidgets.QGridLayout(self.frame_6)
+        self.gridLayout_20.setContentsMargins(0, -1, -1, -1)
+        self.gridLayout_20.setObjectName("gridLayout_20")
+        self.widget_101 = QtWidgets.QWidget(self.frame_6)
+        self.widget_101.setMinimumSize(QtCore.QSize(120, 0))
+        self.widget_101.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.widget_101.setObjectName("widget_101")
+        self.verticalLayout_70 = QtWidgets.QVBoxLayout(self.widget_101)
+        self.verticalLayout_70.setContentsMargins(9, -1, -1, -1)
+        self.verticalLayout_70.setObjectName("verticalLayout_70")
+        self.label_12 = QtWidgets.QLabel(self.widget_101)
+        self.label_12.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_12.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(11)
-        self.groupBox_3.setFont(font)
-        self.groupBox_3.setObjectName("groupBox_3")
-        self.gridLayout_11 = QtWidgets.QGridLayout(self.groupBox_3)
-        self.gridLayout_11.setContentsMargins(-1, 6, -1, 15)
-        self.gridLayout_11.setSpacing(9)
-        self.gridLayout_11.setObjectName("gridLayout_11")
-        self.widget_36 = QtWidgets.QWidget(self.groupBox_3)
-        self.widget_36.setMinimumSize(QtCore.QSize(100, 70))
-        self.widget_36.setMaximumSize(QtCore.QSize(100, 16777215))
-        self.widget_36.setObjectName("widget_36")
-        self.verticalLayout_35 = QtWidgets.QVBoxLayout(self.widget_36)
-        self.verticalLayout_35.setObjectName("verticalLayout_35")
-        self.label_39 = QtWidgets.QLabel(self.widget_36)
-        self.label_39.setMinimumSize(QtCore.QSize(80, 0))
-        self.label_39.setMaximumSize(QtCore.QSize(80, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
+        font.setPointSize(10)
         font.setBold(False)
         font.setWeight(50)
-        self.label_39.setFont(font)
-        self.label_39.setStyleSheet("background-color:transparent;\n"
+        self.label_12.setFont(font)
+        self.label_12.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_39.setObjectName("label_39")
-        self.verticalLayout_35.addWidget(self.label_39)
-        self.bu_query = QtWidgets.QLineEdit(self.widget_36)
-        self.bu_query.setEnabled(True)
-        self.bu_query.setMinimumSize(QtCore.QSize(80, 30))
-        self.bu_query.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.label_12.setObjectName("label_12")
+        self.verticalLayout_70.addWidget(self.label_12)
+        self.month_group_input = QtWidgets.QComboBox(self.widget_101)
+        self.month_group_input.setMinimumSize(QtCore.QSize(0, 35))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.bu_query.setFont(font)
-        self.bu_query.setStyleSheet("QLineEdit {\n"
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.month_group_input.setFont(font)
+        self.month_group_input.setStyleSheet("QComboBox {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color: transparent;\n"
 "}\n"
 "\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
 "}")
-        self.bu_query.setText("")
-        self.bu_query.setReadOnly(True)
-        self.bu_query.setObjectName("bu_query")
-        self.verticalLayout_35.addWidget(self.bu_query)
-        self.gridLayout_11.addWidget(self.widget_36, 2, 2, 1, 1)
-        self.widget_35 = QtWidgets.QWidget(self.groupBox_3)
-        self.widget_35.setMinimumSize(QtCore.QSize(0, 70))
-        self.widget_35.setObjectName("widget_35")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.widget_35)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.btn_vendor_score = QtWidgets.QPushButton(self.widget_35)
-        self.btn_vendor_score.setMinimumSize(QtCore.QSize(30, 30))
-        self.btn_vendor_score.setMaximumSize(QtCore.QSize(30, 30))
+        self.month_group_input.setObjectName("month_group_input")
+        self.month_group_input.addItem("")
+        self.month_group_input.setItemText(0, "")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.month_group_input.addItem("")
+        self.verticalLayout_70.addWidget(self.month_group_input)
+        self.gridLayout_20.addWidget(self.widget_101, 0, 0, 1, 1)
+        self.widget_103 = QtWidgets.QWidget(self.frame_6)
+        self.widget_103.setMinimumSize(QtCore.QSize(120, 0))
+        self.widget_103.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.widget_103.setObjectName("widget_103")
+        self.verticalLayout_76 = QtWidgets.QVBoxLayout(self.widget_103)
+        self.verticalLayout_76.setObjectName("verticalLayout_76")
+        self.label_13 = QtWidgets.QLabel(self.widget_103)
+        self.label_13.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_13.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_13.setFont(font)
+        self.label_13.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_13.setObjectName("label_13")
+        self.verticalLayout_76.addWidget(self.label_13)
+        self.year_group_input = QtWidgets.QComboBox(self.widget_103)
+        self.year_group_input.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.year_group_input.setFont(font)
+        self.year_group_input.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.year_group_input.setObjectName("year_group_input")
+        self.year_group_input.addItem("")
+        self.year_group_input.setItemText(0, "")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.year_group_input.addItem("")
+        self.verticalLayout_76.addWidget(self.year_group_input)
+        self.gridLayout_20.addWidget(self.widget_103, 0, 1, 1, 1)
+        self.widget_4 = QtWidgets.QWidget(self.frame_6)
+        self.widget_4.setObjectName("widget_4")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.widget_4)
+        self.horizontalLayout_6.setObjectName("horizontalLayout_6")
+        self.btn_group_input = QtWidgets.QPushButton(self.widget_4)
+        self.btn_group_input.setMinimumSize(QtCore.QSize(30, 30))
+        self.btn_group_input.setMaximumSize(QtCore.QSize(40, 30))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
-        font.setPointSize(14)
+        font.setPointSize(18)
         font.setBold(False)
         font.setWeight(50)
-        self.btn_vendor_score.setFont(font)
-        self.btn_vendor_score.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_vendor_score.setStyleSheet("background-color:transparent")
-        self.btn_vendor_score.setObjectName("btn_vendor_score")
-        self.gridLayout_2.addWidget(self.btn_vendor_score, 1, 2, 1, 1)
-        self.label_3 = QtWidgets.QLabel(self.widget_35)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_3.setFont(font)
-        self.label_3.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_3.setObjectName("label_3")
-        self.gridLayout_2.addWidget(self.label_3, 0, 1, 1, 1)
-        self.vendor_select = QtWidgets.QLineEdit(self.widget_35)
-        self.vendor_select.setEnabled(True)
-        self.vendor_select.setMinimumSize(QtCore.QSize(300, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.vendor_select.setFont(font)
-        self.vendor_select.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.vendor_select.setText("")
-        self.vendor_select.setReadOnly(True)
-        self.vendor_select.setObjectName("vendor_select")
-        self.gridLayout_2.addWidget(self.vendor_select, 1, 1, 1, 1)
-        self.gridLayout_11.addWidget(self.widget_35, 0, 0, 1, 2)
-        self.widget_38 = QtWidgets.QWidget(self.groupBox_3)
-        self.widget_38.setMinimumSize(QtCore.QSize(0, 70))
-        self.widget_38.setObjectName("widget_38")
-        self.verticalLayout_34 = QtWidgets.QVBoxLayout(self.widget_38)
-        self.verticalLayout_34.setObjectName("verticalLayout_34")
-        self.label_42 = QtWidgets.QLabel(self.widget_38)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_42.setFont(font)
-        self.label_42.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_42.setObjectName("label_42")
-        self.verticalLayout_34.addWidget(self.label_42)
-        self.supplier_query = QtWidgets.QLineEdit(self.widget_38)
-        self.supplier_query.setEnabled(True)
-        self.supplier_query.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.supplier_query.setFont(font)
-        self.supplier_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.supplier_query.setText("")
-        self.supplier_query.setReadOnly(True)
-        self.supplier_query.setObjectName("supplier_query")
-        self.verticalLayout_34.addWidget(self.supplier_query)
-        self.gridLayout_11.addWidget(self.widget_38, 2, 0, 1, 2)
-        self.widget_39 = QtWidgets.QWidget(self.groupBox_3)
-        self.widget_39.setMinimumSize(QtCore.QSize(100, 70))
-        self.widget_39.setMaximumSize(QtCore.QSize(100, 16777215))
-        self.widget_39.setObjectName("widget_39")
-        self.verticalLayout_36 = QtWidgets.QVBoxLayout(self.widget_39)
-        self.verticalLayout_36.setObjectName("verticalLayout_36")
-        self.label_55 = QtWidgets.QLabel(self.widget_39)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_55.setFont(font)
-        self.label_55.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_55.setObjectName("label_55")
-        self.verticalLayout_36.addWidget(self.label_55)
-        self.id_query = QtWidgets.QLineEdit(self.widget_39)
-        self.id_query.setEnabled(True)
-        self.id_query.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.id_query.setFont(font)
-        self.id_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.id_query.setText("")
-        self.id_query.setReadOnly(True)
-        self.id_query.setObjectName("id_query")
-        self.verticalLayout_36.addWidget(self.id_query)
-        self.gridLayout_11.addWidget(self.widget_39, 0, 2, 1, 1)
-        self.widget_37 = QtWidgets.QWidget(self.groupBox_3)
-        self.widget_37.setMinimumSize(QtCore.QSize(0, 70))
-        self.widget_37.setObjectName("widget_37")
-        self.verticalLayout_37 = QtWidgets.QVBoxLayout(self.widget_37)
-        self.verticalLayout_37.setObjectName("verticalLayout_37")
-        self.label_19 = QtWidgets.QLabel(self.widget_37)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_19.setFont(font)
-        self.label_19.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_19.setObjectName("label_19")
-        self.verticalLayout_37.addWidget(self.label_19)
-        self.category_query = QtWidgets.QLineEdit(self.widget_37)
-        self.category_query.setEnabled(True)
-        self.category_query.setMinimumSize(QtCore.QSize(150, 30))
-        self.category_query.setMaximumSize(QtCore.QSize(16000, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.category_query.setFont(font)
-        self.category_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.category_query.setText("")
-        self.category_query.setReadOnly(True)
-        self.category_query.setObjectName("category_query")
-        self.verticalLayout_37.addWidget(self.category_query)
-        self.gridLayout_11.addWidget(self.widget_37, 4, 0, 1, 3)
-        self.gridLayout_3.addWidget(self.groupBox_3, 0, 2, 3, 6)
-        self.widget_60 = QtWidgets.QWidget(self.tab)
-        self.widget_60.setMinimumSize(QtCore.QSize(100, 0))
-        self.widget_60.setObjectName("widget_60")
-        self.gridLayout_29 = QtWidgets.QGridLayout(self.widget_60)
-        self.gridLayout_29.setContentsMargins(-1, 0, 0, 0)
-        self.gridLayout_29.setObjectName("gridLayout_29")
-        self.groupBox_4 = QtWidgets.QGroupBox(self.widget_60)
-        self.groupBox_4.setMinimumSize(QtCore.QSize(200, 0))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        self.groupBox_4.setFont(font)
-        self.groupBox_4.setObjectName("groupBox_4")
-        self.gridLayout_13 = QtWidgets.QGridLayout(self.groupBox_4)
-        self.gridLayout_13.setObjectName("gridLayout_13")
-        self.scrollArea_3 = QtWidgets.QScrollArea(self.groupBox_4)
-        self.scrollArea_3.setWidgetResizable(True)
-        self.scrollArea_3.setObjectName("scrollArea_3")
-        self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 282, 281))
-        self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
-        self.gridLayout_22 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_3)
-        self.gridLayout_22.setObjectName("gridLayout_22")
-        self.frame_2 = QtWidgets.QFrame(self.scrollAreaWidgetContents_3)
-        self.frame_2.setMinimumSize(QtCore.QSize(0, 60))
-        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.frame_2)
-        self.verticalLayout_14.setObjectName("verticalLayout_14")
-        self.label_16 = QtWidgets.QLabel(self.frame_2)
-        self.label_16.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_16.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_16.setFont(font)
-        self.label_16.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_16.setObjectName("label_16")
-        self.verticalLayout_14.addWidget(self.label_16)
-        self.country_query = QtWidgets.QLineEdit(self.frame_2)
-        self.country_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.country_query.setFont(font)
-        self.country_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.country_query.setReadOnly(True)
-        self.country_query.setObjectName("country_query")
-        self.verticalLayout_14.addWidget(self.country_query)
-        self.gridLayout_22.addWidget(self.frame_2, 2, 0, 1, 1)
-        self.widget_12 = QtWidgets.QWidget(self.scrollAreaWidgetContents_3)
-        self.widget_12.setMinimumSize(QtCore.QSize(0, 60))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setBold(False)
-        font.setWeight(50)
-        self.widget_12.setFont(font)
-        self.widget_12.setObjectName("widget_12")
-        self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.widget_12)
-        self.verticalLayout_15.setObjectName("verticalLayout_15")
-        self.label_18 = QtWidgets.QLabel(self.widget_12)
-        self.label_18.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_18.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_18.setFont(font)
-        self.label_18.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_18.setObjectName("label_18")
-        self.verticalLayout_15.addWidget(self.label_18)
-        self.document_query = QtWidgets.QLineEdit(self.widget_12)
-        self.document_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.document_query.setFont(font)
-        self.document_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.document_query.setReadOnly(True)
-        self.document_query.setObjectName("document_query")
-        self.verticalLayout_15.addWidget(self.document_query)
-        self.gridLayout_22.addWidget(self.widget_12, 0, 0, 1, 1)
-        self.widget_4 = QtWidgets.QWidget(self.scrollAreaWidgetContents_3)
-        self.widget_4.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_4.setObjectName("widget_4")
-        self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.widget_4)
-        self.verticalLayout_13.setObjectName("verticalLayout_13")
-        self.label_15 = QtWidgets.QLabel(self.widget_4)
-        self.label_15.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_15.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_15.setFont(font)
-        self.label_15.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_15.setObjectName("label_15")
-        self.verticalLayout_13.addWidget(self.label_15)
-        self.ssid_query = QtWidgets.QLineEdit(self.widget_4)
-        self.ssid_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.ssid_query.setFont(font)
-        self.ssid_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.ssid_query.setReadOnly(True)
-        self.ssid_query.setObjectName("ssid_query")
-        self.verticalLayout_13.addWidget(self.ssid_query)
-        self.gridLayout_22.addWidget(self.widget_4, 1, 0, 1, 1)
-        self.widget_3 = QtWidgets.QWidget(self.scrollAreaWidgetContents_3)
-        self.widget_3.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_3.setObjectName("widget_3")
-        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.widget_3)
-        self.verticalLayout_11.setObjectName("verticalLayout_11")
-        self.label_17 = QtWidgets.QLabel(self.widget_3)
-        self.label_17.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_17.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_17.setFont(font)
-        self.label_17.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_17.setObjectName("label_17")
-        self.verticalLayout_11.addWidget(self.label_17)
-        self.region_query = QtWidgets.QLineEdit(self.widget_3)
-        self.region_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.region_query.setFont(font)
-        self.region_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.region_query.setReadOnly(True)
-        self.region_query.setObjectName("region_query")
-        self.verticalLayout_11.addWidget(self.region_query)
-        self.gridLayout_22.addWidget(self.widget_3, 3, 0, 1, 1)
-        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
-        self.gridLayout_13.addWidget(self.scrollArea_3, 3, 0, 1, 1)
-        self.gridLayout_29.addWidget(self.groupBox_4, 0, 0, 1, 1)
-        self.groupBox_2 = QtWidgets.QGroupBox(self.widget_60)
-        self.groupBox_2.setMinimumSize(QtCore.QSize(0, 0))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        self.groupBox_2.setFont(font)
-        self.groupBox_2.setObjectName("groupBox_2")
-        self.gridLayout_12 = QtWidgets.QGridLayout(self.groupBox_2)
-        self.gridLayout_12.setObjectName("gridLayout_12")
-        self.scrollArea_2 = QtWidgets.QScrollArea(self.groupBox_2)
-        self.scrollArea_2.setMinimumSize(QtCore.QSize(230, 0))
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollArea_2.setObjectName("scrollArea_2")
-        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 282, 281))
-        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.gridLayout_21 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
-        self.gridLayout_21.setObjectName("gridLayout_21")
-        self.widget_5 = QtWidgets.QWidget(self.scrollAreaWidgetContents_2)
-        self.widget_5.setObjectName("widget_5")
-        self.verticalLayout_50 = QtWidgets.QVBoxLayout(self.widget_5)
-        self.verticalLayout_50.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_50.setObjectName("verticalLayout_50")
-        self.widget = QtWidgets.QWidget(self.widget_5)
-        self.widget.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget.setObjectName("widget")
-        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.label_21 = QtWidgets.QLabel(self.widget)
-        self.label_21.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_21.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_21.setFont(font)
-        self.label_21.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_21.setObjectName("label_21")
-        self.verticalLayout_7.addWidget(self.label_21)
-        self.sqie_query = QtWidgets.QLineEdit(self.widget)
-        self.sqie_query.setEnabled(True)
-        self.sqie_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.sqie_query.setFont(font)
-        self.sqie_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.sqie_query.setReadOnly(True)
-        self.sqie_query.setObjectName("sqie_query")
-        self.verticalLayout_7.addWidget(self.sqie_query)
-        self.verticalLayout_50.addWidget(self.widget)
-        self.widget_14 = QtWidgets.QWidget(self.widget_5)
-        self.widget_14.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_14.setObjectName("widget_14")
-        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.widget_14)
-        self.verticalLayout_9.setObjectName("verticalLayout_9")
-        self.label_24 = QtWidgets.QLabel(self.widget_14)
-        self.label_24.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_24.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_24.setFont(font)
-        self.label_24.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_24.setObjectName("label_24")
-        self.verticalLayout_9.addWidget(self.label_24)
-        self.continuity_query = QtWidgets.QLineEdit(self.widget_14)
-        self.continuity_query.setEnabled(True)
-        self.continuity_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.continuity_query.setFont(font)
-        self.continuity_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.continuity_query.setReadOnly(True)
-        self.continuity_query.setObjectName("continuity_query")
-        self.verticalLayout_9.addWidget(self.continuity_query)
-        self.verticalLayout_50.addWidget(self.widget_14)
-        self.widget_15 = QtWidgets.QWidget(self.widget_5)
-        self.widget_15.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_15.setObjectName("widget_15")
-        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.widget_15)
-        self.verticalLayout_10.setObjectName("verticalLayout_10")
-        self.label_53 = QtWidgets.QLabel(self.widget_15)
-        self.label_53.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_53.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_53.setFont(font)
-        self.label_53.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_53.setObjectName("label_53")
-        self.verticalLayout_10.addWidget(self.label_53)
-        self.planner_query = QtWidgets.QLineEdit(self.widget_15)
-        self.planner_query.setEnabled(True)
-        self.planner_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.planner_query.setFont(font)
-        self.planner_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.planner_query.setReadOnly(True)
-        self.planner_query.setObjectName("planner_query")
-        self.verticalLayout_10.addWidget(self.planner_query)
-        self.verticalLayout_50.addWidget(self.widget_15)
-        self.widget_13 = QtWidgets.QWidget(self.widget_5)
-        self.widget_13.setMinimumSize(QtCore.QSize(0, 60))
-        self.widget_13.setObjectName("widget_13")
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.widget_13)
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.label_22 = QtWidgets.QLabel(self.widget_13)
-        self.label_22.setMinimumSize(QtCore.QSize(0, 15))
-        self.label_22.setMaximumSize(QtCore.QSize(16777215, 15))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_22.setFont(font)
-        self.label_22.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_22.setObjectName("label_22")
-        self.verticalLayout_8.addWidget(self.label_22)
-        self.sourcing_query = QtWidgets.QLineEdit(self.widget_13)
-        self.sourcing_query.setEnabled(True)
-        self.sourcing_query.setMinimumSize(QtCore.QSize(0, 28))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.sourcing_query.setFont(font)
-        self.sourcing_query.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.sourcing_query.setReadOnly(True)
-        self.sourcing_query.setObjectName("sourcing_query")
-        self.verticalLayout_8.addWidget(self.sourcing_query)
-        self.verticalLayout_50.addWidget(self.widget_13)
-        self.gridLayout_21.addWidget(self.widget_5, 0, 0, 1, 1)
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
-        self.gridLayout_12.addWidget(self.scrollArea_2, 0, 1, 2, 1)
-        self.gridLayout_29.addWidget(self.groupBox_2, 0, 2, 1, 1)
-        self.widget_56 = QtWidgets.QWidget(self.widget_60)
-        self.widget_56.setMaximumSize(QtCore.QSize(16777215, 200))
-        self.widget_56.setObjectName("widget_56")
-        self.gridLayout_24 = QtWidgets.QGridLayout(self.widget_56)
-        self.gridLayout_24.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_24.setObjectName("gridLayout_24")
-        self.comments = QtWidgets.QTextEdit(self.widget_56)
-        self.comments.setMaximumSize(QtCore.QSize(16777215, 16000))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.comments.setFont(font)
-        self.comments.setStyleSheet("background:transparent;\n"
-"border: 1px solid rgb(210,210, 210);\n"
-"padding:10px\n"
-"")
-        self.comments.setObjectName("comments")
-        self.gridLayout_24.addWidget(self.comments, 1, 0, 1, 1)
-        self.label_4 = QtWidgets.QLabel(self.widget_56)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        self.label_4.setFont(font)
-        self.label_4.setStyleSheet("background-color:transparent;\n"
-"")
-        self.label_4.setObjectName("label_4")
-        self.gridLayout_24.addWidget(self.label_4, 0, 0, 1, 1)
-        self.gridLayout_29.addWidget(self.widget_56, 2, 0, 1, 3)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.gridLayout_29.addItem(spacerItem1, 1, 0, 1, 1)
-        self.gridLayout_3.addWidget(self.widget_60, 3, 3, 6, 5)
+        self.btn_group_input.setFont(font)
+        self.btn_group_input.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_group_input.setStyleSheet("background-color:transparent")
+        self.btn_group_input.setIconSize(QtCore.QSize(24, 24))
+        self.btn_group_input.setObjectName("btn_group_input")
+        self.horizontalLayout_6.addWidget(self.btn_group_input)
+        self.btn_generate_full_list = QtWidgets.QPushButton(self.widget_4)
+        self.btn_generate_full_list.setMaximumSize(QtCore.QSize(40, 30))
+        self.btn_generate_full_list.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_generate_full_list.setStyleSheet("background-color:transparent")
+        self.btn_generate_full_list.setText("")
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/images/add.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_generate_full_list.setIcon(icon7)
+        self.btn_generate_full_list.setIconSize(QtCore.QSize(24, 24))
+        self.btn_generate_full_list.setObjectName("btn_generate_full_list")
+        self.horizontalLayout_6.addWidget(self.btn_generate_full_list)
+        self.gridLayout_20.addWidget(self.widget_4, 0, 2, 1, 1, QtCore.Qt.AlignBottom)
+        self.gridLayout.addWidget(self.frame_6, 0, 1, 1, 1, QtCore.Qt.AlignLeft)
+        self.table_group_input = QtWidgets.QTableWidget(self.tab_21)
+        self.table_group_input.setObjectName("table_group_input")
+        self.table_group_input.setColumnCount(8)
+        self.table_group_input.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(6, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_group_input.setHorizontalHeaderItem(7, item)
+        self.table_group_input.horizontalHeader().setDefaultSectionSize(136)
+        self.table_group_input.verticalHeader().setVisible(False)
+        self.gridLayout.addWidget(self.table_group_input, 1, 1, 1, 2)
+        self.tabWidget_5.addTab(self.tab_21, "")
+        self.gridLayout_3.addWidget(self.tabWidget_5, 1, 1, 1, 1)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -1373,22 +1300,23 @@ class Ui_MainWindow(object):
         self.widget_40 = QtWidgets.QWidget(self.tab_2)
         self.widget_40.setObjectName("widget_40")
         self.gridLayout_16 = QtWidgets.QGridLayout(self.widget_40)
-        self.gridLayout_16.setContentsMargins(0, -1, 0, -1)
+        self.gridLayout_16.setContentsMargins(10, 10, 10, 10)
+        self.gridLayout_16.setHorizontalSpacing(6)
         self.gridLayout_16.setObjectName("gridLayout_16")
-        self.groupBox_7 = QtWidgets.QGroupBox(self.widget_40)
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.groupBox_7.setFont(font)
-        self.groupBox_7.setObjectName("groupBox_7")
-        self.gridLayout_15 = QtWidgets.QGridLayout(self.groupBox_7)
-        self.gridLayout_15.setObjectName("gridLayout_15")
-        self.widget_47 = QtWidgets.QWidget(self.groupBox_7)
+        self.widget_41 = QtWidgets.QWidget(self.widget_40)
+        self.widget_41.setObjectName("widget_41")
+        self.gridLayout_14 = QtWidgets.QGridLayout(self.widget_41)
+        self.gridLayout_14.setContentsMargins(0, -1, -1, -1)
+        self.gridLayout_14.setObjectName("gridLayout_14")
+        self.widget_47 = QtWidgets.QWidget(self.widget_41)
         self.widget_47.setMinimumSize(QtCore.QSize(70, 0))
         self.widget_47.setMaximumSize(QtCore.QSize(80, 16777215))
         self.widget_47.setObjectName("widget_47")
         self.verticalLayout_40 = QtWidgets.QVBoxLayout(self.widget_47)
         self.verticalLayout_40.setObjectName("verticalLayout_40")
         self.label_56 = QtWidgets.QLabel(self.widget_47)
+        self.label_56.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_56.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(10)
@@ -1402,7 +1330,7 @@ class Ui_MainWindow(object):
         self.id_timeline.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(10)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.id_timeline.setFont(font)
@@ -1419,88 +1347,77 @@ class Ui_MainWindow(object):
         self.id_timeline.setReadOnly(True)
         self.id_timeline.setObjectName("id_timeline")
         self.verticalLayout_40.addWidget(self.id_timeline)
-        self.gridLayout_15.addWidget(self.widget_47, 0, 4, 1, 1)
-        self.widget_49 = QtWidgets.QWidget(self.groupBox_7)
-        self.widget_49.setMinimumSize(QtCore.QSize(200, 0))
-        self.widget_49.setObjectName("widget_49")
-        self.verticalLayout_45 = QtWidgets.QVBoxLayout(self.widget_49)
-        self.verticalLayout_45.setObjectName("verticalLayout_45")
-        self.label_61 = QtWidgets.QLabel(self.widget_49)
+        self.gridLayout_14.addWidget(self.widget_47, 0, 4, 2, 1)
+        self.widget_80 = QtWidgets.QWidget(self.widget_41)
+        self.widget_80.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_80.setObjectName("widget_80")
+        self.gridLayout_62 = QtWidgets.QGridLayout(self.widget_80)
+        self.gridLayout_62.setContentsMargins(-1, 9, -1, -1)
+        self.gridLayout_62.setObjectName("gridLayout_62")
+        self.label_101 = QtWidgets.QLabel(self.widget_80)
+        self.label_101.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_101.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(10)
-        self.label_61.setFont(font)
-        self.label_61.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_61.setObjectName("label_61")
-        self.verticalLayout_45.addWidget(self.label_61)
-        self.planner_timeline = QtWidgets.QLineEdit(self.widget_49)
-        self.planner_timeline.setEnabled(True)
-        self.planner_timeline.setMinimumSize(QtCore.QSize(250, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
+        font.setPointSize(9)
         font.setBold(False)
         font.setWeight(50)
-        self.planner_timeline.setFont(font)
-        self.planner_timeline.setStyleSheet("QLineEdit {\n"
+        self.label_101.setFont(font)
+        self.label_101.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_101.setObjectName("label_101")
+        self.gridLayout_62.addWidget(self.label_101, 0, 0, 1, 1)
+        self.year_timeline = QtWidgets.QComboBox(self.widget_80)
+        self.year_timeline.setMinimumSize(QtCore.QSize(0, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.year_timeline.setFont(font)
+        self.year_timeline.setStyleSheet("QComboBox {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color: transparent;\n"
 "}\n"
 "\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.planner_timeline.setReadOnly(True)
-        self.planner_timeline.setObjectName("planner_timeline")
-        self.verticalLayout_45.addWidget(self.planner_timeline)
-        self.gridLayout_15.addWidget(self.widget_49, 2, 1, 1, 1)
-        self.widget_44 = QtWidgets.QWidget(self.groupBox_7)
-        self.widget_44.setMinimumSize(QtCore.QSize(200, 0))
-        self.widget_44.setObjectName("widget_44")
-        self.verticalLayout_44 = QtWidgets.QVBoxLayout(self.widget_44)
-        self.verticalLayout_44.setObjectName("verticalLayout_44")
-        self.label_26 = QtWidgets.QLabel(self.widget_44)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        self.label_26.setFont(font)
-        self.label_26.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_26.setObjectName("label_26")
-        self.verticalLayout_44.addWidget(self.label_26)
-        self.continuity_timeline = QtWidgets.QLineEdit(self.widget_44)
-        self.continuity_timeline.setEnabled(True)
-        self.continuity_timeline.setMinimumSize(QtCore.QSize(250, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        font.setBold(False)
-        font.setWeight(50)
-        self.continuity_timeline.setFont(font)
-        self.continuity_timeline.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
 "}\n"
 "\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
 "}")
-        self.continuity_timeline.setReadOnly(True)
-        self.continuity_timeline.setObjectName("continuity_timeline")
-        self.verticalLayout_44.addWidget(self.continuity_timeline)
-        self.gridLayout_15.addWidget(self.widget_44, 2, 0, 1, 1)
-        self.widget_46 = QtWidgets.QWidget(self.groupBox_7)
+        self.year_timeline.setObjectName("year_timeline")
+        self.year_timeline.addItem("")
+        self.year_timeline.setItemText(0, "")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.year_timeline.addItem("")
+        self.gridLayout_62.addWidget(self.year_timeline, 1, 0, 1, 1)
+        self.gridLayout_14.addWidget(self.widget_80, 0, 3, 2, 1)
+        self.widget_46 = QtWidgets.QWidget(self.widget_41)
         self.widget_46.setMinimumSize(QtCore.QSize(70, 0))
         self.widget_46.setMaximumSize(QtCore.QSize(80, 16777215))
         self.widget_46.setObjectName("widget_46")
         self.verticalLayout_39 = QtWidgets.QVBoxLayout(self.widget_46)
         self.verticalLayout_39.setObjectName("verticalLayout_39")
         self.label_40 = QtWidgets.QLabel(self.widget_46)
+        self.label_40.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_40.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(10)
@@ -1514,7 +1431,7 @@ class Ui_MainWindow(object):
         self.bu_query_2.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(10)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.bu_query_2.setFont(font)
@@ -1531,17 +1448,17 @@ class Ui_MainWindow(object):
         self.bu_query_2.setReadOnly(True)
         self.bu_query_2.setObjectName("bu_query_2")
         self.verticalLayout_39.addWidget(self.bu_query_2)
-        self.gridLayout_15.addWidget(self.widget_46, 0, 5, 1, 1)
-        self.widget_41 = QtWidgets.QWidget(self.groupBox_7)
-        self.widget_41.setObjectName("widget_41")
-        self.gridLayout_14 = QtWidgets.QGridLayout(self.widget_41)
-        self.gridLayout_14.setObjectName("gridLayout_14")
-        self.vendor_timeline = QtWidgets.QLineEdit(self.widget_41)
+        self.gridLayout_14.addWidget(self.widget_46, 0, 5, 2, 1)
+        self.widget = QtWidgets.QWidget(self.widget_41)
+        self.widget.setObjectName("widget")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.widget)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.vendor_timeline = QtWidgets.QLineEdit(self.widget)
         self.vendor_timeline.setEnabled(True)
         self.vendor_timeline.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(10)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.vendor_timeline.setFont(font)
@@ -1557,8 +1474,10 @@ class Ui_MainWindow(object):
 "}")
         self.vendor_timeline.setReadOnly(True)
         self.vendor_timeline.setObjectName("vendor_timeline")
-        self.gridLayout_14.addWidget(self.vendor_timeline, 1, 0, 1, 1)
-        self.label_2 = QtWidgets.QLabel(self.widget_41)
+        self.gridLayout_4.addWidget(self.vendor_timeline, 2, 0, 1, 1)
+        self.label_2 = QtWidgets.QLabel(self.widget)
+        self.label_2.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_2.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(10)
@@ -1566,244 +1485,49 @@ class Ui_MainWindow(object):
         self.label_2.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
         self.label_2.setObjectName("label_2")
-        self.gridLayout_14.addWidget(self.label_2, 0, 0, 1, 1)
-        self.btn_vendor_timeline = QtWidgets.QPushButton(self.widget_41)
+        self.gridLayout_4.addWidget(self.label_2, 1, 0, 1, 1)
+        self.btn_vendor_timeline = QtWidgets.QPushButton(self.widget)
         self.btn_vendor_timeline.setMinimumSize(QtCore.QSize(30, 30))
         self.btn_vendor_timeline.setMaximumSize(QtCore.QSize(30, 30))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
-        font.setPointSize(14)
+        font.setPointSize(16)
         font.setBold(False)
         font.setWeight(50)
         self.btn_vendor_timeline.setFont(font)
         self.btn_vendor_timeline.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_vendor_timeline.setStyleSheet("background-color:transparent")
         self.btn_vendor_timeline.setObjectName("btn_vendor_timeline")
-        self.gridLayout_14.addWidget(self.btn_vendor_timeline, 1, 1, 1, 1)
-        self.gridLayout_15.addWidget(self.widget_41, 0, 0, 1, 4)
-        self.widget_43 = QtWidgets.QWidget(self.groupBox_7)
-        self.widget_43.setMinimumSize(QtCore.QSize(200, 0))
-        self.widget_43.setObjectName("widget_43")
-        self.verticalLayout_43 = QtWidgets.QVBoxLayout(self.widget_43)
-        self.verticalLayout_43.setObjectName("verticalLayout_43")
-        self.label_25 = QtWidgets.QLabel(self.widget_43)
+        self.gridLayout_4.addWidget(self.btn_vendor_timeline, 2, 1, 1, 1)
+        self.gridLayout_14.addWidget(self.widget, 0, 1, 2, 1)
+        self.gridLayout_16.addWidget(self.widget_41, 0, 0, 1, 1)
+        self.tabWidget_2 = QtWidgets.QTabWidget(self.widget_40)
         font = QtGui.QFont()
         font.setFamily("Calibri")
-        font.setPointSize(10)
-        self.label_25.setFont(font)
-        self.label_25.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_25.setObjectName("label_25")
-        self.verticalLayout_43.addWidget(self.label_25)
-        self.sourcing_timeline = QtWidgets.QLineEdit(self.widget_43)
-        self.sourcing_timeline.setEnabled(True)
-        self.sourcing_timeline.setMinimumSize(QtCore.QSize(250, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        font.setBold(False)
-        font.setWeight(50)
-        self.sourcing_timeline.setFont(font)
-        self.sourcing_timeline.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.sourcing_timeline.setReadOnly(True)
-        self.sourcing_timeline.setObjectName("sourcing_timeline")
-        self.verticalLayout_43.addWidget(self.sourcing_timeline)
-        self.gridLayout_15.addWidget(self.widget_43, 1, 1, 1, 1)
-        self.widget_45 = QtWidgets.QWidget(self.groupBox_7)
-        self.widget_45.setMinimumSize(QtCore.QSize(200, 0))
-        self.widget_45.setObjectName("widget_45")
-        self.verticalLayout_38 = QtWidgets.QVBoxLayout(self.widget_45)
-        self.verticalLayout_38.setObjectName("verticalLayout_38")
-        self.label_44 = QtWidgets.QLabel(self.widget_45)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        self.label_44.setFont(font)
-        self.label_44.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_44.setObjectName("label_44")
-        self.verticalLayout_38.addWidget(self.label_44)
-        self.supplier_timeline = QtWidgets.QLineEdit(self.widget_45)
-        self.supplier_timeline.setEnabled(True)
-        self.supplier_timeline.setMinimumSize(QtCore.QSize(250, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.supplier_timeline.setFont(font)
-        self.supplier_timeline.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.supplier_timeline.setReadOnly(True)
-        self.supplier_timeline.setObjectName("supplier_timeline")
-        self.verticalLayout_38.addWidget(self.supplier_timeline)
-        self.gridLayout_15.addWidget(self.widget_45, 1, 0, 1, 1)
-        self.widget_48 = QtWidgets.QWidget(self.groupBox_7)
-        self.widget_48.setMinimumSize(QtCore.QSize(0, 0))
-        self.widget_48.setObjectName("widget_48")
-        self.verticalLayout_41 = QtWidgets.QVBoxLayout(self.widget_48)
-        self.verticalLayout_41.setObjectName("verticalLayout_41")
-        self.label_23 = QtWidgets.QLabel(self.widget_48)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        self.label_23.setFont(font)
-        self.label_23.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_23.setObjectName("label_23")
-        self.verticalLayout_41.addWidget(self.label_23)
-        self.sqie_timeline = QtWidgets.QLineEdit(self.widget_48)
-        self.sqie_timeline.setEnabled(True)
-        self.sqie_timeline.setMinimumSize(QtCore.QSize(250, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        font.setBold(False)
-        font.setWeight(50)
-        self.sqie_timeline.setFont(font)
-        self.sqie_timeline.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.sqie_timeline.setReadOnly(True)
-        self.sqie_timeline.setObjectName("sqie_timeline")
-        self.verticalLayout_41.addWidget(self.sqie_timeline)
-        self.gridLayout_15.addWidget(self.widget_48, 2, 2, 1, 4)
-        self.widget_42 = QtWidgets.QWidget(self.groupBox_7)
-        self.widget_42.setObjectName("widget_42")
-        self.verticalLayout_42 = QtWidgets.QVBoxLayout(self.widget_42)
-        self.verticalLayout_42.setObjectName("verticalLayout_42")
-        self.label_20 = QtWidgets.QLabel(self.widget_42)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        self.label_20.setFont(font)
-        self.label_20.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_20.setObjectName("label_20")
-        self.verticalLayout_42.addWidget(self.label_20)
-        self.category_timeline = QtWidgets.QLineEdit(self.widget_42)
-        self.category_timeline.setEnabled(True)
-        self.category_timeline.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        font.setBold(False)
-        font.setWeight(50)
-        self.category_timeline.setFont(font)
-        self.category_timeline.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.category_timeline.setReadOnly(True)
-        self.category_timeline.setObjectName("category_timeline")
-        self.verticalLayout_42.addWidget(self.category_timeline)
-        self.gridLayout_15.addWidget(self.widget_42, 1, 2, 1, 4)
-        self.gridLayout_16.addWidget(self.groupBox_7, 0, 0, 1, 1)
-        self.gridLayout_17.addWidget(self.widget_40, 0, 0, 1, 1)
-        self.tabWidget_2 = QtWidgets.QTabWidget(self.tab_2)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
+        font.setPointSize(12)
         self.tabWidget_2.setFont(font)
         self.tabWidget_2.setObjectName("tabWidget_2")
         self.tab_4 = QtWidgets.QWidget()
         self.tab_4.setObjectName("tab_4")
         self.gridLayout_19 = QtWidgets.QGridLayout(self.tab_4)
         self.gridLayout_19.setObjectName("gridLayout_19")
-        self.widget_50 = QtWidgets.QWidget(self.tab_4)
-        self.widget_50.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.widget_50.setObjectName("widget_50")
-        self.verticalLayout_47 = QtWidgets.QVBoxLayout(self.widget_50)
-        self.verticalLayout_47.setObjectName("verticalLayout_47")
-        self.label_38 = QtWidgets.QLabel(self.widget_50)
-        self.label_38.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_38.setFont(font)
-        self.label_38.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_38.setObjectName("label_38")
-        self.verticalLayout_47.addWidget(self.label_38)
-        self.overhall_average = QtWidgets.QLabel(self.widget_50)
-        self.overhall_average.setMaximumSize(QtCore.QSize(16777215, 50))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(18)
-        self.overhall_average.setFont(font)
-        self.overhall_average.setStyleSheet("")
-        self.overhall_average.setText("")
-        self.overhall_average.setAlignment(QtCore.Qt.AlignCenter)
-        self.overhall_average.setIndent(-1)
-        self.overhall_average.setObjectName("overhall_average")
-        self.verticalLayout_47.addWidget(self.overhall_average)
-        self.gridLayout_19.addWidget(self.widget_50, 0, 0, 1, 1)
-        self.widget_51 = QtWidgets.QWidget(self.tab_4)
-        self.widget_51.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.widget_51.setObjectName("widget_51")
-        self.verticalLayout_46 = QtWidgets.QVBoxLayout(self.widget_51)
-        self.verticalLayout_46.setObjectName("verticalLayout_46")
-        self.label_46 = QtWidgets.QLabel(self.widget_51)
-        self.label_46.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_46.setFont(font)
-        self.label_46.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_46.setObjectName("label_46")
-        self.verticalLayout_46.addWidget(self.label_46)
-        self.average_12month = QtWidgets.QLabel(self.widget_51)
-        self.average_12month.setMaximumSize(QtCore.QSize(16777215, 50))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(18)
-        self.average_12month.setFont(font)
-        self.average_12month.setStyleSheet("")
-        self.average_12month.setText("")
-        self.average_12month.setAlignment(QtCore.Qt.AlignCenter)
-        self.average_12month.setObjectName("average_12month")
-        self.verticalLayout_46.addWidget(self.average_12month)
-        self.gridLayout_19.addWidget(self.widget_51, 0, 1, 1, 1)
+        self.lineChart = QtWidgets.QWidget(self.tab_4)
+        self.lineChart.setMinimumSize(QtCore.QSize(250, 0))
+        self.lineChart.setObjectName("lineChart")
+        self.gridLayout_19.addWidget(self.lineChart, 3, 0, 1, 7)
         self.widget_52 = QtWidgets.QWidget(self.tab_4)
-        self.widget_52.setMaximumSize(QtCore.QSize(16777215, 100))
+        self.widget_52.setMinimumSize(QtCore.QSize(0, 0))
+        self.widget_52.setMaximumSize(QtCore.QSize(150000, 100))
+        self.widget_52.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
         self.widget_52.setObjectName("widget_52")
         self.verticalLayout_48 = QtWidgets.QVBoxLayout(self.widget_52)
         self.verticalLayout_48.setObjectName("verticalLayout_48")
         self.label_47 = QtWidgets.QLabel(self.widget_52)
-        self.label_47.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label_47.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_47.setMaximumSize(QtCore.QSize(16777215, 40))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
@@ -1811,27 +1535,219 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_47.setFont(font)
         self.label_47.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_47.setWordWrap(True)
         self.label_47.setObjectName("label_47")
         self.verticalLayout_48.addWidget(self.label_47)
         self.average_6month = QtWidgets.QLabel(self.widget_52)
         self.average_6month.setMaximumSize(QtCore.QSize(16777215, 50))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(18)
+        font.setFamily("Poppins")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
         self.average_6month.setFont(font)
-        self.average_6month.setStyleSheet("")
+        self.average_6month.setStyleSheet("color:black;")
         self.average_6month.setText("")
         self.average_6month.setAlignment(QtCore.Qt.AlignCenter)
         self.average_6month.setObjectName("average_6month")
         self.verticalLayout_48.addWidget(self.average_6month)
-        self.gridLayout_19.addWidget(self.widget_52, 0, 2, 1, 1)
-        self.widget_53 = QtWidgets.QWidget(self.tab_4)
-        self.widget_53.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.widget_53.setObjectName("widget_53")
-        self.verticalLayout_49 = QtWidgets.QVBoxLayout(self.widget_53)
+        self.gridLayout_19.addWidget(self.widget_52, 1, 2, 1, 1)
+        self.widget_51 = QtWidgets.QWidget(self.tab_4)
+        self.widget_51.setMinimumSize(QtCore.QSize(0, 0))
+        self.widget_51.setMaximumSize(QtCore.QSize(150000, 100))
+        self.widget_51.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_51.setObjectName("widget_51")
+        self.verticalLayout_46 = QtWidgets.QVBoxLayout(self.widget_51)
+        self.verticalLayout_46.setObjectName("verticalLayout_46")
+        self.label_46 = QtWidgets.QLabel(self.widget_51)
+        self.label_46.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_46.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_46.setFont(font)
+        self.label_46.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_46.setWordWrap(True)
+        self.label_46.setObjectName("label_46")
+        self.verticalLayout_46.addWidget(self.label_46)
+        self.average_12month = QtWidgets.QLabel(self.widget_51)
+        self.average_12month.setMaximumSize(QtCore.QSize(16777215, 50))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.average_12month.setFont(font)
+        self.average_12month.setStyleSheet("color:black;")
+        self.average_12month.setText("")
+        self.average_12month.setAlignment(QtCore.Qt.AlignCenter)
+        self.average_12month.setObjectName("average_12month")
+        self.verticalLayout_46.addWidget(self.average_12month)
+        self.gridLayout_19.addWidget(self.widget_51, 1, 1, 1, 1)
+        self.frame_4 = QtWidgets.QFrame(self.tab_4)
+        self.frame_4.setMaximumSize(QtCore.QSize(150000, 100))
+        self.frame_4.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_4.setObjectName("frame_4")
+        self.verticalLayout_43 = QtWidgets.QVBoxLayout(self.frame_4)
+        self.verticalLayout_43.setObjectName("verticalLayout_43")
+        self.label_38 = QtWidgets.QLabel(self.frame_4)
+        self.label_38.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_38.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_38.setFont(font)
+        self.label_38.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_38.setWordWrap(True)
+        self.label_38.setObjectName("label_38")
+        self.verticalLayout_43.addWidget(self.label_38)
+        self.overhall_average = QtWidgets.QLabel(self.frame_4)
+        self.overhall_average.setMaximumSize(QtCore.QSize(16777215, 50))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.overhall_average.setFont(font)
+        self.overhall_average.setStyleSheet("color:black;")
+        self.overhall_average.setText("")
+        self.overhall_average.setAlignment(QtCore.Qt.AlignCenter)
+        self.overhall_average.setIndent(-1)
+        self.overhall_average.setObjectName("overhall_average")
+        self.verticalLayout_43.addWidget(self.overhall_average)
+        self.gridLayout_19.addWidget(self.frame_4, 1, 0, 1, 1)
+        self.widget_74 = QtWidgets.QWidget(self.tab_4)
+        self.widget_74.setMaximumSize(QtCore.QSize(150000, 100))
+        self.widget_74.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_74.setObjectName("widget_74")
+        self.verticalLayout_52 = QtWidgets.QVBoxLayout(self.widget_74)
+        self.verticalLayout_52.setObjectName("verticalLayout_52")
+        self.label_90 = QtWidgets.QLabel(self.widget_74)
+        self.label_90.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_90.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_90.setFont(font)
+        self.label_90.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_90.setWordWrap(True)
+        self.label_90.setObjectName("label_90")
+        self.verticalLayout_52.addWidget(self.label_90)
+        self.average_q4 = QtWidgets.QLabel(self.widget_74)
+        self.average_q4.setMaximumSize(QtCore.QSize(16777215, 50))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.average_q4.setFont(font)
+        self.average_q4.setStyleSheet("color:black;")
+        self.average_q4.setText("")
+        self.average_q4.setAlignment(QtCore.Qt.AlignCenter)
+        self.average_q4.setObjectName("average_q4")
+        self.verticalLayout_52.addWidget(self.average_q4)
+        self.gridLayout_19.addWidget(self.widget_74, 1, 6, 1, 1)
+        self.widget_73 = QtWidgets.QWidget(self.tab_4)
+        self.widget_73.setMaximumSize(QtCore.QSize(150000, 100))
+        self.widget_73.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_73.setObjectName("widget_73")
+        self.verticalLayout_49 = QtWidgets.QVBoxLayout(self.widget_73)
         self.verticalLayout_49.setObjectName("verticalLayout_49")
-        self.label_48 = QtWidgets.QLabel(self.widget_53)
-        self.label_48.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label_88 = QtWidgets.QLabel(self.widget_73)
+        self.label_88.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_88.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_88.setFont(font)
+        self.label_88.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_88.setWordWrap(True)
+        self.label_88.setObjectName("label_88")
+        self.verticalLayout_49.addWidget(self.label_88)
+        self.average_q2 = QtWidgets.QLabel(self.widget_73)
+        self.average_q2.setMaximumSize(QtCore.QSize(16777215, 50))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.average_q2.setFont(font)
+        self.average_q2.setStyleSheet("color:black;")
+        self.average_q2.setText("")
+        self.average_q2.setAlignment(QtCore.Qt.AlignCenter)
+        self.average_q2.setObjectName("average_q2")
+        self.verticalLayout_49.addWidget(self.average_q2)
+        self.gridLayout_19.addWidget(self.widget_73, 1, 4, 1, 1)
+        self.widget_75 = QtWidgets.QWidget(self.tab_4)
+        self.widget_75.setMaximumSize(QtCore.QSize(150000, 100))
+        self.widget_75.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_75.setObjectName("widget_75")
+        self.verticalLayout_51 = QtWidgets.QVBoxLayout(self.widget_75)
+        self.verticalLayout_51.setObjectName("verticalLayout_51")
+        self.label_89 = QtWidgets.QLabel(self.widget_75)
+        self.label_89.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_89.setMaximumSize(QtCore.QSize(16777215, 40))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_89.setFont(font)
+        self.label_89.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_89.setWordWrap(True)
+        self.label_89.setObjectName("label_89")
+        self.verticalLayout_51.addWidget(self.label_89)
+        self.average_q3 = QtWidgets.QLabel(self.widget_75)
+        self.average_q3.setMaximumSize(QtCore.QSize(16777215, 50))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.average_q3.setFont(font)
+        self.average_q3.setStyleSheet("color:black;")
+        self.average_q3.setText("")
+        self.average_q3.setAlignment(QtCore.Qt.AlignCenter)
+        self.average_q3.setObjectName("average_q3")
+        self.verticalLayout_51.addWidget(self.average_q3)
+        self.gridLayout_19.addWidget(self.widget_75, 1, 5, 1, 1)
+        self.widget_50 = QtWidgets.QWidget(self.tab_4)
+        self.widget_50.setMaximumSize(QtCore.QSize(150000, 100))
+        self.widget_50.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_50.setObjectName("widget_50")
+        self.verticalLayout_47 = QtWidgets.QVBoxLayout(self.widget_50)
+        self.verticalLayout_47.setObjectName("verticalLayout_47")
+        self.label_48 = QtWidgets.QLabel(self.widget_50)
+        self.label_48.setMinimumSize(QtCore.QSize(0, 20))
+        self.label_48.setMaximumSize(QtCore.QSize(16777215, 40))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(11)
@@ -1839,24 +1755,27 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_48.setFont(font)
         self.label_48.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_48.setWordWrap(True)
         self.label_48.setObjectName("label_48")
-        self.verticalLayout_49.addWidget(self.label_48)
-        self.average_3month = QtWidgets.QLabel(self.widget_53)
-        self.average_3month.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.verticalLayout_47.addWidget(self.label_48)
+        self.average_q1 = QtWidgets.QLabel(self.widget_50)
+        self.average_q1.setMaximumSize(QtCore.QSize(16777215, 50))
         font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(18)
-        self.average_3month.setFont(font)
-        self.average_3month.setStyleSheet("")
-        self.average_3month.setText("")
-        self.average_3month.setAlignment(QtCore.Qt.AlignCenter)
-        self.average_3month.setObjectName("average_3month")
-        self.verticalLayout_49.addWidget(self.average_3month)
-        self.gridLayout_19.addWidget(self.widget_53, 0, 3, 1, 1)
-        self.lineChart = QtWidgets.QWidget(self.tab_4)
-        self.lineChart.setMinimumSize(QtCore.QSize(660, 100))
-        self.lineChart.setObjectName("lineChart")
-        self.gridLayout_19.addWidget(self.lineChart, 1, 0, 1, 4)
+        font.setFamily("Poppins")
+        font.setPointSize(20)
+        font.setBold(True)
+        font.setWeight(75)
+        self.average_q1.setFont(font)
+        self.average_q1.setStyleSheet("color:black;")
+        self.average_q1.setText("")
+        self.average_q1.setAlignment(QtCore.Qt.AlignCenter)
+        self.average_q1.setObjectName("average_q1")
+        self.verticalLayout_47.addWidget(self.average_q1)
+        self.gridLayout_19.addWidget(self.widget_50, 1, 3, 1, 1)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_19.addItem(spacerItem4, 2, 0, 1, 7)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 13, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
+        self.gridLayout_19.addItem(spacerItem5, 0, 0, 1, 7)
         self.tabWidget_2.addTab(self.tab_4, "")
         self.tab_5 = QtWidgets.QWidget()
         self.tab_5.setObjectName("tab_5")
@@ -1897,102 +1816,519 @@ class Ui_MainWindow(object):
         self.btn_clear_register.setObjectName("btn_clear_register")
         self.gridLayout_18.addWidget(self.btn_clear_register, 1, 0, 1, 1, QtCore.Qt.AlignRight)
         self.tabWidget_2.addTab(self.tab_5, "")
-        self.gridLayout_17.addWidget(self.tabWidget_2, 1, 0, 1, 1)
-        self.tabWidget.addTab(self.tab_2, "")
-        self.tab_8 = QtWidgets.QWidget()
-        self.tab_8.setObjectName("tab_8")
-        self.gridLayout_25 = QtWidgets.QGridLayout(self.tab_8)
-        self.gridLayout_25.setObjectName("gridLayout_25")
-        self.tabWidget_3 = QtWidgets.QTabWidget(self.tab_8)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        self.tabWidget_3.setFont(font)
-        self.tabWidget_3.setObjectName("tabWidget_3")
-        self.tab_12 = QtWidgets.QWidget()
-        self.tab_12.setObjectName("tab_12")
-        self.gridLayout_27 = QtWidgets.QGridLayout(self.tab_12)
-        self.gridLayout_27.setObjectName("gridLayout_27")
-        self.label_13 = QtWidgets.QLabel(self.tab_12)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        self.label_13.setFont(font)
-        self.label_13.setObjectName("label_13")
-        self.gridLayout_27.addWidget(self.label_13, 4, 0, 1, 1)
-        self.textEdit_2 = QtWidgets.QTextEdit(self.tab_12)
-        self.textEdit_2.setMaximumSize(QtCore.QSize(16777215, 100))
-        self.textEdit_2.setObjectName("textEdit_2")
-        self.gridLayout_27.addWidget(self.textEdit_2, 1, 0, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.gridLayout_27.addItem(spacerItem2, 2, 0, 1, 1)
-        self.label_12 = QtWidgets.QLabel(self.tab_12)
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        self.label_12.setFont(font)
-        self.label_12.setObjectName("label_12")
-        self.gridLayout_27.addWidget(self.label_12, 0, 0, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.tab_12)
-        self.pushButton.setMinimumSize(QtCore.QSize(100, 30))
-        self.pushButton.setMaximumSize(QtCore.QSize(100, 30))
+        self.tab_17 = QtWidgets.QWidget()
+        self.tab_17.setObjectName("tab_17")
+        self.gridLayout_31 = QtWidgets.QGridLayout(self.tab_17)
+        self.gridLayout_31.setObjectName("gridLayout_31")
+        self.widget_37 = QtWidgets.QWidget(self.tab_17)
+        self.widget_37.setObjectName("widget_37")
+        self.gridLayout_55 = QtWidgets.QGridLayout(self.widget_37)
+        self.gridLayout_55.setObjectName("gridLayout_55")
+        self.widget_42 = QtWidgets.QWidget(self.widget_37)
+        self.widget_42.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_42.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_42.setObjectName("widget_42")
+        self.verticalLayout_42 = QtWidgets.QVBoxLayout(self.widget_42)
+        self.verticalLayout_42.setContentsMargins(-1, -1, 9, -1)
+        self.verticalLayout_42.setObjectName("verticalLayout_42")
+        self.label_20 = QtWidgets.QLabel(self.widget_42)
+        self.label_20.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_20.setMaximumSize(QtCore.QSize(16777215, 17))
         font = QtGui.QFont()
         font.setFamily("Calibri")
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
-        self.pushButton.setFont(font)
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(":/images/send.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon8)
-        self.pushButton.setIconSize(QtCore.QSize(24, 24))
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout_27.addWidget(self.pushButton, 8, 0, 1, 1, QtCore.Qt.AlignRight)
-        self.textEdit = QtWidgets.QTextEdit(self.tab_12)
-        self.textEdit.setObjectName("textEdit")
-        self.gridLayout_27.addWidget(self.textEdit, 5, 0, 1, 1)
-        self.tabWidget_3.addTab(self.tab_12, "")
-        self.tab_13 = QtWidgets.QWidget()
-        self.tab_13.setObjectName("tab_13")
-        self.tabWidget_3.addTab(self.tab_13, "")
-        self.gridLayout_25.addWidget(self.tabWidget_3, 0, 0, 1, 1)
-        self.tabWidget.addTab(self.tab_8, "")
+        self.label_20.setFont(font)
+        self.label_20.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_20.setObjectName("label_20")
+        self.verticalLayout_42.addWidget(self.label_20)
+        self.category_timeline = QtWidgets.QLineEdit(self.widget_42)
+        self.category_timeline.setEnabled(True)
+        self.category_timeline.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.category_timeline.setFont(font)
+        self.category_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.category_timeline.setReadOnly(True)
+        self.category_timeline.setObjectName("category_timeline")
+        self.verticalLayout_42.addWidget(self.category_timeline)
+        self.gridLayout_55.addWidget(self.widget_42, 0, 0, 1, 1)
+        self.widget_45 = QtWidgets.QWidget(self.widget_37)
+        self.widget_45.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_45.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_45.setObjectName("widget_45")
+        self.verticalLayout_38 = QtWidgets.QVBoxLayout(self.widget_45)
+        self.verticalLayout_38.setContentsMargins(-1, -1, 9, -1)
+        self.verticalLayout_38.setObjectName("verticalLayout_38")
+        self.label_44 = QtWidgets.QLabel(self.widget_45)
+        self.label_44.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_44.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_44.setFont(font)
+        self.label_44.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_44.setObjectName("label_44")
+        self.verticalLayout_38.addWidget(self.label_44)
+        self.supplier_timeline = QtWidgets.QLineEdit(self.widget_45)
+        self.supplier_timeline.setEnabled(True)
+        self.supplier_timeline.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.supplier_timeline.setFont(font)
+        self.supplier_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.supplier_timeline.setReadOnly(True)
+        self.supplier_timeline.setObjectName("supplier_timeline")
+        self.verticalLayout_38.addWidget(self.supplier_timeline)
+        self.gridLayout_55.addWidget(self.widget_45, 0, 1, 1, 1)
+        self.widget_43 = QtWidgets.QWidget(self.widget_37)
+        self.widget_43.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_43.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_43.setObjectName("widget_43")
+        self.gridLayout_35 = QtWidgets.QGridLayout(self.widget_43)
+        self.gridLayout_35.setHorizontalSpacing(20)
+        self.gridLayout_35.setObjectName("gridLayout_35")
+        self.label_25 = QtWidgets.QLabel(self.widget_43)
+        self.label_25.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_25.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_25.setFont(font)
+        self.label_25.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_25.setObjectName("label_25")
+        self.gridLayout_35.addWidget(self.label_25, 0, 1, 1, 1)
+        self.sourcing_timeline = QtWidgets.QLineEdit(self.widget_43)
+        self.sourcing_timeline.setEnabled(True)
+        self.sourcing_timeline.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.sourcing_timeline.setFont(font)
+        self.sourcing_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.sourcing_timeline.setReadOnly(True)
+        self.sourcing_timeline.setObjectName("sourcing_timeline")
+        self.gridLayout_35.addWidget(self.sourcing_timeline, 2, 1, 1, 1)
+        self.sourcing_email_timeline = QtWidgets.QLineEdit(self.widget_43)
+        self.sourcing_email_timeline.setMinimumSize(QtCore.QSize(0, 28))
+        self.sourcing_email_timeline.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.sourcing_email_timeline.setFont(font)
+        self.sourcing_email_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.sourcing_email_timeline.setObjectName("sourcing_email_timeline")
+        self.gridLayout_35.addWidget(self.sourcing_email_timeline, 2, 2, 1, 1)
+        self.label_104 = QtWidgets.QLabel(self.widget_43)
+        self.label_104.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_104.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_104.setObjectName("label_104")
+        self.gridLayout_35.addWidget(self.label_104, 0, 2, 1, 1)
+        self.alias_sourcing_timeline = QtWidgets.QLineEdit(self.widget_43)
+        self.alias_sourcing_timeline.setMinimumSize(QtCore.QSize(100, 28))
+        self.alias_sourcing_timeline.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.alias_sourcing_timeline.setFont(font)
+        self.alias_sourcing_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.alias_sourcing_timeline.setObjectName("alias_sourcing_timeline")
+        self.gridLayout_35.addWidget(self.alias_sourcing_timeline, 2, 3, 1, 1)
+        self.label_108 = QtWidgets.QLabel(self.widget_43)
+        self.label_108.setMaximumSize(QtCore.QSize(100, 17))
+        self.label_108.setObjectName("label_108")
+        self.gridLayout_35.addWidget(self.label_108, 0, 3, 1, 1)
+        self.gridLayout_55.addWidget(self.widget_43, 1, 0, 1, 2)
+        self.widget_44 = QtWidgets.QWidget(self.widget_37)
+        self.widget_44.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_44.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_44.setObjectName("widget_44")
+        self.gridLayout_42 = QtWidgets.QGridLayout(self.widget_44)
+        self.gridLayout_42.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.gridLayout_42.setSpacing(20)
+        self.gridLayout_42.setObjectName("gridLayout_42")
+        self.label_105 = QtWidgets.QLabel(self.widget_44)
+        self.label_105.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_105.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_105.setObjectName("label_105")
+        self.gridLayout_42.addWidget(self.label_105, 0, 1, 1, 1)
+        self.continuity_email_timeline = QtWidgets.QLineEdit(self.widget_44)
+        self.continuity_email_timeline.setMinimumSize(QtCore.QSize(0, 28))
+        self.continuity_email_timeline.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.continuity_email_timeline.setFont(font)
+        self.continuity_email_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.continuity_email_timeline.setObjectName("continuity_email_timeline")
+        self.gridLayout_42.addWidget(self.continuity_email_timeline, 1, 1, 1, 1)
+        self.label_26 = QtWidgets.QLabel(self.widget_44)
+        self.label_26.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_26.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_26.setFont(font)
+        self.label_26.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_26.setObjectName("label_26")
+        self.gridLayout_42.addWidget(self.label_26, 0, 0, 1, 1)
+        self.continuity_timeline = QtWidgets.QLineEdit(self.widget_44)
+        self.continuity_timeline.setEnabled(True)
+        self.continuity_timeline.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.continuity_timeline.setFont(font)
+        self.continuity_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.continuity_timeline.setReadOnly(True)
+        self.continuity_timeline.setObjectName("continuity_timeline")
+        self.gridLayout_42.addWidget(self.continuity_timeline, 1, 0, 1, 1)
+        self.label_112 = QtWidgets.QLabel(self.widget_44)
+        self.label_112.setMaximumSize(QtCore.QSize(100, 17))
+        self.label_112.setObjectName("label_112")
+        self.gridLayout_42.addWidget(self.label_112, 0, 2, 1, 1)
+        self.alias_continuity_timeline = QtWidgets.QLineEdit(self.widget_44)
+        self.alias_continuity_timeline.setMinimumSize(QtCore.QSize(100, 28))
+        self.alias_continuity_timeline.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.alias_continuity_timeline.setFont(font)
+        self.alias_continuity_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.alias_continuity_timeline.setObjectName("alias_continuity_timeline")
+        self.gridLayout_42.addWidget(self.alias_continuity_timeline, 1, 2, 1, 1)
+        self.gridLayout_55.addWidget(self.widget_44, 2, 0, 1, 2)
+        self.widget_48 = QtWidgets.QWidget(self.widget_37)
+        self.widget_48.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_48.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_48.setObjectName("widget_48")
+        self.gridLayout_43 = QtWidgets.QGridLayout(self.widget_48)
+        self.gridLayout_43.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.gridLayout_43.setSpacing(20)
+        self.gridLayout_43.setObjectName("gridLayout_43")
+        self.label_106 = QtWidgets.QLabel(self.widget_48)
+        self.label_106.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_106.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_106.setObjectName("label_106")
+        self.gridLayout_43.addWidget(self.label_106, 0, 1, 1, 1)
+        self.sqie_email_timeline = QtWidgets.QLineEdit(self.widget_48)
+        self.sqie_email_timeline.setMinimumSize(QtCore.QSize(0, 28))
+        self.sqie_email_timeline.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.sqie_email_timeline.setFont(font)
+        self.sqie_email_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.sqie_email_timeline.setObjectName("sqie_email_timeline")
+        self.gridLayout_43.addWidget(self.sqie_email_timeline, 1, 1, 1, 1)
+        self.label_23 = QtWidgets.QLabel(self.widget_48)
+        self.label_23.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_23.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_23.setFont(font)
+        self.label_23.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_23.setObjectName("label_23")
+        self.gridLayout_43.addWidget(self.label_23, 0, 0, 1, 1)
+        self.sqie_timeline = QtWidgets.QLineEdit(self.widget_48)
+        self.sqie_timeline.setEnabled(True)
+        self.sqie_timeline.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.sqie_timeline.setFont(font)
+        self.sqie_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.sqie_timeline.setReadOnly(True)
+        self.sqie_timeline.setObjectName("sqie_timeline")
+        self.gridLayout_43.addWidget(self.sqie_timeline, 1, 0, 1, 1)
+        self.label_109 = QtWidgets.QLabel(self.widget_48)
+        self.label_109.setMaximumSize(QtCore.QSize(100, 17))
+        self.label_109.setObjectName("label_109")
+        self.gridLayout_43.addWidget(self.label_109, 0, 2, 1, 1)
+        self.alias_sqie_timeline = QtWidgets.QLineEdit(self.widget_48)
+        self.alias_sqie_timeline.setMinimumSize(QtCore.QSize(100, 28))
+        self.alias_sqie_timeline.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.alias_sqie_timeline.setFont(font)
+        self.alias_sqie_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.alias_sqie_timeline.setObjectName("alias_sqie_timeline")
+        self.gridLayout_43.addWidget(self.alias_sqie_timeline, 1, 2, 1, 1)
+        self.gridLayout_55.addWidget(self.widget_48, 3, 0, 1, 2)
+        self.widget_49 = QtWidgets.QWidget(self.widget_37)
+        self.widget_49.setMinimumSize(QtCore.QSize(100, 0))
+        self.widget_49.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_49.setObjectName("widget_49")
+        self.gridLayout_54 = QtWidgets.QGridLayout(self.widget_49)
+        self.gridLayout_54.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.gridLayout_54.setSpacing(20)
+        self.gridLayout_54.setObjectName("gridLayout_54")
+        self.label_107 = QtWidgets.QLabel(self.widget_49)
+        self.label_107.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_107.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_107.setObjectName("label_107")
+        self.gridLayout_54.addWidget(self.label_107, 0, 1, 1, 1)
+        self.planner_email_timeline = QtWidgets.QLineEdit(self.widget_49)
+        self.planner_email_timeline.setMinimumSize(QtCore.QSize(0, 28))
+        self.planner_email_timeline.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.planner_email_timeline.setFont(font)
+        self.planner_email_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.planner_email_timeline.setObjectName("planner_email_timeline")
+        self.gridLayout_54.addWidget(self.planner_email_timeline, 1, 1, 1, 1)
+        self.label_61 = QtWidgets.QLabel(self.widget_49)
+        self.label_61.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_61.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_61.setFont(font)
+        self.label_61.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_61.setObjectName("label_61")
+        self.gridLayout_54.addWidget(self.label_61, 0, 0, 1, 1)
+        self.planner_timeline = QtWidgets.QLineEdit(self.widget_49)
+        self.planner_timeline.setEnabled(True)
+        self.planner_timeline.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.planner_timeline.setFont(font)
+        self.planner_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.planner_timeline.setReadOnly(True)
+        self.planner_timeline.setObjectName("planner_timeline")
+        self.gridLayout_54.addWidget(self.planner_timeline, 1, 0, 1, 1)
+        self.label_111 = QtWidgets.QLabel(self.widget_49)
+        self.label_111.setMaximumSize(QtCore.QSize(100, 17))
+        self.label_111.setObjectName("label_111")
+        self.gridLayout_54.addWidget(self.label_111, 0, 2, 1, 1)
+        self.alias_planner_timeline = QtWidgets.QLineEdit(self.widget_49)
+        self.alias_planner_timeline.setMinimumSize(QtCore.QSize(100, 28))
+        self.alias_planner_timeline.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.alias_planner_timeline.setFont(font)
+        self.alias_planner_timeline.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.alias_planner_timeline.setObjectName("alias_planner_timeline")
+        self.gridLayout_54.addWidget(self.alias_planner_timeline, 1, 2, 1, 1)
+        self.gridLayout_55.addWidget(self.widget_49, 4, 0, 1, 2)
+        self.gridLayout_31.addWidget(self.widget_37, 0, 0, 1, 2, QtCore.Qt.AlignTop)
+        self.tabWidget_2.addTab(self.tab_17, "")
+        self.tab_18 = QtWidgets.QWidget()
+        self.tab_18.setObjectName("tab_18")
+        self.gridLayout_70 = QtWidgets.QGridLayout(self.tab_18)
+        self.gridLayout_70.setObjectName("gridLayout_70")
+        self.widget_90 = QtWidgets.QWidget(self.tab_18)
+        self.widget_90.setObjectName("widget_90")
+        self.gridLayout_71 = QtWidgets.QGridLayout(self.widget_90)
+        self.gridLayout_71.setObjectName("gridLayout_71")
+        self.label_110 = QtWidgets.QLabel(self.widget_90)
+        self.label_110.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        self.label_110.setFont(font)
+        self.label_110.setObjectName("label_110")
+        self.gridLayout_71.addWidget(self.label_110, 0, 0, 1, 1)
+        self.supplier_contacts_timeline = QtWidgets.QTextEdit(self.widget_90)
+        self.supplier_contacts_timeline.setMaximumSize(QtCore.QSize(16777215, 100))
+        self.supplier_contacts_timeline.setStyleSheet("background:transparent;\n"
+"border: 1px solid rgb(210,210, 210);\n"
+"padding:10px\n"
+"")
+        self.supplier_contacts_timeline.setObjectName("supplier_contacts_timeline")
+        self.gridLayout_71.addWidget(self.supplier_contacts_timeline, 1, 0, 1, 1)
+        self.gridLayout_70.addWidget(self.widget_90, 0, 0, 1, 1, QtCore.Qt.AlignTop)
+        self.tabWidget_2.addTab(self.tab_18, "")
+        self.gridLayout_16.addWidget(self.tabWidget_2, 4, 0, 1, 1)
+        self.gridLayout_17.addWidget(self.widget_40, 0, 1, 1, 1)
+        self.tabWidget.addTab(self.tab_2, "")
         self.tab_6 = QtWidgets.QWidget()
         self.tab_6.setObjectName("tab_6")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.tab_6)
         self.gridLayout_6.setObjectName("gridLayout_6")
-        self.total_geral2 = QtWidgets.QLabel(self.tab_6)
-        self.total_geral2.setMinimumSize(QtCore.QSize(100, 0))
-        self.total_geral2.setMaximumSize(QtCore.QSize(100, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(16)
-        self.total_geral2.setFont(font)
-        self.total_geral2.setStyleSheet("")
-        self.total_geral2.setObjectName("total_geral2")
-        self.gridLayout_6.addWidget(self.total_geral2, 1, 2, 1, 1, QtCore.Qt.AlignLeft)
-        self.label_54 = QtWidgets.QLabel(self.tab_6)
-        self.label_54.setMaximumSize(QtCore.QSize(220, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_54.setFont(font)
-        self.label_54.setObjectName("label_54")
-        self.gridLayout_6.addWidget(self.label_54, 1, 0, 1, 1)
-        self.label_57 = QtWidgets.QLabel(self.tab_6)
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label_57.setFont(font)
-        self.label_57.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_57.setObjectName("label_57")
-        self.gridLayout_6.addWidget(self.label_57, 3, 0, 1, 4)
         self.total_risks = QtWidgets.QLabel(self.tab_6)
-        self.total_risks.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.total_risks.setMinimumSize(QtCore.QSize(50, 0))
+        self.total_risks.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(30)
@@ -2000,295 +2336,219 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.total_risks.setFont(font)
         self.total_risks.setStyleSheet("")
+        self.total_risks.setText("")
+        self.total_risks.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.total_risks.setObjectName("total_risks")
         self.gridLayout_6.addWidget(self.total_risks, 1, 1, 1, 1)
-        self.tableWidget_risks = QtWidgets.QTableWidget(self.tab_6)
+        self.total_geral2 = QtWidgets.QLabel(self.tab_6)
+        self.total_geral2.setMinimumSize(QtCore.QSize(80, 0))
+        self.total_geral2.setMaximumSize(QtCore.QSize(80, 16777215))
         font = QtGui.QFont()
-        font.setPointSize(8)
-        self.tableWidget_risks.setFont(font)
-        self.tableWidget_risks.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.tableWidget_risks.setObjectName("tableWidget_risks")
-        self.tableWidget_risks.setColumnCount(3)
-        self.tableWidget_risks.setRowCount(0)
+        font.setFamily("Century Gothic")
+        font.setPointSize(16)
+        self.total_geral2.setFont(font)
+        self.total_geral2.setStyleSheet("")
+        self.total_geral2.setText("")
+        self.total_geral2.setObjectName("total_geral2")
+        self.gridLayout_6.addWidget(self.total_geral2, 1, 2, 1, 1, QtCore.Qt.AlignLeft)
+        self.label_57 = QtWidgets.QLabel(self.tab_6)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_57.setFont(font)
+        self.label_57.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_57.setObjectName("label_57")
+        self.gridLayout_6.addWidget(self.label_57, 3, 0, 1, 5)
+        self.label_54 = QtWidgets.QLabel(self.tab_6)
+        self.label_54.setMaximumSize(QtCore.QSize(16000, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_54.setFont(font)
+        self.label_54.setObjectName("label_54")
+        self.gridLayout_6.addWidget(self.label_54, 1, 0, 1, 1)
+        spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem6, 1, 3, 1, 1)
+        self.table_risks = QtWidgets.QTableWidget(self.tab_6)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        self.table_risks.setFont(font)
+        self.table_risks.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.table_risks.setObjectName("table_risks")
+        self.table_risks.setColumnCount(7)
+        self.table_risks.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
-        self.tableWidget_risks.setHorizontalHeaderItem(0, item)
+        self.table_risks.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        self.tableWidget_risks.setHorizontalHeaderItem(1, item)
+        self.table_risks.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
-        self.tableWidget_risks.setHorizontalHeaderItem(2, item)
-        self.tableWidget_risks.verticalHeader().setVisible(False)
-        self.tableWidget_risks.verticalHeader().setHighlightSections(False)
-        self.gridLayout_6.addWidget(self.tableWidget_risks, 2, 0, 1, 4)
+        self.table_risks.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_risks.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_risks.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_risks.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_risks.setHorizontalHeaderItem(6, item)
+        self.table_risks.verticalHeader().setVisible(False)
+        self.table_risks.verticalHeader().setHighlightSections(False)
+        self.gridLayout_6.addWidget(self.table_risks, 2, 0, 1, 5)
+        self.widget_76 = QtWidgets.QWidget(self.tab_6)
+        self.widget_76.setMinimumSize(QtCore.QSize(0, 0))
+        self.widget_76.setObjectName("widget_76")
+        self.gridLayout_53 = QtWidgets.QGridLayout(self.widget_76)
+        self.gridLayout_53.setObjectName("gridLayout_53")
+        self.groupBox_11 = QtWidgets.QGroupBox(self.widget_76)
+        self.groupBox_11.setObjectName("groupBox_11")
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.groupBox_11)
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.widget_77 = QtWidgets.QWidget(self.groupBox_11)
+        self.widget_77.setObjectName("widget_77")
+        self.gridLayout_60 = QtWidgets.QGridLayout(self.widget_77)
+        self.gridLayout_60.setObjectName("gridLayout_60")
+        self.label_100 = QtWidgets.QLabel(self.widget_77)
+        self.label_100.setMinimumSize(QtCore.QSize(0, 17))
+        self.label_100.setMaximumSize(QtCore.QSize(16777215, 17))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_100.setFont(font)
+        self.label_100.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_100.setObjectName("label_100")
+        self.gridLayout_60.addWidget(self.label_100, 0, 0, 1, 1)
+        self.year_by_date_3 = QtWidgets.QComboBox(self.widget_77)
+        self.year_by_date_3.setMinimumSize(QtCore.QSize(0, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.year_by_date_3.setFont(font)
+        self.year_by_date_3.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.year_by_date_3.setObjectName("year_by_date_3")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.setItemText(0, "")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.year_by_date_3.addItem("")
+        self.gridLayout_60.addWidget(self.year_by_date_3, 1, 0, 1, 1)
+        self.horizontalLayout_7.addWidget(self.widget_77)
+        self.btn_query_risks = QtWidgets.QPushButton(self.groupBox_11)
+        self.btn_query_risks.setMaximumSize(QtCore.QSize(30, 30))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.btn_query_risks.setFont(font)
+        self.btn_query_risks.setStyleSheet("background-color:transparent")
+        self.btn_query_risks.setObjectName("btn_query_risks")
+        self.horizontalLayout_7.addWidget(self.btn_query_risks)
+        self.gridLayout_53.addWidget(self.groupBox_11, 0, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.widget_76, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_6, "")
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.tab_3)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.tabWidget_config = QtWidgets.QTabWidget(self.tab_3)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        self.tabWidget_config.setFont(font)
         self.tabWidget_config.setObjectName("tabWidget_config")
-        self.tab_9 = QtWidgets.QWidget()
-        self.tab_9.setObjectName("tab_9")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.tab_9)
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.widget_16 = QtWidgets.QWidget(self.tab_9)
-        self.widget_16.setObjectName("widget_16")
-        self.verticalLayout_19 = QtWidgets.QVBoxLayout(self.widget_16)
-        self.verticalLayout_19.setObjectName("verticalLayout_19")
-        self.label_37 = QtWidgets.QLabel(self.widget_16)
-        self.label_37.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.tab_8 = QtWidgets.QWidget()
+        self.tab_8.setObjectName("tab_8")
+        self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.tab_8)
+        self.verticalLayout_15.setObjectName("verticalLayout_15")
+        self.widget_56 = QtWidgets.QWidget(self.tab_8)
+        self.widget_56.setObjectName("widget_56")
+        self.gridLayout_56 = QtWidgets.QGridLayout(self.widget_56)
+        self.gridLayout_56.setObjectName("gridLayout_56")
+        self.checkBox_show_inactive = QtWidgets.QCheckBox(self.widget_56)
         font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_37.setFont(font)
-        self.label_37.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_37.setObjectName("label_37")
-        self.verticalLayout_19.addWidget(self.label_37)
-        self.target_criteria = QtWidgets.QSpinBox(self.widget_16)
-        self.target_criteria.setEnabled(False)
-        self.target_criteria.setMinimumSize(QtCore.QSize(0, 30))
-        self.target_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.target_criteria.setFont(font)
-        self.target_criteria.setStyleSheet("QSpinBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color:transparent\n"
-";\n"
-"}\n"
-"\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.target_criteria.setReadOnly(False)
-        self.target_criteria.setMaximum(400)
-        self.target_criteria.setProperty("value", 0)
-        self.target_criteria.setObjectName("target_criteria")
-        self.verticalLayout_19.addWidget(self.target_criteria)
-        self.horizontalLayout_4.addWidget(self.widget_16, 0, QtCore.Qt.AlignTop)
-        self.widget_17 = QtWidgets.QWidget(self.tab_9)
-        self.widget_17.setObjectName("widget_17")
-        self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.widget_17)
-        self.verticalLayout_20.setObjectName("verticalLayout_20")
-        self.label_34 = QtWidgets.QLabel(self.widget_17)
-        self.label_34.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_34.setFont(font)
-        self.label_34.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_34.setObjectName("label_34")
-        self.verticalLayout_20.addWidget(self.label_34)
-        self.otif_criteria = QtWidgets.QSpinBox(self.widget_17)
-        self.otif_criteria.setEnabled(False)
-        self.otif_criteria.setMinimumSize(QtCore.QSize(0, 30))
-        self.otif_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.otif_criteria.setFont(font)
-        self.otif_criteria.setStyleSheet("QSpinBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color:transparent\n"
-";\n"
-"}\n"
-"\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.otif_criteria.setReadOnly(False)
-        self.otif_criteria.setMaximum(10)
-        self.otif_criteria.setProperty("value", 0)
-        self.otif_criteria.setObjectName("otif_criteria")
-        self.verticalLayout_20.addWidget(self.otif_criteria)
-        self.horizontalLayout_4.addWidget(self.widget_17, 0, QtCore.Qt.AlignTop)
-        self.widget_21 = QtWidgets.QWidget(self.tab_9)
-        self.widget_21.setObjectName("widget_21")
-        self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.widget_21)
-        self.verticalLayout_18.setObjectName("verticalLayout_18")
-        self.label_32 = QtWidgets.QLabel(self.widget_21)
-        self.label_32.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_32.setFont(font)
-        self.label_32.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_32.setObjectName("label_32")
-        self.verticalLayout_18.addWidget(self.label_32)
-        self.quality_pickup_criteria = QtWidgets.QSpinBox(self.widget_21)
-        self.quality_pickup_criteria.setEnabled(False)
-        self.quality_pickup_criteria.setMinimumSize(QtCore.QSize(0, 30))
-        self.quality_pickup_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.quality_pickup_criteria.setFont(font)
-        self.quality_pickup_criteria.setStyleSheet("QSpinBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color:transparent\n"
-";\n"
-"}\n"
-"\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.quality_pickup_criteria.setReadOnly(False)
-        self.quality_pickup_criteria.setMaximum(10)
-        self.quality_pickup_criteria.setProperty("value", 0)
-        self.quality_pickup_criteria.setObjectName("quality_pickup_criteria")
-        self.verticalLayout_18.addWidget(self.quality_pickup_criteria)
-        self.horizontalLayout_4.addWidget(self.widget_21, 0, QtCore.Qt.AlignTop)
-        self.widget_19 = QtWidgets.QWidget(self.tab_9)
-        self.widget_19.setObjectName("widget_19")
-        self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.widget_19)
-        self.verticalLayout_16.setObjectName("verticalLayout_16")
-        self.label_35 = QtWidgets.QLabel(self.widget_19)
-        self.label_35.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_35.setFont(font)
-        self.label_35.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_35.setObjectName("label_35")
-        self.verticalLayout_16.addWidget(self.label_35)
-        self.quality_packege_criteria = QtWidgets.QSpinBox(self.widget_19)
-        self.quality_packege_criteria.setEnabled(False)
-        self.quality_packege_criteria.setMinimumSize(QtCore.QSize(0, 30))
-        self.quality_packege_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.quality_packege_criteria.setFont(font)
-        self.quality_packege_criteria.setStyleSheet("QSpinBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color:transparent\n"
-";\n"
-"}\n"
-"\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.quality_packege_criteria.setReadOnly(False)
-        self.quality_packege_criteria.setMaximum(10)
-        self.quality_packege_criteria.setProperty("value", 0)
-        self.quality_packege_criteria.setObjectName("quality_packege_criteria")
-        self.verticalLayout_16.addWidget(self.quality_packege_criteria)
-        self.horizontalLayout_4.addWidget(self.widget_19, 0, QtCore.Qt.AlignTop)
-        self.widget_20 = QtWidgets.QWidget(self.tab_9)
-        self.widget_20.setObjectName("widget_20")
-        self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.widget_20)
-        self.verticalLayout_17.setObjectName("verticalLayout_17")
-        self.label_33 = QtWidgets.QLabel(self.widget_20)
-        self.label_33.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.label_33.setFont(font)
-        self.label_33.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_33.setObjectName("label_33")
-        self.verticalLayout_17.addWidget(self.label_33)
-        self.nil_criteria = QtWidgets.QSpinBox(self.widget_20)
-        self.nil_criteria.setEnabled(False)
-        self.nil_criteria.setMinimumSize(QtCore.QSize(0, 30))
-        self.nil_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.nil_criteria.setFont(font)
-        self.nil_criteria.setStyleSheet("QSpinBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color:transparent\n"
-";\n"
-"}\n"
-"\n"
-"QSpinBox:disabled, QSpinBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.nil_criteria.setReadOnly(False)
-        self.nil_criteria.setMaximum(10)
-        self.nil_criteria.setProperty("value", 0)
-        self.nil_criteria.setObjectName("nil_criteria")
-        self.verticalLayout_17.addWidget(self.nil_criteria)
-        self.horizontalLayout_4.addWidget(self.widget_20, 0, QtCore.Qt.AlignTop)
-        self.widget_18 = QtWidgets.QWidget(self.tab_9)
-        self.widget_18.setMaximumSize(QtCore.QSize(160, 16777215))
-        self.widget_18.setObjectName("widget_18")
-        self.gridLayout_7 = QtWidgets.QGridLayout(self.widget_18)
-        self.gridLayout_7.setObjectName("gridLayout_7")
-        self.btn_update_criteria = QtWidgets.QPushButton(self.widget_18)
-        self.btn_update_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_update_criteria.setFont(font)
-        self.btn_update_criteria.setObjectName("btn_update_criteria")
-        self.gridLayout_7.addWidget(self.btn_update_criteria, 1, 0, 1, 1)
-        self.btn_unlock_criteria_edit = QtWidgets.QPushButton(self.widget_18)
-        self.btn_unlock_criteria_edit.setMaximumSize(QtCore.QSize(160, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_unlock_criteria_edit.setFont(font)
-        self.btn_unlock_criteria_edit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_unlock_criteria_edit.setStyleSheet("background-color: transparent")
-        self.btn_unlock_criteria_edit.setObjectName("btn_unlock_criteria_edit")
-        self.gridLayout_7.addWidget(self.btn_unlock_criteria_edit, 0, 0, 1, 1)
-        self.horizontalLayout_4.addWidget(self.widget_18, 0, QtCore.Qt.AlignTop)
-        self.tabWidget_config.addTab(self.tab_9, "")
-        self.tab_10 = QtWidgets.QWidget()
-        self.tab_10.setObjectName("tab_10")
-        self.gridLayout_9 = QtWidgets.QGridLayout(self.tab_10)
-        self.gridLayout_9.setObjectName("gridLayout_9")
-        self.widget_22 = QtWidgets.QWidget(self.tab_10)
-        self.widget_22.setObjectName("widget_22")
-        self.gridLayout_8 = QtWidgets.QGridLayout(self.widget_22)
-        self.gridLayout_8.setObjectName("gridLayout_8")
-        self.btn_vendor_register = QtWidgets.QPushButton(self.widget_22)
-        self.btn_vendor_register.setMinimumSize(QtCore.QSize(30, 30))
-        self.btn_vendor_register.setMaximumSize(QtCore.QSize(30, 30))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
+        font.setFamily("Calibri")
         font.setPointSize(14)
-        font.setBold(False)
-        font.setWeight(50)
-        self.btn_vendor_register.setFont(font)
-        self.btn_vendor_register.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_vendor_register.setStyleSheet("background-color:transparent")
-        self.btn_vendor_register.setObjectName("btn_vendor_register")
-        self.gridLayout_8.addWidget(self.btn_vendor_register, 1, 1, 1, 1)
-        self.vendor_register = QtWidgets.QLineEdit(self.widget_22)
-        self.vendor_register.setEnabled(True)
-        self.vendor_register.setMinimumSize(QtCore.QSize(0, 30))
+        self.checkBox_show_inactive.setFont(font)
+        self.checkBox_show_inactive.setObjectName("checkBox_show_inactive")
+        self.gridLayout_56.addWidget(self.checkBox_show_inactive, 0, 0, 1, 1)
+        self.verticalLayout_15.addWidget(self.widget_56, 0, QtCore.Qt.AlignTop)
+        self.tabWidget_config.addTab(self.tab_8, "")
+        self.tab_14 = QtWidgets.QWidget()
+        self.tab_14.setObjectName("tab_14")
+        self.gridLayout_49 = QtWidgets.QGridLayout(self.tab_14)
+        self.gridLayout_49.setObjectName("gridLayout_49")
+        self.widget_62 = QtWidgets.QWidget(self.tab_14)
+        self.widget_62.setObjectName("widget_62")
+        self.gridLayout_48 = QtWidgets.QGridLayout(self.widget_62)
+        self.gridLayout_48.setObjectName("gridLayout_48")
+        self.btn_register_new_supplier = QtWidgets.QPushButton(self.widget_62)
+        self.btn_register_new_supplier.setMinimumSize(QtCore.QSize(80, 0))
+        self.btn_register_new_supplier.setMaximumSize(QtCore.QSize(80, 16777215))
         font = QtGui.QFont()
+        font.setFamily("Century Gothic")
         font.setPointSize(11)
         font.setBold(True)
         font.setWeight(75)
-        self.vendor_register.setFont(font)
-        self.vendor_register.setStyleSheet("QLineEdit {\n"
+        self.btn_register_new_supplier.setFont(font)
+        self.btn_register_new_supplier.setObjectName("btn_register_new_supplier")
+        self.gridLayout_48.addWidget(self.btn_register_new_supplier, 0, 0, 1, 1, QtCore.Qt.AlignRight)
+        self.gridLayout_49.addWidget(self.widget_62, 2, 0, 1, 1, QtCore.Qt.AlignRight)
+        self.toolBox_2 = QtWidgets.QToolBox(self.tab_14)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        self.toolBox_2.setFont(font)
+        self.toolBox_2.setObjectName("toolBox_2")
+        self.page = QtWidgets.QWidget()
+        self.page.setGeometry(QtCore.QRect(0, 0, 861, 617))
+        self.page.setObjectName("page")
+        self.gridLayout_50 = QtWidgets.QGridLayout(self.page)
+        self.gridLayout_50.setObjectName("gridLayout_50")
+        self.groupBox_12 = QtWidgets.QGroupBox(self.page)
+        self.groupBox_12.setObjectName("groupBox_12")
+        self.gridLayout_45 = QtWidgets.QGridLayout(self.groupBox_12)
+        self.gridLayout_45.setObjectName("gridLayout_45")
+        self.country_register_new = QtWidgets.QLineEdit(self.groupBox_12)
+        self.country_register_new.setEnabled(True)
+        self.country_register_new.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.country_register_new.setFont(font)
+        self.country_register_new.setStyleSheet("QLineEdit {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
@@ -2298,60 +2558,56 @@ class Ui_MainWindow(object):
 "QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
 "}")
-        self.vendor_register.setText("")
-        self.vendor_register.setReadOnly(False)
-        self.vendor_register.setObjectName("vendor_register")
-        self.gridLayout_8.addWidget(self.vendor_register, 1, 0, 1, 1)
-        self.label_27 = QtWidgets.QLabel(self.widget_22)
-        self.label_27.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.country_register_new.setText("")
+        self.country_register_new.setReadOnly(False)
+        self.country_register_new.setObjectName("country_register_new")
+        self.gridLayout_45.addWidget(self.country_register_new, 1, 1, 1, 1)
+        self.label_73 = QtWidgets.QLabel(self.groupBox_12)
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
-        self.label_27.setFont(font)
-        self.label_27.setStyleSheet("background-color:transparent;\n"
+        self.label_73.setFont(font)
+        self.label_73.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_27.setObjectName("label_27")
-        self.gridLayout_8.addWidget(self.label_27, 0, 0, 1, 1)
-        self.gridLayout_9.addWidget(self.widget_22, 0, 0, 1, 9)
-        self.groupBox_6 = QtWidgets.QGroupBox(self.tab_10)
-        self.groupBox_6.setMaximumSize(QtCore.QSize(16000, 16777215))
-        self.groupBox_6.setObjectName("groupBox_6")
-        self.gridLayout_28 = QtWidgets.QGridLayout(self.groupBox_6)
-        self.gridLayout_28.setContentsMargins(9, 9, -1, 9)
-        self.gridLayout_28.setHorizontalSpacing(7)
-        self.gridLayout_28.setVerticalSpacing(6)
-        self.gridLayout_28.setObjectName("gridLayout_28")
-        self.scrollArea_5 = QtWidgets.QScrollArea(self.groupBox_6)
-        self.scrollArea_5.setWidgetResizable(True)
-        self.scrollArea_5.setObjectName("scrollArea_5")
-        self.scrollAreaWidgetContents_5 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_5.setGeometry(QtCore.QRect(0, 0, 238, 312))
-        self.scrollAreaWidgetContents_5.setObjectName("scrollAreaWidgetContents_5")
-        self.verticalLayout_52 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_5)
-        self.verticalLayout_52.setObjectName("verticalLayout_52")
-        self.widget_300 = QtWidgets.QWidget(self.scrollAreaWidgetContents_5)
-        self.widget_300.setObjectName("widget_300")
-        self.verticalLayout_22 = QtWidgets.QVBoxLayout(self.widget_300)
-        self.verticalLayout_22.setObjectName("verticalLayout_22")
-        self.label_49 = QtWidgets.QLabel(self.widget_300)
-        self.label_49.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label_73.setObjectName("label_73")
+        self.gridLayout_45.addWidget(self.label_73, 0, 0, 1, 1)
+        self.label_74 = QtWidgets.QLabel(self.groupBox_12)
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
-        self.label_49.setFont(font)
-        self.label_49.setStyleSheet("background-color:transparent;\n"
+        self.label_74.setFont(font)
+        self.label_74.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_49.setObjectName("label_49")
-        self.verticalLayout_22.addWidget(self.label_49)
-        self.ssid_register = QtWidgets.QLineEdit(self.widget_300)
-        self.ssid_register.setEnabled(True)
-        self.ssid_register.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_74.setObjectName("label_74")
+        self.gridLayout_45.addWidget(self.label_74, 0, 1, 1, 1)
+        self.label_79 = QtWidgets.QLabel(self.groupBox_12)
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_79.setFont(font)
+        self.label_79.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_79.setObjectName("label_79")
+        self.gridLayout_45.addWidget(self.label_79, 0, 2, 1, 1)
+        self.label_77 = QtWidgets.QLabel(self.groupBox_12)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_77.setFont(font)
+        self.label_77.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_77.setObjectName("label_77")
+        self.gridLayout_45.addWidget(self.label_77, 0, 3, 1, 1)
+        self.ssid_register_new = QtWidgets.QLineEdit(self.groupBox_12)
+        self.ssid_register_new.setEnabled(True)
+        self.ssid_register_new.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.ssid_register.setFont(font)
-        self.ssid_register.setStyleSheet("QLineEdit {\n"
+        self.ssid_register_new.setFont(font)
+        self.ssid_register_new.setStyleSheet("QLineEdit {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
@@ -2361,34 +2617,20 @@ class Ui_MainWindow(object):
 "QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
 "}")
-        self.ssid_register.setText("")
-        self.ssid_register.setReadOnly(False)
-        self.ssid_register.setObjectName("ssid_register")
-        self.verticalLayout_22.addWidget(self.ssid_register)
-        self.verticalLayout_52.addWidget(self.widget_300)
-        self.widget_33 = QtWidgets.QWidget(self.scrollAreaWidgetContents_5)
-        self.widget_33.setObjectName("widget_33")
-        self.verticalLayout_27 = QtWidgets.QVBoxLayout(self.widget_33)
-        self.verticalLayout_27.setObjectName("verticalLayout_27")
-        self.label_52 = QtWidgets.QLabel(self.widget_33)
-        self.label_52.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.ssid_register_new.setText("")
+        self.ssid_register_new.setReadOnly(False)
+        self.ssid_register_new.setObjectName("ssid_register_new")
+        self.gridLayout_45.addWidget(self.ssid_register_new, 1, 0, 1, 1)
+        self.region_register_new = QtWidgets.QLineEdit(self.groupBox_12)
+        self.region_register_new.setEnabled(True)
+        self.region_register_new.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(9)
-        self.label_52.setFont(font)
-        self.label_52.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_52.setObjectName("label_52")
-        self.verticalLayout_27.addWidget(self.label_52)
-        self.document_register = QtWidgets.QLineEdit(self.widget_33)
-        self.document_register.setEnabled(True)
-        self.document_register.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.document_register.setFont(font)
-        self.document_register.setStyleSheet("QLineEdit {\n"
+        self.region_register_new.setFont(font)
+        self.region_register_new.setStyleSheet("QLineEdit {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
@@ -2398,34 +2640,20 @@ class Ui_MainWindow(object):
 "QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
 "}")
-        self.document_register.setText("")
-        self.document_register.setReadOnly(False)
-        self.document_register.setObjectName("document_register")
-        self.verticalLayout_27.addWidget(self.document_register)
-        self.verticalLayout_52.addWidget(self.widget_33)
-        self.widget_320 = QtWidgets.QWidget(self.scrollAreaWidgetContents_5)
-        self.widget_320.setObjectName("widget_320")
-        self.verticalLayout_32 = QtWidgets.QVBoxLayout(self.widget_320)
-        self.verticalLayout_32.setObjectName("verticalLayout_32")
-        self.label_51 = QtWidgets.QLabel(self.widget_320)
-        self.label_51.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.region_register_new.setText("")
+        self.region_register_new.setReadOnly(False)
+        self.region_register_new.setObjectName("region_register_new")
+        self.gridLayout_45.addWidget(self.region_register_new, 1, 2, 1, 1)
+        self.document_register_new = QtWidgets.QLineEdit(self.groupBox_12)
+        self.document_register_new.setEnabled(True)
+        self.document_register_new.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(9)
-        self.label_51.setFont(font)
-        self.label_51.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_51.setObjectName("label_51")
-        self.verticalLayout_32.addWidget(self.label_51)
-        self.region_register = QtWidgets.QLineEdit(self.widget_320)
-        self.region_register.setEnabled(True)
-        self.region_register.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.region_register.setFont(font)
-        self.region_register.setStyleSheet("QLineEdit {\n"
+        self.document_register_new.setFont(font)
+        self.document_register_new.setStyleSheet("QLineEdit {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
@@ -2435,73 +2663,79 @@ class Ui_MainWindow(object):
 "QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
 "}")
-        self.region_register.setText("")
-        self.region_register.setReadOnly(False)
-        self.region_register.setObjectName("region_register")
-        self.verticalLayout_32.addWidget(self.region_register)
-        self.verticalLayout_52.addWidget(self.widget_320)
-        self.widget_310 = QtWidgets.QWidget(self.scrollAreaWidgetContents_5)
-        self.widget_310.setObjectName("widget_310")
-        self.verticalLayout_24 = QtWidgets.QVBoxLayout(self.widget_310)
-        self.verticalLayout_24.setObjectName("verticalLayout_24")
-        self.label_50 = QtWidgets.QLabel(self.widget_310)
-        self.label_50.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.document_register_new.setText("")
+        self.document_register_new.setReadOnly(False)
+        self.document_register_new.setObjectName("document_register_new")
+        self.gridLayout_45.addWidget(self.document_register_new, 1, 3, 1, 1)
+        self.gridLayout_50.addWidget(self.groupBox_12, 3, 0, 1, 1, QtCore.Qt.AlignTop)
+        self.groupBox_13 = QtWidgets.QGroupBox(self.page)
+        self.groupBox_13.setObjectName("groupBox_13")
+        self.gridLayout_47 = QtWidgets.QGridLayout(self.groupBox_13)
+        self.gridLayout_47.setObjectName("gridLayout_47")
+        self.widget_63 = QtWidgets.QWidget(self.groupBox_13)
+        self.widget_63.setObjectName("widget_63")
+        self.verticalLayout_21 = QtWidgets.QVBoxLayout(self.widget_63)
+        self.verticalLayout_21.setObjectName("verticalLayout_21")
+        self.label_80 = QtWidgets.QLabel(self.widget_63)
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
-        self.label_50.setFont(font)
-        self.label_50.setStyleSheet("background-color:transparent;\n"
+        self.label_80.setFont(font)
+        self.label_80.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_50.setObjectName("label_50")
-        self.verticalLayout_24.addWidget(self.label_50)
-        self.country_register = QtWidgets.QLineEdit(self.widget_310)
-        self.country_register.setEnabled(True)
-        self.country_register.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_80.setObjectName("label_80")
+        self.verticalLayout_21.addWidget(self.label_80)
+        self.sourcing_register_new = QtWidgets.QComboBox(self.widget_63)
+        self.sourcing_register_new.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.country_register.setFont(font)
-        self.country_register.setStyleSheet("QLineEdit {\n"
+        self.sourcing_register_new.setFont(font)
+        self.sourcing_register_new.setStyleSheet("QComboBox {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color: transparent;\n"
 "}\n"
 "\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
 "}")
-        self.country_register.setText("")
-        self.country_register.setReadOnly(False)
-        self.country_register.setObjectName("country_register")
-        self.verticalLayout_24.addWidget(self.country_register)
-        self.verticalLayout_52.addWidget(self.widget_310)
-        self.scrollArea_5.setWidget(self.scrollAreaWidgetContents_5)
-        self.gridLayout_28.addWidget(self.scrollArea_5, 0, 0, 1, 1)
-        self.gridLayout_9.addWidget(self.groupBox_6, 2, 7, 1, 3)
-        self.widget_25 = QtWidgets.QWidget(self.tab_10)
-        self.widget_25.setObjectName("widget_25")
-        self.verticalLayout_31 = QtWidgets.QVBoxLayout(self.widget_25)
+        self.sourcing_register_new.setObjectName("sourcing_register_new")
+        self.verticalLayout_21.addWidget(self.sourcing_register_new)
+        self.gridLayout_47.addWidget(self.widget_63, 1, 1, 1, 1)
+        self.widget_66 = QtWidgets.QWidget(self.groupBox_13)
+        self.widget_66.setObjectName("widget_66")
+        self.verticalLayout_31 = QtWidgets.QVBoxLayout(self.widget_66)
         self.verticalLayout_31.setObjectName("verticalLayout_31")
-        self.label_41 = QtWidgets.QLabel(self.widget_25)
-        self.label_41.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label_81 = QtWidgets.QLabel(self.widget_66)
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
-        self.label_41.setFont(font)
-        self.label_41.setStyleSheet("background-color:transparent;\n"
+        self.label_81.setFont(font)
+        self.label_81.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_41.setObjectName("label_41")
-        self.verticalLayout_31.addWidget(self.label_41)
-        self.bu_register = QtWidgets.QComboBox(self.widget_25)
-        self.bu_register.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_81.setObjectName("label_81")
+        self.verticalLayout_31.addWidget(self.label_81)
+        self.sqie_register_new = QtWidgets.QComboBox(self.widget_66)
+        self.sqie_register_new.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.bu_register.setFont(font)
-        self.bu_register.setStyleSheet("QComboBox {\n"
+        self.sqie_register_new.setFont(font)
+        self.sqie_register_new.setStyleSheet("QComboBox {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
@@ -2519,120 +2753,31 @@ class Ui_MainWindow(object):
 "QComboBox::drop-down {\n"
 "    width: 0;\n"
 "}")
-        self.bu_register.setObjectName("bu_register")
-        self.verticalLayout_31.addWidget(self.bu_register)
-        self.gridLayout_9.addWidget(self.widget_25, 1, 7, 1, 3)
-        self.widget_26 = QtWidgets.QWidget(self.tab_10)
-        self.widget_26.setMaximumSize(QtCore.QSize(100, 16777215))
-        self.widget_26.setObjectName("widget_26")
-        self.verticalLayout_29 = QtWidgets.QVBoxLayout(self.widget_26)
+        self.sqie_register_new.setObjectName("sqie_register_new")
+        self.verticalLayout_31.addWidget(self.sqie_register_new)
+        self.gridLayout_47.addWidget(self.widget_66, 0, 1, 1, 1)
+        self.widget_64 = QtWidgets.QWidget(self.groupBox_13)
+        self.widget_64.setObjectName("widget_64")
+        self.verticalLayout_29 = QtWidgets.QVBoxLayout(self.widget_64)
         self.verticalLayout_29.setObjectName("verticalLayout_29")
-        self.label_59 = QtWidgets.QLabel(self.widget_26)
-        self.label_59.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label_78 = QtWidgets.QLabel(self.widget_64)
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
-        self.label_59.setFont(font)
-        self.label_59.setStyleSheet("background-color:transparent;\n"
+        self.label_78.setFont(font)
+        self.label_78.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_59.setObjectName("label_59")
-        self.verticalLayout_29.addWidget(self.label_59)
-        self.id_register = QtWidgets.QLineEdit(self.widget_26)
-        self.id_register.setEnabled(True)
-        self.id_register.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_78.setObjectName("label_78")
+        self.verticalLayout_29.addWidget(self.label_78)
+        self.continuity_register_new = QtWidgets.QComboBox(self.widget_64)
+        self.continuity_register_new.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
-        self.id_register.setFont(font)
-        self.id_register.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.id_register.setText("")
-        self.id_register.setReadOnly(True)
-        self.id_register.setObjectName("id_register")
-        self.verticalLayout_29.addWidget(self.id_register)
-        self.gridLayout_9.addWidget(self.widget_26, 0, 9, 1, 1)
-        self.groupBox_5 = QtWidgets.QGroupBox(self.tab_10)
-        self.groupBox_5.setMaximumSize(QtCore.QSize(16000, 16777215))
-        self.groupBox_5.setObjectName("groupBox_5")
-        self.gridLayout_26 = QtWidgets.QGridLayout(self.groupBox_5)
-        self.gridLayout_26.setContentsMargins(-1, -1, -1, 9)
-        self.gridLayout_26.setObjectName("gridLayout_26")
-        self.scrollArea_4 = QtWidgets.QScrollArea(self.groupBox_5)
-        self.scrollArea_4.setWidgetResizable(True)
-        self.scrollArea_4.setObjectName("scrollArea_4")
-        self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 569, 312))
-        self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
-        self.verticalLayout_51 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_4)
-        self.verticalLayout_51.setObjectName("verticalLayout_51")
-        self.widget_23 = QtWidgets.QWidget(self.scrollAreaWidgetContents_4)
-        self.widget_23.setObjectName("widget_23")
-        self.verticalLayout_28 = QtWidgets.QVBoxLayout(self.widget_23)
-        self.verticalLayout_28.setObjectName("verticalLayout_28")
-        self.label_45 = QtWidgets.QLabel(self.widget_23)
-        self.label_45.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(9)
-        self.label_45.setFont(font)
-        self.label_45.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_45.setObjectName("label_45")
-        self.verticalLayout_28.addWidget(self.label_45)
-        self.supplier_register = QtWidgets.QLineEdit(self.widget_23)
-        self.supplier_register.setEnabled(True)
-        self.supplier_register.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.supplier_register.setFont(font)
-        self.supplier_register.setStyleSheet("QLineEdit {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QLineEdit:disabled, QLineEdit:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}")
-        self.supplier_register.setText("")
-        self.supplier_register.setReadOnly(False)
-        self.supplier_register.setObjectName("supplier_register")
-        self.verticalLayout_28.addWidget(self.supplier_register)
-        self.verticalLayout_51.addWidget(self.widget_23)
-        self.widget_28 = QtWidgets.QWidget(self.scrollAreaWidgetContents_4)
-        self.widget_28.setObjectName("widget_28")
-        self.verticalLayout_23 = QtWidgets.QVBoxLayout(self.widget_28)
-        self.verticalLayout_23.setObjectName("verticalLayout_23")
-        self.label_31 = QtWidgets.QLabel(self.widget_28)
-        self.label_31.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(9)
-        self.label_31.setFont(font)
-        self.label_31.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_31.setObjectName("label_31")
-        self.verticalLayout_23.addWidget(self.label_31)
-        self.sourcing_register = QtWidgets.QComboBox(self.widget_28)
-        self.sourcing_register.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.sourcing_register.setFont(font)
-        self.sourcing_register.setStyleSheet("QComboBox {\n"
+        self.continuity_register_new.setFont(font)
+        self.continuity_register_new.setStyleSheet("QComboBox {\n"
 "    border: none;\n"
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
@@ -2650,114 +2795,148 @@ class Ui_MainWindow(object):
 "QComboBox::drop-down {\n"
 "    width: 0;\n"
 "}")
-        self.sourcing_register.setObjectName("sourcing_register")
-        self.verticalLayout_23.addWidget(self.sourcing_register)
-        self.verticalLayout_51.addWidget(self.widget_28)
-        self.widget_27 = QtWidgets.QWidget(self.scrollAreaWidgetContents_4)
-        self.widget_27.setObjectName("widget_27")
-        self.verticalLayout_26 = QtWidgets.QVBoxLayout(self.widget_27)
-        self.verticalLayout_26.setObjectName("verticalLayout_26")
-        self.label_30 = QtWidgets.QLabel(self.widget_27)
-        self.label_30.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(9)
-        self.label_30.setFont(font)
-        self.label_30.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_30.setObjectName("label_30")
-        self.verticalLayout_26.addWidget(self.label_30)
-        self.sqie_register = QtWidgets.QComboBox(self.widget_27)
-        self.sqie_register.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.sqie_register.setFont(font)
-        self.sqie_register.setStyleSheet("QComboBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QComboBox:disabled, QComboBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: none;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    width: 0;\n"
-"}")
-        self.sqie_register.setObjectName("sqie_register")
-        self.verticalLayout_26.addWidget(self.sqie_register)
-        self.verticalLayout_51.addWidget(self.widget_27)
-        self.widget_29 = QtWidgets.QWidget(self.scrollAreaWidgetContents_4)
-        self.widget_29.setObjectName("widget_29")
-        self.verticalLayout_25 = QtWidgets.QVBoxLayout(self.widget_29)
-        self.verticalLayout_25.setObjectName("verticalLayout_25")
-        self.label_29 = QtWidgets.QLabel(self.widget_29)
-        self.label_29.setMaximumSize(QtCore.QSize(16777215, 30))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(9)
-        self.label_29.setFont(font)
-        self.label_29.setStyleSheet("background-color:transparent;\n"
-"color:rgb(130,130,130)")
-        self.label_29.setObjectName("label_29")
-        self.verticalLayout_25.addWidget(self.label_29)
-        self.continuity_register = QtWidgets.QComboBox(self.widget_29)
-        self.continuity_register.setMinimumSize(QtCore.QSize(0, 30))
-        font = QtGui.QFont()
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.continuity_register.setFont(font)
-        self.continuity_register.setStyleSheet("QComboBox {\n"
-"    border: none;\n"
-"    border-bottom: 1px solid rgb(90, 54, 247);\n"
-"    border-radius: 0;\n"
-"    background-color: transparent;\n"
-"}\n"
-"\n"
-"QComboBox:disabled, QComboBox:!focus {\n"
-"    border-bottom: 1px solid rgb(120, 120, 120);\n"
-"}\n"
-"\n"
-"QComboBox::down-arrow {\n"
-"    image: none;\n"
-"}\n"
-"\n"
-"QComboBox::drop-down {\n"
-"    width: 0;\n"
-"}")
-        self.continuity_register.setObjectName("continuity_register")
-        self.verticalLayout_25.addWidget(self.continuity_register)
-        self.verticalLayout_51.addWidget(self.widget_29)
-        self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_4)
-        self.gridLayout_26.addWidget(self.scrollArea_4, 0, 0, 1, 1)
-        self.gridLayout_9.addWidget(self.groupBox_5, 2, 0, 1, 7)
-        self.widget_24 = QtWidgets.QWidget(self.tab_10)
-        self.widget_24.setObjectName("widget_24")
-        self.verticalLayout_30 = QtWidgets.QVBoxLayout(self.widget_24)
+        self.continuity_register_new.setObjectName("continuity_register_new")
+        self.verticalLayout_29.addWidget(self.continuity_register_new)
+        self.gridLayout_47.addWidget(self.widget_64, 0, 2, 1, 1)
+        self.widget_65 = QtWidgets.QWidget(self.groupBox_13)
+        self.widget_65.setObjectName("widget_65")
+        self.verticalLayout_30 = QtWidgets.QVBoxLayout(self.widget_65)
         self.verticalLayout_30.setObjectName("verticalLayout_30")
-        self.label_28 = QtWidgets.QLabel(self.widget_24)
-        self.label_28.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.label_83 = QtWidgets.QLabel(self.widget_65)
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
-        self.label_28.setFont(font)
-        self.label_28.setStyleSheet("background-color:transparent;\n"
+        self.label_83.setFont(font)
+        self.label_83.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_28.setObjectName("label_28")
-        self.verticalLayout_30.addWidget(self.label_28)
-        self.new_category = QtWidgets.QComboBox(self.widget_24)
-        self.new_category.setMinimumSize(QtCore.QSize(0, 30))
+        self.label_83.setObjectName("label_83")
+        self.verticalLayout_30.addWidget(self.label_83)
+        self.planner_register_new = QtWidgets.QComboBox(self.widget_65)
+        self.planner_register_new.setMinimumSize(QtCore.QSize(0, 30))
         font = QtGui.QFont()
-        font.setPointSize(11)
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.planner_register_new.setFont(font)
+        self.planner_register_new.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.planner_register_new.setObjectName("planner_register_new")
+        self.verticalLayout_30.addWidget(self.planner_register_new)
+        self.gridLayout_47.addWidget(self.widget_65, 1, 2, 1, 1)
+        self.gridLayout_50.addWidget(self.groupBox_13, 1, 0, 1, 1)
+        self.groupBox_10 = QtWidgets.QGroupBox(self.page)
+        self.groupBox_10.setObjectName("groupBox_10")
+        self.gridLayout_23 = QtWidgets.QGridLayout(self.groupBox_10)
+        self.gridLayout_23.setObjectName("gridLayout_23")
+        self.widget_39 = QtWidgets.QWidget(self.groupBox_10)
+        self.widget_39.setObjectName("widget_39")
+        self.gridLayout_25 = QtWidgets.QGridLayout(self.widget_39)
+        self.gridLayout_25.setObjectName("gridLayout_25")
+        self.label_82 = QtWidgets.QLabel(self.widget_39)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_82.setFont(font)
+        self.label_82.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_82.setObjectName("label_82")
+        self.gridLayout_25.addWidget(self.label_82, 0, 0, 1, 1)
+        self.bu_register_new = QtWidgets.QComboBox(self.widget_39)
+        self.bu_register_new.setMinimumSize(QtCore.QSize(80, 30))
+        self.bu_register_new.setMaximumSize(QtCore.QSize(16000000, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.bu_register_new.setFont(font)
+        self.bu_register_new.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.bu_register_new.setObjectName("bu_register_new")
+        self.gridLayout_25.addWidget(self.bu_register_new, 1, 0, 1, 1)
+        self.gridLayout_23.addWidget(self.widget_39, 1, 3, 1, 1)
+        self.widget_38 = QtWidgets.QWidget(self.groupBox_10)
+        self.widget_38.setObjectName("widget_38")
+        self.gridLayout_27 = QtWidgets.QGridLayout(self.widget_38)
+        self.gridLayout_27.setObjectName("gridLayout_27")
+        self.label_97 = QtWidgets.QLabel(self.widget_38)
+        self.label_97.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_97.setObjectName("label_97")
+        self.gridLayout_27.addWidget(self.label_97, 0, 0, 1, 1)
+        self.new_supplier_number = QtWidgets.QLineEdit(self.widget_38)
+        self.new_supplier_number.setMinimumSize(QtCore.QSize(150, 30))
+        self.new_supplier_number.setMaximumSize(QtCore.QSize(150000, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_supplier_number.setFont(font)
+        self.new_supplier_number.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_supplier_number.setObjectName("new_supplier_number")
+        self.gridLayout_27.addWidget(self.new_supplier_number, 1, 0, 1, 1)
+        self.gridLayout_23.addWidget(self.widget_38, 1, 4, 1, 1)
+        self.widget_13 = QtWidgets.QWidget(self.groupBox_10)
+        self.widget_13.setObjectName("widget_13")
+        self.verticalLayout_14 = QtWidgets.QVBoxLayout(self.widget_13)
+        self.verticalLayout_14.setObjectName("verticalLayout_14")
+        self.label_72 = QtWidgets.QLabel(self.widget_13)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_72.setFont(font)
+        self.label_72.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_72.setObjectName("label_72")
+        self.verticalLayout_14.addWidget(self.label_72)
+        self.new_category = QtWidgets.QComboBox(self.widget_13)
+        self.new_category.setMinimumSize(QtCore.QSize(250, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.new_category.setFont(font)
@@ -2780,63 +2959,892 @@ class Ui_MainWindow(object):
 "    width: 0;\n"
 "}")
         self.new_category.setObjectName("new_category")
-        self.verticalLayout_30.addWidget(self.new_category)
-        self.gridLayout_9.addWidget(self.widget_24, 1, 0, 1, 7)
+        self.verticalLayout_14.addWidget(self.new_category)
+        self.gridLayout_23.addWidget(self.widget_13, 1, 0, 1, 3)
+        self.widget_53 = QtWidgets.QWidget(self.groupBox_10)
+        self.widget_53.setObjectName("widget_53")
+        self.gridLayout_21 = QtWidgets.QGridLayout(self.widget_53)
+        self.gridLayout_21.setObjectName("gridLayout_21")
+        self.supplier_status_new = QtWidgets.QComboBox(self.widget_53)
+        self.supplier_status_new.setMinimumSize(QtCore.QSize(150, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.supplier_status_new.setFont(font)
+        self.supplier_status_new.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.supplier_status_new.setObjectName("supplier_status_new")
+        self.supplier_status_new.addItem("")
+        self.supplier_status_new.setItemText(0, "")
+        self.supplier_status_new.addItem("")
+        self.supplier_status_new.addItem("")
+        self.gridLayout_21.addWidget(self.supplier_status_new, 1, 3, 1, 1)
+        self.label_76 = QtWidgets.QLabel(self.widget_53)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_76.setFont(font)
+        self.label_76.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_76.setObjectName("label_76")
+        self.gridLayout_21.addWidget(self.label_76, 0, 0, 1, 1)
+        self.vendor_register_new = QtWidgets.QLineEdit(self.widget_53)
+        self.vendor_register_new.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.vendor_register_new.setFont(font)
+        self.vendor_register_new.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.vendor_register_new.setObjectName("vendor_register_new")
+        self.gridLayout_21.addWidget(self.vendor_register_new, 1, 0, 1, 1)
+        self.supplier_register = QtWidgets.QLineEdit(self.widget_53)
+        self.supplier_register.setEnabled(True)
+        self.supplier_register.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.supplier_register.setFont(font)
+        self.supplier_register.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.supplier_register.setText("")
+        self.supplier_register.setReadOnly(False)
+        self.supplier_register.setObjectName("supplier_register")
+        self.gridLayout_21.addWidget(self.supplier_register, 1, 1, 1, 1)
+        self.label_75 = QtWidgets.QLabel(self.widget_53)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_75.setFont(font)
+        self.label_75.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_75.setObjectName("label_75")
+        self.gridLayout_21.addWidget(self.label_75, 0, 1, 1, 1)
+        self.label_98 = QtWidgets.QLabel(self.widget_53)
+        self.label_98.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_98.setObjectName("label_98")
+        self.gridLayout_21.addWidget(self.label_98, 0, 3, 1, 1)
+        self.gridLayout_23.addWidget(self.widget_53, 0, 0, 1, 5)
+        self.gridLayout_50.addWidget(self.groupBox_10, 0, 0, 1, 1)
+        self.toolBox_2.addItem(self.page, "")
+        self.page_2 = QtWidgets.QWidget()
+        self.page_2.setGeometry(QtCore.QRect(0, 0, 853, 570))
+        self.page_2.setObjectName("page_2")
+        self.gridLayout_51 = QtWidgets.QGridLayout(self.page_2)
+        self.gridLayout_51.setObjectName("gridLayout_51")
+        self.label_84 = QtWidgets.QLabel(self.page_2)
+        self.label_84.setObjectName("label_84")
+        self.gridLayout_51.addWidget(self.label_84, 0, 0, 1, 1)
+        self.email_register_new = QtWidgets.QTextEdit(self.page_2)
+        self.email_register_new.setMaximumSize(QtCore.QSize(16777215, 16000))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.email_register_new.setFont(font)
+        self.email_register_new.setStyleSheet("background:transparent;\n"
+"border: 1px solid rgb(210,210, 210);\n"
+"padding:10px\n"
+"")
+        self.email_register_new.setObjectName("email_register_new")
+        self.gridLayout_51.addWidget(self.email_register_new, 1, 0, 1, 1)
+        self.label_85 = QtWidgets.QLabel(self.page_2)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_85.setFont(font)
+        self.label_85.setObjectName("label_85")
+        self.gridLayout_51.addWidget(self.label_85, 2, 0, 1, 1)
+        self.toolBox_2.addItem(self.page_2, "")
+        self.gridLayout_49.addWidget(self.toolBox_2, 0, 0, 1, 1)
+        self.widget_58 = QtWidgets.QWidget(self.tab_14)
+        self.widget_58.setObjectName("widget_58")
+        self.gridLayout_44 = QtWidgets.QGridLayout(self.widget_58)
+        self.gridLayout_44.setObjectName("gridLayout_44")
+        self.gridLayout_49.addWidget(self.widget_58, 0, 1, 1, 1)
+        self.tabWidget_config.addTab(self.tab_14, "")
+        self.tab_10 = QtWidgets.QWidget()
+        self.tab_10.setObjectName("tab_10")
+        self.gridLayout_9 = QtWidgets.QGridLayout(self.tab_10)
+        self.gridLayout_9.setObjectName("gridLayout_9")
         self.widget_34 = QtWidgets.QWidget(self.tab_10)
         self.widget_34.setObjectName("widget_34")
         self.verticalLayout_33 = QtWidgets.QVBoxLayout(self.widget_34)
         self.verticalLayout_33.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_33.setObjectName("verticalLayout_33")
-        self.label_60 = QtWidgets.QLabel(self.widget_34)
+        self.toolBox = QtWidgets.QToolBox(self.widget_34)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(11)
+        self.toolBox.setFont(font)
+        self.toolBox.setObjectName("toolBox")
+        self.page_3 = QtWidgets.QWidget()
+        self.page_3.setGeometry(QtCore.QRect(0, 0, 885, 617))
+        self.page_3.setObjectName("page_3")
+        self.gridLayout_8 = QtWidgets.QGridLayout(self.page_3)
+        self.gridLayout_8.setObjectName("gridLayout_8")
+        self.widget_32 = QtWidgets.QWidget(self.page_3)
+        self.widget_32.setMinimumSize(QtCore.QSize(300, 300))
+        self.widget_32.setObjectName("widget_32")
+        self.gridLayout_41 = QtWidgets.QGridLayout(self.widget_32)
+        self.gridLayout_41.setObjectName("gridLayout_41")
+        self.groupBox_5 = QtWidgets.QGroupBox(self.widget_32)
+        self.groupBox_5.setMaximumSize(QtCore.QSize(16000, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        self.groupBox_5.setFont(font)
+        self.groupBox_5.setObjectName("groupBox_5")
+        self.gridLayout_26 = QtWidgets.QGridLayout(self.groupBox_5)
+        self.gridLayout_26.setObjectName("gridLayout_26")
+        self.widget_29 = QtWidgets.QWidget(self.groupBox_5)
+        self.widget_29.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_29.setObjectName("widget_29")
+        self.verticalLayout_25 = QtWidgets.QVBoxLayout(self.widget_29)
+        self.verticalLayout_25.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_25.setObjectName("verticalLayout_25")
+        self.label_29 = QtWidgets.QLabel(self.widget_29)
+        self.label_29.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_29.setMaximumSize(QtCore.QSize(16777215, 15))
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
-        self.label_60.setFont(font)
-        self.label_60.setStyleSheet("background-color:transparent;\n"
+        self.label_29.setFont(font)
+        self.label_29.setStyleSheet("background-color:transparent;\n"
 "color:rgb(130,130,130)")
-        self.label_60.setObjectName("label_60")
-        self.verticalLayout_33.addWidget(self.label_60)
-        self.table_new_contact = QtWidgets.QTableWidget(self.widget_34)
-        self.table_new_contact.setObjectName("table_new_contact")
-        self.table_new_contact.setColumnCount(3)
-        self.table_new_contact.setRowCount(14)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(4, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(5, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(6, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(7, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(8, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(9, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(10, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(11, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(12, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setVerticalHeaderItem(13, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.table_new_contact.setHorizontalHeaderItem(2, item)
-        self.table_new_contact.horizontalHeader().setDefaultSectionSize(430)
-        self.table_new_contact.verticalHeader().setVisible(False)
-        self.verticalLayout_33.addWidget(self.table_new_contact)
+        self.label_29.setObjectName("label_29")
+        self.verticalLayout_25.addWidget(self.label_29)
+        self.continuity_update = QtWidgets.QComboBox(self.widget_29)
+        self.continuity_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.continuity_update.setFont(font)
+        self.continuity_update.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.continuity_update.setObjectName("continuity_update")
+        self.verticalLayout_25.addWidget(self.continuity_update)
+        self.gridLayout_26.addWidget(self.widget_29, 0, 0, 1, 1)
+        self.widget_27 = QtWidgets.QWidget(self.groupBox_5)
+        self.widget_27.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_27.setObjectName("widget_27")
+        self.verticalLayout_26 = QtWidgets.QVBoxLayout(self.widget_27)
+        self.verticalLayout_26.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_26.setObjectName("verticalLayout_26")
+        self.label_30 = QtWidgets.QLabel(self.widget_27)
+        self.label_30.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_30.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_30.setFont(font)
+        self.label_30.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_30.setObjectName("label_30")
+        self.verticalLayout_26.addWidget(self.label_30)
+        self.sqie_update = QtWidgets.QComboBox(self.widget_27)
+        self.sqie_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.sqie_update.setFont(font)
+        self.sqie_update.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.sqie_update.setObjectName("sqie_update")
+        self.verticalLayout_26.addWidget(self.sqie_update)
+        self.gridLayout_26.addWidget(self.widget_27, 1, 0, 1, 1)
+        self.widget_28 = QtWidgets.QWidget(self.groupBox_5)
+        self.widget_28.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_28.setObjectName("widget_28")
+        self.verticalLayout_23 = QtWidgets.QVBoxLayout(self.widget_28)
+        self.verticalLayout_23.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_23.setObjectName("verticalLayout_23")
+        self.label_31 = QtWidgets.QLabel(self.widget_28)
+        self.label_31.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_31.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_31.setFont(font)
+        self.label_31.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_31.setObjectName("label_31")
+        self.verticalLayout_23.addWidget(self.label_31)
+        self.sourcing_update = QtWidgets.QComboBox(self.widget_28)
+        self.sourcing_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.sourcing_update.setFont(font)
+        self.sourcing_update.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.sourcing_update.setObjectName("sourcing_update")
+        self.verticalLayout_23.addWidget(self.sourcing_update)
+        self.gridLayout_26.addWidget(self.widget_28, 2, 0, 1, 1)
+        self.widget_23 = QtWidgets.QWidget(self.groupBox_5)
+        self.widget_23.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_23.setObjectName("widget_23")
+        self.verticalLayout_28 = QtWidgets.QVBoxLayout(self.widget_23)
+        self.verticalLayout_28.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_28.setObjectName("verticalLayout_28")
+        self.label_71 = QtWidgets.QLabel(self.widget_23)
+        self.label_71.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_71.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_71.setObjectName("label_71")
+        self.verticalLayout_28.addWidget(self.label_71)
+        self.planner_update = QtWidgets.QComboBox(self.widget_23)
+        self.planner_update.setMaximumSize(QtCore.QSize(16777215, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.planner_update.setFont(font)
+        self.planner_update.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.planner_update.setObjectName("planner_update")
+        self.verticalLayout_28.addWidget(self.planner_update)
+        self.gridLayout_26.addWidget(self.widget_23, 3, 0, 1, 1)
+        self.gridLayout_41.addWidget(self.groupBox_5, 1, 0, 1, 1)
+        self.groupBox_6 = QtWidgets.QGroupBox(self.widget_32)
+        self.groupBox_6.setMinimumSize(QtCore.QSize(0, 0))
+        self.groupBox_6.setMaximumSize(QtCore.QSize(400, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        self.groupBox_6.setFont(font)
+        self.groupBox_6.setObjectName("groupBox_6")
+        self.gridLayout_28 = QtWidgets.QGridLayout(self.groupBox_6)
+        self.gridLayout_28.setContentsMargins(9, 9, -1, 9)
+        self.gridLayout_28.setHorizontalSpacing(7)
+        self.gridLayout_28.setVerticalSpacing(6)
+        self.gridLayout_28.setObjectName("gridLayout_28")
+        self.widget_300 = QtWidgets.QWidget(self.groupBox_6)
+        self.widget_300.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_300.setObjectName("widget_300")
+        self.verticalLayout_22 = QtWidgets.QVBoxLayout(self.widget_300)
+        self.verticalLayout_22.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_22.setObjectName("verticalLayout_22")
+        self.label_49 = QtWidgets.QLabel(self.widget_300)
+        self.label_49.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_49.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_49.setFont(font)
+        self.label_49.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_49.setObjectName("label_49")
+        self.verticalLayout_22.addWidget(self.label_49)
+        self.ssid_update = QtWidgets.QLineEdit(self.widget_300)
+        self.ssid_update.setEnabled(True)
+        self.ssid_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.ssid_update.setFont(font)
+        self.ssid_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.ssid_update.setText("")
+        self.ssid_update.setReadOnly(False)
+        self.ssid_update.setObjectName("ssid_update")
+        self.verticalLayout_22.addWidget(self.ssid_update)
+        self.gridLayout_28.addWidget(self.widget_300, 1, 0, 1, 1)
+        self.widget_33 = QtWidgets.QWidget(self.groupBox_6)
+        self.widget_33.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_33.setObjectName("widget_33")
+        self.verticalLayout_27 = QtWidgets.QVBoxLayout(self.widget_33)
+        self.verticalLayout_27.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_27.setObjectName("verticalLayout_27")
+        self.label_52 = QtWidgets.QLabel(self.widget_33)
+        self.label_52.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_52.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_52.setFont(font)
+        self.label_52.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_52.setObjectName("label_52")
+        self.verticalLayout_27.addWidget(self.label_52)
+        self.document_update = QtWidgets.QLineEdit(self.widget_33)
+        self.document_update.setEnabled(True)
+        self.document_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.document_update.setFont(font)
+        self.document_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.document_update.setText("")
+        self.document_update.setReadOnly(False)
+        self.document_update.setObjectName("document_update")
+        self.verticalLayout_27.addWidget(self.document_update)
+        self.gridLayout_28.addWidget(self.widget_33, 0, 0, 1, 1)
+        self.widget_320 = QtWidgets.QWidget(self.groupBox_6)
+        self.widget_320.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_320.setObjectName("widget_320")
+        self.verticalLayout_32 = QtWidgets.QVBoxLayout(self.widget_320)
+        self.verticalLayout_32.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_32.setObjectName("verticalLayout_32")
+        self.label_51 = QtWidgets.QLabel(self.widget_320)
+        self.label_51.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_51.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_51.setFont(font)
+        self.label_51.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_51.setObjectName("label_51")
+        self.verticalLayout_32.addWidget(self.label_51)
+        self.region_update = QtWidgets.QLineEdit(self.widget_320)
+        self.region_update.setEnabled(True)
+        self.region_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.region_update.setFont(font)
+        self.region_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.region_update.setText("")
+        self.region_update.setReadOnly(False)
+        self.region_update.setObjectName("region_update")
+        self.verticalLayout_32.addWidget(self.region_update)
+        self.gridLayout_28.addWidget(self.widget_320, 2, 0, 1, 1)
+        self.widget_310 = QtWidgets.QWidget(self.groupBox_6)
+        self.widget_310.setMinimumSize(QtCore.QSize(0, 69))
+        self.widget_310.setObjectName("widget_310")
+        self.verticalLayout_24 = QtWidgets.QVBoxLayout(self.widget_310)
+        self.verticalLayout_24.setContentsMargins(0, -1, 0, -1)
+        self.verticalLayout_24.setObjectName("verticalLayout_24")
+        self.label_50 = QtWidgets.QLabel(self.widget_310)
+        self.label_50.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_50.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_50.setFont(font)
+        self.label_50.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_50.setObjectName("label_50")
+        self.verticalLayout_24.addWidget(self.label_50)
+        self.country_update = QtWidgets.QLineEdit(self.widget_310)
+        self.country_update.setEnabled(True)
+        self.country_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.country_update.setFont(font)
+        self.country_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.country_update.setText("")
+        self.country_update.setReadOnly(False)
+        self.country_update.setObjectName("country_update")
+        self.verticalLayout_24.addWidget(self.country_update)
+        self.gridLayout_28.addWidget(self.widget_310, 3, 0, 1, 1)
+        self.gridLayout_41.addWidget(self.groupBox_6, 1, 1, 1, 1)
+        self.gridLayout_8.addWidget(self.widget_32, 1, 0, 1, 4)
+        self.widget_30 = QtWidgets.QWidget(self.page_3)
+        self.widget_30.setMinimumSize(QtCore.QSize(200, 200))
+        self.widget_30.setObjectName("widget_30")
+        self.gridLayout_40 = QtWidgets.QGridLayout(self.widget_30)
+        self.gridLayout_40.setObjectName("gridLayout_40")
+        self.groupBox_9 = QtWidgets.QGroupBox(self.widget_30)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        self.groupBox_9.setFont(font)
+        self.groupBox_9.setObjectName("groupBox_9")
+        self.gridLayout_13 = QtWidgets.QGridLayout(self.groupBox_9)
+        self.gridLayout_13.setObjectName("gridLayout_13")
+        self.widget_11 = QtWidgets.QWidget(self.groupBox_9)
+        self.widget_11.setMinimumSize(QtCore.QSize(150, 69))
+        self.widget_11.setMaximumSize(QtCore.QSize(80, 69))
+        self.widget_11.setObjectName("widget_11")
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.widget_11)
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.label_42 = QtWidgets.QLabel(self.widget_11)
+        self.label_42.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_42.setSizeIncrement(QtCore.QSize(0, 17))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_42.setFont(font)
+        self.label_42.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_42.setObjectName("label_42")
+        self.verticalLayout_9.addWidget(self.label_42)
+        self.supplier_status_update = QtWidgets.QComboBox(self.widget_11)
+        self.supplier_status_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.supplier_status_update.setFont(font)
+        self.supplier_status_update.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.supplier_status_update.setObjectName("supplier_status_update")
+        self.supplier_status_update.addItem("")
+        self.supplier_status_update.setItemText(0, "")
+        self.supplier_status_update.addItem("")
+        self.supplier_status_update.addItem("")
+        self.verticalLayout_9.addWidget(self.supplier_status_update)
+        self.gridLayout_13.addWidget(self.widget_11, 0, 4, 1, 1)
+        self.widget_5 = QtWidgets.QWidget(self.groupBox_9)
+        self.widget_5.setMinimumSize(QtCore.QSize(80, 69))
+        self.widget_5.setMaximumSize(QtCore.QSize(80, 69))
+        self.widget_5.setObjectName("widget_5")
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.widget_5)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.label_41 = QtWidgets.QLabel(self.widget_5)
+        self.label_41.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_41.setSizeIncrement(QtCore.QSize(0, 17))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_41.setFont(font)
+        self.label_41.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_41.setObjectName("label_41")
+        self.verticalLayout_8.addWidget(self.label_41)
+        self.bu_update = QtWidgets.QComboBox(self.widget_5)
+        self.bu_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.bu_update.setFont(font)
+        self.bu_update.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.bu_update.setObjectName("bu_update")
+        self.verticalLayout_8.addWidget(self.bu_update)
+        self.gridLayout_13.addWidget(self.widget_5, 0, 6, 1, 1)
+        self.widget_14 = QtWidgets.QWidget(self.groupBox_9)
+        self.widget_14.setMinimumSize(QtCore.QSize(80, 69))
+        self.widget_14.setMaximumSize(QtCore.QSize(80, 69))
+        self.widget_14.setObjectName("widget_14")
+        self.gridLayout_22 = QtWidgets.QGridLayout(self.widget_14)
+        self.gridLayout_22.setObjectName("gridLayout_22")
+        self.id_update = QtWidgets.QLineEdit(self.widget_14)
+        self.id_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.id_update.setFont(font)
+        self.id_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.id_update.setObjectName("id_update")
+        self.gridLayout_22.addWidget(self.id_update, 1, 0, 1, 1)
+        self.label_14 = QtWidgets.QLabel(self.widget_14)
+        self.label_14.setMaximumSize(QtCore.QSize(16777215, 18))
+        self.label_14.setObjectName("label_14")
+        self.gridLayout_22.addWidget(self.label_14, 0, 0, 1, 1)
+        self.gridLayout_13.addWidget(self.widget_14, 0, 5, 1, 1)
+        self.widget_15 = QtWidgets.QWidget(self.groupBox_9)
+        self.widget_15.setObjectName("widget_15")
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.widget_15)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.label_28 = QtWidgets.QLabel(self.widget_15)
+        self.label_28.setMinimumSize(QtCore.QSize(0, 0))
+        self.label_28.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_28.setSizeIncrement(QtCore.QSize(0, 17))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_28.setFont(font)
+        self.label_28.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_28.setObjectName("label_28")
+        self.verticalLayout_11.addWidget(self.label_28)
+        self.category_update = QtWidgets.QComboBox(self.widget_15)
+        self.category_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.category_update.setFont(font)
+        self.category_update.setStyleSheet("QComboBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QComboBox:disabled, QComboBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow {\n"
+"    image: none;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    width: 0;\n"
+"}")
+        self.category_update.setObjectName("category_update")
+        self.verticalLayout_11.addWidget(self.category_update)
+        self.gridLayout_13.addWidget(self.widget_15, 1, 4, 1, 3)
+        self.widget_3 = QtWidgets.QWidget(self.groupBox_9)
+        self.widget_3.setMinimumSize(QtCore.QSize(150, 0))
+        self.widget_3.setObjectName("widget_3")
+        self.gridLayout_15 = QtWidgets.QGridLayout(self.widget_3)
+        self.gridLayout_15.setObjectName("gridLayout_15")
+        self.label_27 = QtWidgets.QLabel(self.widget_3)
+        self.label_27.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_27.setSizeIncrement(QtCore.QSize(0, 17))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_27.setFont(font)
+        self.label_27.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_27.setObjectName("label_27")
+        self.gridLayout_15.addWidget(self.label_27, 0, 0, 1, 1)
+        self.vendor_update = QtWidgets.QLineEdit(self.widget_3)
+        self.vendor_update.setEnabled(True)
+        self.vendor_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.vendor_update.setFont(font)
+        self.vendor_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.vendor_update.setText("")
+        self.vendor_update.setReadOnly(False)
+        self.vendor_update.setObjectName("vendor_update")
+        self.gridLayout_15.addWidget(self.vendor_update, 1, 0, 1, 1)
+        self.btn_vendor_register = QtWidgets.QPushButton(self.widget_3)
+        self.btn_vendor_register.setMinimumSize(QtCore.QSize(30, 30))
+        self.btn_vendor_register.setMaximumSize(QtCore.QSize(30, 30))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.btn_vendor_register.setFont(font)
+        self.btn_vendor_register.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_vendor_register.setStyleSheet("background-color:transparent")
+        self.btn_vendor_register.setObjectName("btn_vendor_register")
+        self.gridLayout_15.addWidget(self.btn_vendor_register, 1, 1, 1, 1)
+        self.gridLayout_13.addWidget(self.widget_3, 0, 0, 1, 4)
+        self.widget_12 = QtWidgets.QWidget(self.groupBox_9)
+        self.widget_12.setObjectName("widget_12")
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.widget_12)
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.label_45 = QtWidgets.QLabel(self.widget_12)
+        self.label_45.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_45.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI")
+        font.setPointSize(9)
+        self.label_45.setFont(font)
+        self.label_45.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_45.setObjectName("label_45")
+        self.verticalLayout_10.addWidget(self.label_45)
+        self.supplier_update = QtWidgets.QLineEdit(self.widget_12)
+        self.supplier_update.setEnabled(True)
+        self.supplier_update.setMinimumSize(QtCore.QSize(0, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.supplier_update.setFont(font)
+        self.supplier_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.supplier_update.setText("")
+        self.supplier_update.setReadOnly(False)
+        self.supplier_update.setObjectName("supplier_update")
+        self.verticalLayout_10.addWidget(self.supplier_update)
+        self.gridLayout_13.addWidget(self.widget_12, 1, 0, 1, 1)
+        self.widget_22 = QtWidgets.QWidget(self.groupBox_9)
+        self.widget_22.setObjectName("widget_22")
+        self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.widget_22)
+        self.verticalLayout_13.setObjectName("verticalLayout_13")
+        self.label_96 = QtWidgets.QLabel(self.widget_22)
+        self.label_96.setMaximumSize(QtCore.QSize(16777215, 17))
+        self.label_96.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_96.setObjectName("label_96")
+        self.verticalLayout_13.addWidget(self.label_96)
+        self.supplier_number_update = QtWidgets.QLineEdit(self.widget_22)
+        self.supplier_number_update.setMinimumSize(QtCore.QSize(0, 30))
+        self.supplier_number_update.setMaximumSize(QtCore.QSize(10000, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.supplier_number_update.setFont(font)
+        self.supplier_number_update.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.supplier_number_update.setObjectName("supplier_number_update")
+        self.verticalLayout_13.addWidget(self.supplier_number_update)
+        self.gridLayout_13.addWidget(self.widget_22, 1, 2, 1, 2)
+        self.gridLayout_40.addWidget(self.groupBox_9, 2, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.widget_30, 0, 0, 1, 4)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_8.addItem(spacerItem7, 8, 2, 1, 2)
+        self.toolBox.addItem(self.page_3, "")
+        self.page_5 = QtWidgets.QWidget()
+        self.page_5.setGeometry(QtCore.QRect(0, 0, 881, 613))
+        self.page_5.setObjectName("page_5")
+        self.gridLayout_38 = QtWidgets.QGridLayout(self.page_5)
+        self.gridLayout_38.setObjectName("gridLayout_38")
+        self.email_update = QtWidgets.QTextEdit(self.page_5)
+        self.email_update.setMaximumSize(QtCore.QSize(16777215, 16000))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.email_update.setFont(font)
+        self.email_update.setStyleSheet("background:transparent;\n"
+"border: 1px solid rgb(210,210, 210);\n"
+"padding:10px\n"
+"")
+        self.email_update.setObjectName("email_update")
+        self.gridLayout_38.addWidget(self.email_update, 1, 0, 1, 1)
+        self.label_11 = QtWidgets.QLabel(self.page_5)
+        self.label_11.setObjectName("label_11")
+        self.gridLayout_38.addWidget(self.label_11, 0, 0, 1, 1)
+        self.label_43 = QtWidgets.QLabel(self.page_5)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_43.setFont(font)
+        self.label_43.setObjectName("label_43")
+        self.gridLayout_38.addWidget(self.label_43, 2, 0, 1, 1)
+        self.toolBox.addItem(self.page_5, "")
+        self.verticalLayout_33.addWidget(self.toolBox)
         self.widget_57 = QtWidgets.QWidget(self.widget_34)
         self.widget_57.setMinimumSize(QtCore.QSize(0, 40))
         self.widget_57.setMaximumSize(QtCore.QSize(16777215, 16000))
@@ -2866,39 +3874,30 @@ class Ui_MainWindow(object):
         self.btn_clear_new_register.setFont(font)
         self.btn_clear_new_register.setObjectName("btn_clear_new_register")
         self.horizontalLayout_3.addWidget(self.btn_clear_new_register)
-        self.btn_register_new_supplier = QtWidgets.QPushButton(self.widget_57)
-        self.btn_register_new_supplier.setMinimumSize(QtCore.QSize(80, 0))
-        self.btn_register_new_supplier.setMaximumSize(QtCore.QSize(80, 16777215))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_register_new_supplier.setFont(font)
-        self.btn_register_new_supplier.setObjectName("btn_register_new_supplier")
-        self.horizontalLayout_3.addWidget(self.btn_register_new_supplier)
         self.verticalLayout_33.addWidget(self.widget_57, 0, QtCore.Qt.AlignRight)
-        self.gridLayout_9.addWidget(self.widget_34, 4, 0, 1, 10)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.gridLayout_9.addItem(spacerItem3, 3, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.widget_34, 1, 0, 1, 1)
         self.tabWidget_config.addTab(self.tab_10, "")
         self.tab_11 = QtWidgets.QWidget()
         self.tab_11.setObjectName("tab_11")
-        self.gridLayout_30 = QtWidgets.QGridLayout(self.tab_11)
+        self.gridLayout_32 = QtWidgets.QGridLayout(self.tab_11)
+        self.gridLayout_32.setObjectName("gridLayout_32")
+        self.scrollArea_6 = QtWidgets.QScrollArea(self.tab_11)
+        self.scrollArea_6.setWidgetResizable(True)
+        self.scrollArea_6.setObjectName("scrollArea_6")
+        self.scrollAreaWidgetContents_6 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_6.setGeometry(QtCore.QRect(0, 0, 887, 729))
+        self.scrollAreaWidgetContents_6.setObjectName("scrollAreaWidgetContents_6")
+        self.gridLayout_30 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_6)
         self.gridLayout_30.setObjectName("gridLayout_30")
-        self.widget_30 = QtWidgets.QWidget(self.tab_11)
-        self.widget_30.setObjectName("widget_30")
-        self.btn_add_continuity = QtWidgets.QPushButton(self.widget_30)
-        self.btn_add_continuity.setGeometry(QtCore.QRect(222, 276, 157, 37))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_add_continuity.setFont(font)
-        self.btn_add_continuity.setObjectName("btn_add_continuity")
-        self.btn_add_bu = QtWidgets.QPushButton(self.widget_30)
-        self.btn_add_bu.setGeometry(QtCore.QRect(222, 132, 157, 37))
+        spacerItem8 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_30.addItem(spacerItem8, 5, 0, 1, 1)
+        self.label_58 = QtWidgets.QLabel(self.scrollAreaWidgetContents_6)
+        self.label_58.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_58.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_58.setObjectName("label_58")
+        self.gridLayout_30.addWidget(self.label_58, 3, 0, 1, 1)
+        self.btn_add_bu = QtWidgets.QPushButton(self.scrollAreaWidgetContents_6)
+        self.btn_add_bu.setMaximumSize(QtCore.QSize(75, 28))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(11)
@@ -2906,8 +3905,16 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btn_add_bu.setFont(font)
         self.btn_add_bu.setObjectName("btn_add_bu")
-        self.btn_add_category = QtWidgets.QPushButton(self.widget_30)
-        self.btn_add_category.setGeometry(QtCore.QRect(222, 84, 157, 37))
+        self.gridLayout_30.addWidget(self.btn_add_bu, 4, 2, 1, 1)
+        self.label = QtWidgets.QLabel(self.scrollAreaWidgetContents_6)
+        self.label.setMinimumSize(QtCore.QSize(0, 15))
+        self.label.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label.setObjectName("label")
+        self.gridLayout_30.addWidget(self.label, 0, 0, 1, 1)
+        spacerItem9 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_30.addItem(spacerItem9, 2, 0, 1, 1)
+        self.btn_add_category = QtWidgets.QPushButton(self.scrollAreaWidgetContents_6)
+        self.btn_add_category.setMaximumSize(QtCore.QSize(75, 28))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(11)
@@ -2915,8 +3922,237 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btn_add_category.setFont(font)
         self.btn_add_category.setObjectName("btn_add_category")
-        self.btn_add_sourcing = QtWidgets.QPushButton(self.widget_30)
-        self.btn_add_sourcing.setGeometry(QtCore.QRect(222, 180, 157, 37))
+        self.gridLayout_30.addWidget(self.btn_add_category, 1, 2, 1, 1)
+        self.groupBox_8 = QtWidgets.QGroupBox(self.scrollAreaWidgetContents_6)
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.groupBox_8.setFont(font)
+        self.groupBox_8.setObjectName("groupBox_8")
+        self.gridLayout_33 = QtWidgets.QGridLayout(self.groupBox_8)
+        self.gridLayout_33.setContentsMargins(9, 15, -1, -1)
+        self.gridLayout_33.setObjectName("gridLayout_33")
+        self.scrollArea_7 = QtWidgets.QScrollArea(self.groupBox_8)
+        self.scrollArea_7.setWidgetResizable(True)
+        self.scrollArea_7.setObjectName("scrollArea_7")
+        self.scrollAreaWidgetContents_7 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 837, 356))
+        self.scrollAreaWidgetContents_7.setObjectName("scrollAreaWidgetContents_7")
+        self.gridLayout_34 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_7)
+        self.gridLayout_34.setObjectName("gridLayout_34")
+        self.label_60 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_60.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_60.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_60.setObjectName("label_60")
+        self.gridLayout_34.addWidget(self.label_60, 10, 2, 1, 1)
+        self.btn_add_planner = QtWidgets.QPushButton(self.scrollAreaWidgetContents_7)
+        self.btn_add_planner.setMaximumSize(QtCore.QSize(75, 28))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btn_add_planner.setFont(font)
+        self.btn_add_planner.setObjectName("btn_add_planner")
+        self.gridLayout_34.addWidget(self.btn_add_planner, 11, 3, 1, 1)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_34.addItem(spacerItem10, 9, 0, 1, 1)
+        self.label_65 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_65.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_65.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_65.setObjectName("label_65")
+        self.gridLayout_34.addWidget(self.label_65, 10, 0, 1, 1)
+        self.new_sourcing_email = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_sourcing_email.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_sourcing_email.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_sourcing_email.setFont(font)
+        self.new_sourcing_email.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_sourcing_email.setObjectName("new_sourcing_email")
+        self.gridLayout_34.addWidget(self.new_sourcing_email, 2, 2, 1, 1)
+        self.new_sourcing = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_sourcing.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_sourcing.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_sourcing.setFont(font)
+        self.new_sourcing.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_sourcing.setObjectName("new_sourcing")
+        self.gridLayout_34.addWidget(self.new_sourcing, 2, 0, 1, 1)
+        self.new_sqe = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_sqe.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_sqe.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_sqe.setFont(font)
+        self.new_sqe.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_sqe.setObjectName("new_sqe")
+        self.gridLayout_34.addWidget(self.new_sqe, 5, 0, 1, 1)
+        self.new_sqe_email = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_sqe_email.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_sqe_email.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_sqe_email.setFont(font)
+        self.new_sqe_email.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_sqe_email.setObjectName("new_sqe_email")
+        self.gridLayout_34.addWidget(self.new_sqe_email, 5, 2, 1, 1)
+        self.new_planner_email = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_planner_email.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_planner_email.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_planner_email.setFont(font)
+        self.new_planner_email.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_planner_email.setObjectName("new_planner_email")
+        self.gridLayout_34.addWidget(self.new_planner_email, 11, 2, 1, 1)
+        self.new_continuity = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_continuity.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_continuity.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_continuity.setFont(font)
+        self.new_continuity.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_continuity.setObjectName("new_continuity")
+        self.gridLayout_34.addWidget(self.new_continuity, 8, 0, 1, 1)
+        self.new_continuity_email = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_continuity_email.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_continuity_email.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_continuity_email.setFont(font)
+        self.new_continuity_email.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_continuity_email.setObjectName("new_continuity_email")
+        self.gridLayout_34.addWidget(self.new_continuity_email, 8, 2, 1, 1)
+        self.new_planner = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_planner.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_planner.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_planner.setFont(font)
+        self.new_planner.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_planner.setObjectName("new_planner")
+        self.gridLayout_34.addWidget(self.new_planner, 11, 0, 1, 1)
+        self.label_62 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_62.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_62.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_62.setObjectName("label_62")
+        self.gridLayout_34.addWidget(self.label_62, 1, 0, 1, 1)
+        spacerItem11 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_34.addItem(spacerItem11, 0, 0, 1, 1)
+        self.label_63 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_63.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_63.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_63.setObjectName("label_63")
+        self.gridLayout_34.addWidget(self.label_63, 4, 0, 1, 1)
+        self.label_68 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_68.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_68.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_68.setObjectName("label_68")
+        self.gridLayout_34.addWidget(self.label_68, 1, 2, 1, 1)
+        spacerItem12 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_34.addItem(spacerItem12, 3, 0, 1, 1)
+        self.btn_add_sourcing = QtWidgets.QPushButton(self.scrollAreaWidgetContents_7)
+        self.btn_add_sourcing.setMaximumSize(QtCore.QSize(75, 28))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(11)
@@ -2924,8 +4160,21 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btn_add_sourcing.setFont(font)
         self.btn_add_sourcing.setObjectName("btn_add_sourcing")
-        self.btn_add_sqie = QtWidgets.QPushButton(self.widget_30)
-        self.btn_add_sqie.setGeometry(QtCore.QRect(222, 228, 157, 37))
+        self.gridLayout_34.addWidget(self.btn_add_sourcing, 2, 3, 1, 1)
+        self.label_67 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_67.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_67.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_67.setObjectName("label_67")
+        self.gridLayout_34.addWidget(self.label_67, 4, 2, 1, 1)
+        spacerItem13 = QtWidgets.QSpacerItem(20, 30, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout_34.addItem(spacerItem13, 6, 0, 1, 1)
+        self.label_64 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_64.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_64.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_64.setObjectName("label_64")
+        self.gridLayout_34.addWidget(self.label_64, 7, 0, 1, 1)
+        self.btn_add_sqie = QtWidgets.QPushButton(self.scrollAreaWidgetContents_7)
+        self.btn_add_sqie.setMaximumSize(QtCore.QSize(75, 28))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(11)
@@ -2933,61 +4182,734 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.btn_add_sqie.setFont(font)
         self.btn_add_sqie.setObjectName("btn_add_sqie")
-        self.gridLayout_30.addWidget(self.widget_30, 0, 0, 1, 1)
+        self.gridLayout_34.addWidget(self.btn_add_sqie, 5, 3, 1, 1)
+        self.btn_add_continuity = QtWidgets.QPushButton(self.scrollAreaWidgetContents_7)
+        self.btn_add_continuity.setMaximumSize(QtCore.QSize(75, 28))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btn_add_continuity.setFont(font)
+        self.btn_add_continuity.setObjectName("btn_add_continuity")
+        self.gridLayout_34.addWidget(self.btn_add_continuity, 8, 3, 1, 1)
+        self.label_66 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_66.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_66.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.label_66.setObjectName("label_66")
+        self.gridLayout_34.addWidget(self.label_66, 7, 2, 1, 1)
+        self.new_alias_sourcing = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_alias_sourcing.setMinimumSize(QtCore.QSize(100, 28))
+        self.new_alias_sourcing.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_alias_sourcing.setFont(font)
+        self.new_alias_sourcing.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_alias_sourcing.setObjectName("new_alias_sourcing")
+        self.gridLayout_34.addWidget(self.new_alias_sourcing, 2, 1, 1, 1)
+        self.new_alias_sqie = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_alias_sqie.setMinimumSize(QtCore.QSize(100, 28))
+        self.new_alias_sqie.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_alias_sqie.setFont(font)
+        self.new_alias_sqie.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_alias_sqie.setObjectName("new_alias_sqie")
+        self.gridLayout_34.addWidget(self.new_alias_sqie, 5, 1, 1, 1)
+        self.new_alias_continuity = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_alias_continuity.setMinimumSize(QtCore.QSize(100, 28))
+        self.new_alias_continuity.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_alias_continuity.setFont(font)
+        self.new_alias_continuity.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_alias_continuity.setObjectName("new_alias_continuity")
+        self.gridLayout_34.addWidget(self.new_alias_continuity, 8, 1, 1, 1)
+        self.new_alias_planner = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_7)
+        self.new_alias_planner.setMinimumSize(QtCore.QSize(100, 28))
+        self.new_alias_planner.setMaximumSize(QtCore.QSize(100, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_alias_planner.setFont(font)
+        self.new_alias_planner.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_alias_planner.setObjectName("new_alias_planner")
+        self.gridLayout_34.addWidget(self.new_alias_planner, 11, 1, 1, 1)
+        self.label_70 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_70.setObjectName("label_70")
+        self.gridLayout_34.addWidget(self.label_70, 1, 1, 1, 1)
+        self.label_93 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_93.setObjectName("label_93")
+        self.gridLayout_34.addWidget(self.label_93, 4, 1, 1, 1)
+        self.label_94 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_94.setObjectName("label_94")
+        self.gridLayout_34.addWidget(self.label_94, 7, 1, 1, 1)
+        self.label_95 = QtWidgets.QLabel(self.scrollAreaWidgetContents_7)
+        self.label_95.setObjectName("label_95")
+        self.gridLayout_34.addWidget(self.label_95, 10, 1, 1, 1)
+        self.scrollArea_7.setWidget(self.scrollAreaWidgetContents_7)
+        self.gridLayout_33.addWidget(self.scrollArea_7, 9, 1, 1, 1)
+        self.gridLayout_30.addWidget(self.groupBox_8, 6, 0, 2, 3, QtCore.Qt.AlignTop)
+        self.new_bu = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_6)
+        self.new_bu.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_bu.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_bu.setFont(font)
+        self.new_bu.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_bu.setObjectName("new_bu")
+        self.gridLayout_30.addWidget(self.new_bu, 4, 0, 1, 2)
+        self.new_category_2 = QtWidgets.QLineEdit(self.scrollAreaWidgetContents_6)
+        self.new_category_2.setMinimumSize(QtCore.QSize(0, 28))
+        self.new_category_2.setMaximumSize(QtCore.QSize(16777215, 28))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_category_2.setFont(font)
+        self.new_category_2.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.new_category_2.setObjectName("new_category_2")
+        self.gridLayout_30.addWidget(self.new_category_2, 1, 0, 1, 2)
+        self.scrollArea_6.setWidget(self.scrollAreaWidgetContents_6)
+        self.gridLayout_32.addWidget(self.scrollArea_6, 0, 0, 1, 1)
         self.tabWidget_config.addTab(self.tab_11, "")
-        self.gridLayout_5.addWidget(self.tabWidget_config, 0, 1, 2, 1)
+        self.tab_9 = QtWidgets.QWidget()
+        self.tab_9.setObjectName("tab_9")
+        self.gridLayout_37 = QtWidgets.QGridLayout(self.tab_9)
+        self.gridLayout_37.setObjectName("gridLayout_37")
+        self.widget_25 = QtWidgets.QWidget(self.tab_9)
+        self.widget_25.setObjectName("widget_25")
+        self.gridLayout_36 = QtWidgets.QGridLayout(self.widget_25)
+        self.gridLayout_36.setObjectName("gridLayout_36")
+        self.widget_20 = QtWidgets.QWidget(self.widget_25)
+        self.widget_20.setObjectName("widget_20")
+        self.verticalLayout_17 = QtWidgets.QVBoxLayout(self.widget_20)
+        self.verticalLayout_17.setObjectName("verticalLayout_17")
+        self.label_33 = QtWidgets.QLabel(self.widget_20)
+        self.label_33.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_33.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_33.setFont(font)
+        self.label_33.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_33.setObjectName("label_33")
+        self.verticalLayout_17.addWidget(self.label_33)
+        self.nil_criteria = QtWidgets.QSpinBox(self.widget_20)
+        self.nil_criteria.setEnabled(False)
+        self.nil_criteria.setMinimumSize(QtCore.QSize(0, 30))
+        self.nil_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.nil_criteria.setFont(font)
+        self.nil_criteria.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color:transparent\n"
+";\n"
+"}\n"
+"\n"
+"QSpinBox:disabled, QSpinBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.nil_criteria.setReadOnly(False)
+        self.nil_criteria.setMaximum(10)
+        self.nil_criteria.setProperty("value", 0)
+        self.nil_criteria.setObjectName("nil_criteria")
+        self.verticalLayout_17.addWidget(self.nil_criteria)
+        self.gridLayout_36.addWidget(self.widget_20, 0, 0, 1, 1)
+        self.widget_21 = QtWidgets.QWidget(self.widget_25)
+        self.widget_21.setObjectName("widget_21")
+        self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.widget_21)
+        self.verticalLayout_18.setObjectName("verticalLayout_18")
+        self.label_32 = QtWidgets.QLabel(self.widget_21)
+        self.label_32.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_32.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_32.setFont(font)
+        self.label_32.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_32.setObjectName("label_32")
+        self.verticalLayout_18.addWidget(self.label_32)
+        self.quality_pickup_criteria = QtWidgets.QSpinBox(self.widget_21)
+        self.quality_pickup_criteria.setEnabled(False)
+        self.quality_pickup_criteria.setMinimumSize(QtCore.QSize(0, 30))
+        self.quality_pickup_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.quality_pickup_criteria.setFont(font)
+        self.quality_pickup_criteria.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color:transparent\n"
+";\n"
+"}\n"
+"\n"
+"QSpinBox:disabled, QSpinBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.quality_pickup_criteria.setReadOnly(False)
+        self.quality_pickup_criteria.setMaximum(10)
+        self.quality_pickup_criteria.setProperty("value", 0)
+        self.quality_pickup_criteria.setObjectName("quality_pickup_criteria")
+        self.verticalLayout_18.addWidget(self.quality_pickup_criteria)
+        self.gridLayout_36.addWidget(self.widget_21, 1, 0, 1, 1)
+        self.widget_19 = QtWidgets.QWidget(self.widget_25)
+        self.widget_19.setObjectName("widget_19")
+        self.verticalLayout_16 = QtWidgets.QVBoxLayout(self.widget_19)
+        self.verticalLayout_16.setObjectName("verticalLayout_16")
+        self.label_35 = QtWidgets.QLabel(self.widget_19)
+        self.label_35.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_35.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_35.setFont(font)
+        self.label_35.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_35.setObjectName("label_35")
+        self.verticalLayout_16.addWidget(self.label_35)
+        self.quality_packege_criteria = QtWidgets.QSpinBox(self.widget_19)
+        self.quality_packege_criteria.setEnabled(False)
+        self.quality_packege_criteria.setMinimumSize(QtCore.QSize(0, 30))
+        self.quality_packege_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.quality_packege_criteria.setFont(font)
+        self.quality_packege_criteria.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color:transparent\n"
+";\n"
+"}\n"
+"\n"
+"QSpinBox:disabled, QSpinBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.quality_packege_criteria.setReadOnly(False)
+        self.quality_packege_criteria.setMaximum(10)
+        self.quality_packege_criteria.setProperty("value", 0)
+        self.quality_packege_criteria.setObjectName("quality_packege_criteria")
+        self.verticalLayout_16.addWidget(self.quality_packege_criteria)
+        self.gridLayout_36.addWidget(self.widget_19, 2, 0, 1, 1)
+        self.widget_24 = QtWidgets.QWidget(self.widget_25)
+        self.widget_24.setObjectName("widget_24")
+        self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.widget_24)
+        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        self.widget_18 = QtWidgets.QWidget(self.widget_24)
+        self.widget_18.setMaximumSize(QtCore.QSize(160, 16777215))
+        self.widget_18.setObjectName("widget_18")
+        self.gridLayout_7 = QtWidgets.QGridLayout(self.widget_18)
+        self.gridLayout_7.setObjectName("gridLayout_7")
+        self.btn_update_criteria = QtWidgets.QPushButton(self.widget_18)
+        self.btn_update_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btn_update_criteria.setFont(font)
+        self.btn_update_criteria.setObjectName("btn_update_criteria")
+        self.gridLayout_7.addWidget(self.btn_update_criteria, 1, 0, 1, 1)
+        self.btn_unlock_criteria_edit = QtWidgets.QPushButton(self.widget_18)
+        self.btn_unlock_criteria_edit.setMaximumSize(QtCore.QSize(160, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.btn_unlock_criteria_edit.setFont(font)
+        self.btn_unlock_criteria_edit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_unlock_criteria_edit.setStyleSheet("background-color: transparent")
+        self.btn_unlock_criteria_edit.setObjectName("btn_unlock_criteria_edit")
+        self.gridLayout_7.addWidget(self.btn_unlock_criteria_edit, 0, 0, 1, 1)
+        self.verticalLayout_12.addWidget(self.widget_18)
+        self.gridLayout_36.addWidget(self.widget_24, 5, 0, 1, 1)
+        self.widget_17 = QtWidgets.QWidget(self.widget_25)
+        self.widget_17.setObjectName("widget_17")
+        self.verticalLayout_20 = QtWidgets.QVBoxLayout(self.widget_17)
+        self.verticalLayout_20.setObjectName("verticalLayout_20")
+        self.label_34 = QtWidgets.QLabel(self.widget_17)
+        self.label_34.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_34.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_34.setFont(font)
+        self.label_34.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_34.setObjectName("label_34")
+        self.verticalLayout_20.addWidget(self.label_34)
+        self.otif_criteria = QtWidgets.QSpinBox(self.widget_17)
+        self.otif_criteria.setEnabled(False)
+        self.otif_criteria.setMinimumSize(QtCore.QSize(0, 30))
+        self.otif_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.otif_criteria.setFont(font)
+        self.otif_criteria.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color:transparent\n"
+";\n"
+"}\n"
+"\n"
+"QSpinBox:disabled, QSpinBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.otif_criteria.setReadOnly(False)
+        self.otif_criteria.setMaximum(10)
+        self.otif_criteria.setProperty("value", 0)
+        self.otif_criteria.setObjectName("otif_criteria")
+        self.verticalLayout_20.addWidget(self.otif_criteria)
+        self.gridLayout_36.addWidget(self.widget_17, 3, 0, 1, 1)
+        self.widget_16 = QtWidgets.QWidget(self.widget_25)
+        self.widget_16.setObjectName("widget_16")
+        self.verticalLayout_19 = QtWidgets.QVBoxLayout(self.widget_16)
+        self.verticalLayout_19.setObjectName("verticalLayout_19")
+        self.label_37 = QtWidgets.QLabel(self.widget_16)
+        self.label_37.setMinimumSize(QtCore.QSize(0, 15))
+        self.label_37.setMaximumSize(QtCore.QSize(16777215, 15))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_37.setFont(font)
+        self.label_37.setStyleSheet("background-color:transparent;\n"
+"color:rgb(130,130,130)")
+        self.label_37.setObjectName("label_37")
+        self.verticalLayout_19.addWidget(self.label_37)
+        self.target_criteria = QtWidgets.QSpinBox(self.widget_16)
+        self.target_criteria.setEnabled(False)
+        self.target_criteria.setMinimumSize(QtCore.QSize(0, 30))
+        self.target_criteria.setMaximumSize(QtCore.QSize(160, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.target_criteria.setFont(font)
+        self.target_criteria.setStyleSheet("QSpinBox {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color:transparent\n"
+";\n"
+"}\n"
+"\n"
+"QSpinBox:disabled, QSpinBox:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.target_criteria.setReadOnly(False)
+        self.target_criteria.setMaximum(400)
+        self.target_criteria.setProperty("value", 0)
+        self.target_criteria.setObjectName("target_criteria")
+        self.verticalLayout_19.addWidget(self.target_criteria)
+        self.gridLayout_36.addWidget(self.widget_16, 4, 0, 1, 1)
+        self.gridLayout_37.addWidget(self.widget_25, 0, 0, 1, 1)
+        self.tabWidget_config.addTab(self.tab_9, "")
+        self.tab_16 = QtWidgets.QWidget()
+        self.tab_16.setObjectName("tab_16")
+        self.gridLayout_61 = QtWidgets.QGridLayout(self.tab_16)
+        self.gridLayout_61.setObjectName("gridLayout_61")
+        self.widget_36 = QtWidgets.QWidget(self.tab_16)
+        self.widget_36.setObjectName("widget_36")
+        self.gridLayout_59 = QtWidgets.QGridLayout(self.widget_36)
+        self.gridLayout_59.setObjectName("gridLayout_59")
+        self.groupBox_new_user = QtWidgets.QGroupBox(self.widget_36)
+        self.groupBox_new_user.setObjectName("groupBox_new_user")
+        self.gridLayout_24 = QtWidgets.QGridLayout(self.groupBox_new_user)
+        self.gridLayout_24.setObjectName("gridLayout_24")
+        self.widget_60 = QtWidgets.QWidget(self.groupBox_new_user)
+        self.widget_60.setObjectName("widget_60")
+        self.gridLayout_72 = QtWidgets.QGridLayout(self.widget_60)
+        self.gridLayout_72.setObjectName("gridLayout_72")
+        self.new_wwid = QtWidgets.QLineEdit(self.widget_60)
+        self.new_wwid.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_wwid.setFont(font)
+        self.new_wwid.setReadOnly(True)
+        self.new_wwid.setObjectName("new_wwid")
+        self.gridLayout_72.addWidget(self.new_wwid, 3, 0, 1, 1)
+        self.label_102 = QtWidgets.QLabel(self.widget_60)
+        self.label_102.setMaximumSize(QtCore.QSize(16777215, 19))
+        self.label_102.setObjectName("label_102")
+        self.gridLayout_72.addWidget(self.label_102, 2, 0, 1, 1)
+        self.gridLayout_24.addWidget(self.widget_60, 0, 0, 1, 1)
+        self.widget_78 = QtWidgets.QWidget(self.groupBox_new_user)
+        self.widget_78.setObjectName("widget_78")
+        self.gridLayout_73 = QtWidgets.QGridLayout(self.widget_78)
+        self.gridLayout_73.setObjectName("gridLayout_73")
+        self.new_privilege = QtWidgets.QComboBox(self.widget_78)
+        self.new_privilege.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_privilege.setFont(font)
+        self.new_privilege.setObjectName("new_privilege")
+        self.new_privilege.addItem("")
+        self.new_privilege.setItemText(0, "")
+        self.new_privilege.addItem("")
+        self.new_privilege.addItem("")
+        self.gridLayout_73.addWidget(self.new_privilege, 3, 0, 1, 1)
+        self.label_103 = QtWidgets.QLabel(self.widget_78)
+        self.label_103.setMaximumSize(QtCore.QSize(16777215, 19))
+        self.label_103.setObjectName("label_103")
+        self.gridLayout_73.addWidget(self.label_103, 2, 0, 1, 1)
+        self.gridLayout_24.addWidget(self.widget_78, 1, 0, 1, 1)
+        self.widget_68 = QtWidgets.QWidget(self.groupBox_new_user)
+        self.widget_68.setObjectName("widget_68")
+        self.verticalLayout_41 = QtWidgets.QVBoxLayout(self.widget_68)
+        self.verticalLayout_41.setObjectName("verticalLayout_41")
+        self.label_86 = QtWidgets.QLabel(self.widget_68)
+        self.label_86.setMinimumSize(QtCore.QSize(0, 18))
+        self.label_86.setMaximumSize(QtCore.QSize(16777215, 19))
+        self.label_86.setObjectName("label_86")
+        self.verticalLayout_41.addWidget(self.label_86)
+        self.new_password = QtWidgets.QLineEdit(self.widget_68)
+        self.new_password.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.new_password.setFont(font)
+        self.new_password.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.new_password.setObjectName("new_password")
+        self.verticalLayout_41.addWidget(self.new_password)
+        self.gridLayout_24.addWidget(self.widget_68, 0, 1, 1, 1)
+        self.frame_3 = QtWidgets.QFrame(self.groupBox_new_user)
+        self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_3.setObjectName("frame_3")
+        self.gridLayout_74 = QtWidgets.QGridLayout(self.frame_3)
+        self.gridLayout_74.setObjectName("gridLayout_74")
+        self.btn_save_new_user = QtWidgets.QPushButton(self.frame_3)
+        self.btn_save_new_user.setMinimumSize(QtCore.QSize(80, 30))
+        self.btn_save_new_user.setMaximumSize(QtCore.QSize(80, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btn_save_new_user.setFont(font)
+        self.btn_save_new_user.setObjectName("btn_save_new_user")
+        self.gridLayout_74.addWidget(self.btn_save_new_user, 1, 0, 1, 1)
+        self.gridLayout_24.addWidget(self.frame_3, 1, 1, 1, 1, QtCore.Qt.AlignRight|QtCore.Qt.AlignBottom)
+        self.gridLayout_59.addWidget(self.groupBox_new_user, 2, 0, 1, 1)
+        self.groupBox_edit_user = QtWidgets.QGroupBox(self.widget_36)
+        self.groupBox_edit_user.setObjectName("groupBox_edit_user")
+        self.gridLayout_29 = QtWidgets.QGridLayout(self.groupBox_edit_user)
+        self.gridLayout_29.setObjectName("gridLayout_29")
+        self.widget_54 = QtWidgets.QWidget(self.groupBox_edit_user)
+        self.widget_54.setObjectName("widget_54")
+        self.verticalLayout_36 = QtWidgets.QVBoxLayout(self.widget_54)
+        self.verticalLayout_36.setObjectName("verticalLayout_36")
+        self.label_36 = QtWidgets.QLabel(self.widget_54)
+        self.label_36.setMinimumSize(QtCore.QSize(0, 18))
+        self.label_36.setMaximumSize(QtCore.QSize(16777215, 19))
+        self.label_36.setObjectName("label_36")
+        self.verticalLayout_36.addWidget(self.label_36)
+        self.edit_wwid = QtWidgets.QLineEdit(self.widget_54)
+        self.edit_wwid.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.edit_wwid.setFont(font)
+        self.edit_wwid.setReadOnly(True)
+        self.edit_wwid.setObjectName("edit_wwid")
+        self.verticalLayout_36.addWidget(self.edit_wwid)
+        self.gridLayout_29.addWidget(self.widget_54, 0, 0, 1, 1)
+        self.widget_69 = QtWidgets.QWidget(self.groupBox_edit_user)
+        self.widget_69.setObjectName("widget_69")
+        self.gridLayout_52 = QtWidgets.QGridLayout(self.widget_69)
+        self.gridLayout_52.setObjectName("gridLayout_52")
+        self.btn_edit_user = QtWidgets.QPushButton(self.widget_69)
+        self.btn_edit_user.setMinimumSize(QtCore.QSize(80, 30))
+        self.btn_edit_user.setMaximumSize(QtCore.QSize(80, 30))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btn_edit_user.setFont(font)
+        self.btn_edit_user.setObjectName("btn_edit_user")
+        self.gridLayout_52.addWidget(self.btn_edit_user, 0, 0, 1, 1)
+        self.gridLayout_29.addWidget(self.widget_69, 2, 1, 1, 1, QtCore.Qt.AlignRight|QtCore.Qt.AlignBottom)
+        self.widget_67 = QtWidgets.QWidget(self.groupBox_edit_user)
+        self.widget_67.setObjectName("widget_67")
+        self.verticalLayout_37 = QtWidgets.QVBoxLayout(self.widget_67)
+        self.verticalLayout_37.setObjectName("verticalLayout_37")
+        self.label_59 = QtWidgets.QLabel(self.widget_67)
+        self.label_59.setMinimumSize(QtCore.QSize(0, 18))
+        self.label_59.setMaximumSize(QtCore.QSize(16777215, 19))
+        self.label_59.setObjectName("label_59")
+        self.verticalLayout_37.addWidget(self.label_59)
+        self.edit_password = QtWidgets.QLineEdit(self.widget_67)
+        self.edit_password.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.edit_password.setFont(font)
+        self.edit_password.setText("")
+        self.edit_password.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.edit_password.setObjectName("edit_password")
+        self.verticalLayout_37.addWidget(self.edit_password)
+        self.gridLayout_29.addWidget(self.widget_67, 0, 1, 1, 1)
+        self.widget_edit_privilege = QtWidgets.QWidget(self.groupBox_edit_user)
+        self.widget_edit_privilege.setObjectName("widget_edit_privilege")
+        self.verticalLayout_35 = QtWidgets.QVBoxLayout(self.widget_edit_privilege)
+        self.verticalLayout_35.setObjectName("verticalLayout_35")
+        self.label_55 = QtWidgets.QLabel(self.widget_edit_privilege)
+        self.label_55.setMinimumSize(QtCore.QSize(0, 18))
+        self.label_55.setMaximumSize(QtCore.QSize(16777215, 19))
+        self.label_55.setObjectName("label_55")
+        self.verticalLayout_35.addWidget(self.label_55)
+        self.edit_privilege = QtWidgets.QComboBox(self.widget_edit_privilege)
+        self.edit_privilege.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.edit_privilege.setFont(font)
+        self.edit_privilege.setObjectName("edit_privilege")
+        self.edit_privilege.addItem("")
+        self.edit_privilege.setItemText(0, "")
+        self.edit_privilege.addItem("")
+        self.edit_privilege.addItem("")
+        self.verticalLayout_35.addWidget(self.edit_privilege)
+        self.gridLayout_29.addWidget(self.widget_edit_privilege, 2, 0, 1, 1)
+        self.gridLayout_59.addWidget(self.groupBox_edit_user, 0, 0, 1, 1)
+        spacerItem14 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_59.addItem(spacerItem14, 1, 0, 1, 1)
+        self.gridLayout_61.addWidget(self.widget_36, 0, 0, 1, 1, QtCore.Qt.AlignTop)
+        self.tabWidget_config.addTab(self.tab_16, "")
+        self.tab_15 = QtWidgets.QWidget()
+        self.tab_15.setObjectName("tab_15")
+        self.gridLayout_46 = QtWidgets.QGridLayout(self.tab_15)
+        self.gridLayout_46.setObjectName("gridLayout_46")
+        self.table_log = QtWidgets.QTableWidget(self.tab_15)
+        self.table_log.setEnabled(True)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        self.table_log.setFont(font)
+        self.table_log.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.table_log.setObjectName("table_log")
+        self.table_log.setColumnCount(4)
+        self.table_log.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_log.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_log.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_log.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.table_log.setHorizontalHeaderItem(3, item)
+        self.table_log.verticalHeader().setVisible(False)
+        self.table_log.verticalHeader().setHighlightSections(False)
+        self.gridLayout_46.addWidget(self.table_log, 0, 0, 1, 1)
+        self.tabWidget_config.addTab(self.tab_15, "")
+        self.gridLayout_5.addWidget(self.tabWidget_config, 1, 0, 2, 1)
         self.tabWidget.addTab(self.tab_3, "")
         self.horizontalLayout.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget_5.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(0)
-        self.tabWidget_config.setCurrentIndex(2)
+        self.tabWidget_config.setCurrentIndex(0)
+        self.toolBox_2.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        MainWindow.setTabOrder(self.bu_query, self.supplier_query)
-        MainWindow.setTabOrder(self.supplier_query, self.month)
+        MainWindow.setTabOrder(self.vendor_select, self.month)
         MainWindow.setTabOrder(self.month, self.year)
-        MainWindow.setTabOrder(self.year, self.quality_package_input)
-        MainWindow.setTabOrder(self.quality_package_input, self.quality_pickup_input)
-        MainWindow.setTabOrder(self.quality_pickup_input, self.nil_input)
-        MainWindow.setTabOrder(self.nil_input, self.otif_input)
-        MainWindow.setTabOrder(self.otif_input, self.total_score)
-        MainWindow.setTabOrder(self.total_score, self.vendor_timeline)
-        MainWindow.setTabOrder(self.vendor_timeline, self.supplier_timeline)
-        MainWindow.setTabOrder(self.supplier_timeline, self.bu_query_2)
+        MainWindow.setTabOrder(self.year, self.otif_input)
+        MainWindow.setTabOrder(self.otif_input, self.quality_package_input)
+        MainWindow.setTabOrder(self.quality_package_input, self.nil_input)
+        MainWindow.setTabOrder(self.nil_input, self.quality_pickup_input)
+        MainWindow.setTabOrder(self.quality_pickup_input, self.total_score)
+        MainWindow.setTabOrder(self.total_score, self.comments)
+        MainWindow.setTabOrder(self.comments, self.number_query)
+        MainWindow.setTabOrder(self.number_query, self.status_query)
+        MainWindow.setTabOrder(self.status_query, self.bu_query)
+        MainWindow.setTabOrder(self.bu_query, self.id_query)
+        MainWindow.setTabOrder(self.id_query, self.year_timeline)
+        MainWindow.setTabOrder(self.year_timeline, self.id_timeline)
+        MainWindow.setTabOrder(self.id_timeline, self.bu_query_2)
         MainWindow.setTabOrder(self.bu_query_2, self.category_timeline)
-        MainWindow.setTabOrder(self.category_timeline, self.sourcing_timeline)
+        MainWindow.setTabOrder(self.category_timeline, self.supplier_timeline)
+        MainWindow.setTabOrder(self.supplier_timeline, self.sourcing_timeline)
         MainWindow.setTabOrder(self.sourcing_timeline, self.continuity_timeline)
         MainWindow.setTabOrder(self.continuity_timeline, self.sqie_timeline)
-        MainWindow.setTabOrder(self.sqie_timeline, self.supplier_register)
+        MainWindow.setTabOrder(self.sqie_timeline, self.planner_timeline)
+        MainWindow.setTabOrder(self.planner_timeline, self.year_by_date_3)
+        MainWindow.setTabOrder(self.year_by_date_3, self.vendor_register_new)
+        MainWindow.setTabOrder(self.vendor_register_new, self.supplier_register)
         MainWindow.setTabOrder(self.supplier_register, self.new_category)
-        MainWindow.setTabOrder(self.new_category, self.bu_register)
-        MainWindow.setTabOrder(self.bu_register, self.sqie_register)
-        MainWindow.setTabOrder(self.sqie_register, self.sourcing_register)
-        MainWindow.setTabOrder(self.sourcing_register, self.continuity_register)
-        MainWindow.setTabOrder(self.continuity_register, self.ssid_register)
-        MainWindow.setTabOrder(self.ssid_register, self.country_register)
-        MainWindow.setTabOrder(self.country_register, self.region_register)
-        MainWindow.setTabOrder(self.region_register, self.document_register)
-        MainWindow.setTabOrder(self.document_register, self.quality_packege_criteria)
-        MainWindow.setTabOrder(self.quality_packege_criteria, self.quality_pickup_criteria)
-        MainWindow.setTabOrder(self.quality_pickup_criteria, self.nil_criteria)
-        MainWindow.setTabOrder(self.nil_criteria, self.otif_criteria)
-        MainWindow.setTabOrder(self.otif_criteria, self.sqie_query)
-        MainWindow.setTabOrder(self.sqie_query, self.tableDetails)
-        MainWindow.setTabOrder(self.tableDetails, self.country_query)
-        MainWindow.setTabOrder(self.country_query, self.continuity_query)
-        MainWindow.setTabOrder(self.continuity_query, self.btn_vendor_timeline)
-        MainWindow.setTabOrder(self.btn_vendor_timeline, self.btn_add_sourcing)
+        MainWindow.setTabOrder(self.new_category, self.new_supplier_number)
+        MainWindow.setTabOrder(self.new_supplier_number, self.sqie_register_new)
+        MainWindow.setTabOrder(self.sqie_register_new, self.continuity_register_new)
+        MainWindow.setTabOrder(self.continuity_register_new, self.sourcing_register_new)
+        MainWindow.setTabOrder(self.sourcing_register_new, self.planner_register_new)
+        MainWindow.setTabOrder(self.planner_register_new, self.ssid_register_new)
+        MainWindow.setTabOrder(self.ssid_register_new, self.country_register_new)
+        MainWindow.setTabOrder(self.country_register_new, self.region_register_new)
+        MainWindow.setTabOrder(self.region_register_new, self.document_register_new)
+        MainWindow.setTabOrder(self.document_register_new, self.email_register_new)
+        MainWindow.setTabOrder(self.email_register_new, self.continuity_update)
+        MainWindow.setTabOrder(self.continuity_update, self.sqie_update)
+        MainWindow.setTabOrder(self.sqie_update, self.sourcing_update)
+        MainWindow.setTabOrder(self.sourcing_update, self.planner_update)
+        MainWindow.setTabOrder(self.planner_update, self.document_update)
+        MainWindow.setTabOrder(self.document_update, self.ssid_update)
+        MainWindow.setTabOrder(self.ssid_update, self.region_update)
+        MainWindow.setTabOrder(self.region_update, self.country_update)
+        MainWindow.setTabOrder(self.country_update, self.email_update)
+        MainWindow.setTabOrder(self.email_update, self.new_category_2)
+        MainWindow.setTabOrder(self.new_category_2, self.new_bu)
+        MainWindow.setTabOrder(self.new_bu, self.new_sourcing)
+        MainWindow.setTabOrder(self.new_sourcing, self.new_alias_sourcing)
+        MainWindow.setTabOrder(self.new_alias_sourcing, self.new_sourcing_email)
+        MainWindow.setTabOrder(self.new_sourcing_email, self.new_sqe)
+        MainWindow.setTabOrder(self.new_sqe, self.new_alias_sqie)
+        MainWindow.setTabOrder(self.new_alias_sqie, self.new_sqe_email)
+        MainWindow.setTabOrder(self.new_sqe_email, self.new_continuity)
+        MainWindow.setTabOrder(self.new_continuity, self.new_alias_continuity)
+        MainWindow.setTabOrder(self.new_alias_continuity, self.new_continuity_email)
+        MainWindow.setTabOrder(self.new_continuity_email, self.new_planner)
+        MainWindow.setTabOrder(self.new_planner, self.new_alias_planner)
+        MainWindow.setTabOrder(self.new_alias_planner, self.new_planner_email)
+        MainWindow.setTabOrder(self.new_planner_email, self.nil_criteria)
+        MainWindow.setTabOrder(self.nil_criteria, self.quality_pickup_criteria)
+        MainWindow.setTabOrder(self.quality_pickup_criteria, self.quality_packege_criteria)
+        MainWindow.setTabOrder(self.quality_packege_criteria, self.otif_criteria)
+        MainWindow.setTabOrder(self.otif_criteria, self.target_criteria)
+        MainWindow.setTabOrder(self.target_criteria, self.btn_update_criteria)
+        MainWindow.setTabOrder(self.btn_update_criteria, self.edit_privilege)
+        MainWindow.setTabOrder(self.edit_privilege, self.new_wwid)
+        MainWindow.setTabOrder(self.new_wwid, self.new_privilege)
+        MainWindow.setTabOrder(self.new_privilege, self.btn_configs)
+        MainWindow.setTabOrder(self.btn_configs, self.tableDetails)
+        MainWindow.setTabOrder(self.tableDetails, self.btn_info)
+        MainWindow.setTabOrder(self.btn_info, self.tabWidget_config)
+        MainWindow.setTabOrder(self.tabWidget_config, self.btn_register_new_supplier)
+        MainWindow.setTabOrder(self.btn_register_new_supplier, self.btn_score)
+        MainWindow.setTabOrder(self.btn_score, self.btn_risks)
+        MainWindow.setTabOrder(self.btn_risks, self.btn_timeline)
+        MainWindow.setTabOrder(self.btn_timeline, self.scrollArea_6)
+        MainWindow.setTabOrder(self.scrollArea_6, self.btn_add_category)
+        MainWindow.setTabOrder(self.btn_add_category, self.scrollArea_7)
+        MainWindow.setTabOrder(self.scrollArea_7, self.btn_add_sourcing)
         MainWindow.setTabOrder(self.btn_add_sourcing, self.btn_add_sqie)
-        MainWindow.setTabOrder(self.btn_add_sqie, self.btn_add_continuity)
-        MainWindow.setTabOrder(self.btn_add_continuity, self.region_query)
-        MainWindow.setTabOrder(self.region_query, self.ssid_query)
-        MainWindow.setTabOrder(self.ssid_query, self.sourcing_query)
-        MainWindow.setTabOrder(self.sourcing_query, self.btn_update_criteria)
-        MainWindow.setTabOrder(self.btn_update_criteria, self.document_query)
-        MainWindow.setTabOrder(self.document_query, self.tabWidget_2)
+        MainWindow.setTabOrder(self.btn_add_sqie, self.btn_add_planner)
+        MainWindow.setTabOrder(self.btn_add_planner, self.btn_add_continuity)
+        MainWindow.setTabOrder(self.btn_add_continuity, self.btn_add_bu)
+        MainWindow.setTabOrder(self.btn_add_bu, self.btn_ocultar)
+        MainWindow.setTabOrder(self.btn_ocultar, self.table_log)
+        MainWindow.setTabOrder(self.table_log, self.supplier_contacts_timeline)
+        MainWindow.setTabOrder(self.supplier_contacts_timeline, self.table_risks)
+        MainWindow.setTabOrder(self.table_risks, self.btn_unlock_criteria_edit)
+        MainWindow.setTabOrder(self.btn_unlock_criteria_edit, self.btn_clear_register)
+        MainWindow.setTabOrder(self.btn_clear_register, self.btn_query_risks)
+        MainWindow.setTabOrder(self.btn_query_risks, self.btn_home)
+        MainWindow.setTabOrder(self.btn_home, self.tabWidget)
+        MainWindow.setTabOrder(self.tabWidget, self.btn_update_supplier)
+        MainWindow.setTabOrder(self.btn_update_supplier, self.btn_clear_new_register)
+        MainWindow.setTabOrder(self.btn_clear_new_register, self.btn_vendor_score)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -2995,32 +4917,26 @@ class Ui_MainWindow(object):
         self.btn_home.setText(_translate("MainWindow", "   Home"))
         self.btn_score.setText(_translate("MainWindow", "   Score"))
         self.btn_timeline.setText(_translate("MainWindow", "   Timeline"))
-        self.btn_send_mail.setText(_translate("MainWindow", "   Send E-mail"))
         self.btn_risks.setText(_translate("MainWindow", "   Risks"))
         self.btn_configs.setText(_translate("MainWindow", "   Configs"))
         self.btn_info.setText(_translate("MainWindow", "i"))
-        self.label_11.setText(_translate("MainWindow", "   Version:"))
-        self.label_43.setText(_translate("MainWindow", "0.100"))
+        self.label_version.setText(_translate("MainWindow", "   Version:"))
+        self.label_version_number.setText(_translate("MainWindow", "0.100"))
+        self.label_69.setText(_translate("MainWindow", "Last Update:"))
+        self.label_last_update.setText(_translate("MainWindow", "      21/07/2025 - 13:20"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainWindow", "Home"))
-        self.groupBox.setTitle(_translate("MainWindow", "Score"))
-        self.label_5.setText(_translate("MainWindow", "Quality of Pick Up"))
-        self.label_8.setText(_translate("MainWindow", "NIL"))
-        self.label_6.setText(_translate("MainWindow", "Quality - Supplier Package"))
-        self.label_7.setText(_translate("MainWindow", "OTIF"))
-        self.label_36.setText(_translate("MainWindow", "Total Score"))
-        self.total_score.setText(_translate("MainWindow", "0"))
-        self.year.setItemText(1, _translate("MainWindow", "2025"))
-        self.year.setItemText(2, _translate("MainWindow", "2026"))
-        self.year.setItemText(3, _translate("MainWindow", "2027"))
-        self.year.setItemText(4, _translate("MainWindow", "2028"))
-        self.year.setItemText(5, _translate("MainWindow", "2029"))
-        self.year.setItemText(6, _translate("MainWindow", "2030"))
-        self.year.setItemText(7, _translate("MainWindow", "2031"))
-        self.year.setItemText(8, _translate("MainWindow", "2032"))
-        self.year.setItemText(9, _translate("MainWindow", "2033"))
-        self.year.setItemText(10, _translate("MainWindow", "2034"))
-        self.year.setItemText(11, _translate("MainWindow", "2035"))
-        self.label_10.setText(_translate("MainWindow", "Year"))
+        self.label_4.setText(_translate("MainWindow", "  Comments"))
+        self.label_113.setText(_translate("MainWindow", "NIL"))
+        self.label_114.setText(_translate("MainWindow", "OTIF"))
+        self.label_115.setText(_translate("MainWindow", " Package"))
+        self.label_117.setText(_translate("MainWindow", "Total Score"))
+        self.label_116.setText(_translate("MainWindow", "Pick Up"))
+        self.label_5.setText(_translate("MainWindow", "Status"))
+        self.label_6.setText(_translate("MainWindow", "ID"))
+        self.btn_vendor_score.setText(_translate("MainWindow", "🔎"))
+        self.label_3.setText(_translate("MainWindow", "Vendor"))
+        self.label_8.setText(_translate("MainWindow", "Number"))
+        self.label_7.setText(_translate("MainWindow", "BU"))
         self.label_9.setText(_translate("MainWindow", "Month"))
         self.month.setItemText(1, _translate("MainWindow", "1"))
         self.month.setItemText(2, _translate("MainWindow", "2"))
@@ -3034,43 +4950,89 @@ class Ui_MainWindow(object):
         self.month.setItemText(10, _translate("MainWindow", "10"))
         self.month.setItemText(11, _translate("MainWindow", "11"))
         self.month.setItemText(12, _translate("MainWindow", "12"))
-        self.btn_clear_score.setText(_translate("MainWindow", "Clear"))
-        self.btn_save_new_score.setText(_translate("MainWindow", "Save"))
-        self.groupBox_3.setTitle(_translate("MainWindow", "Supplier"))
-        self.label_39.setText(_translate("MainWindow", "BU"))
-        self.btn_vendor_score.setText(_translate("MainWindow", "🔎"))
-        self.label_3.setText(_translate("MainWindow", "Vendor"))
-        self.label_42.setText(_translate("MainWindow", "Supplier"))
-        self.label_55.setText(_translate("MainWindow", "id"))
-        self.label_19.setText(_translate("MainWindow", "Category"))
-        self.groupBox_4.setTitle(_translate("MainWindow", "Documents"))
-        self.label_16.setText(_translate("MainWindow", "Country"))
-        self.label_18.setText(_translate("MainWindow", "Document"))
-        self.label_15.setText(_translate("MainWindow", "SSID"))
-        self.label_17.setText(_translate("MainWindow", "Region"))
-        self.groupBox_2.setTitle(_translate("MainWindow", "Responsibles Parties"))
-        self.label_21.setText(_translate("MainWindow", "SQIE"))
-        self.label_24.setText(_translate("MainWindow", "Continuity"))
-        self.label_53.setText(_translate("MainWindow", "Planner"))
-        self.label_22.setText(_translate("MainWindow", "Sourcing"))
-        self.label_4.setText(_translate("MainWindow", "  Comments"))
+        self.label_10.setText(_translate("MainWindow", "Year"))
+        self.year.setItemText(1, _translate("MainWindow", "2025"))
+        self.year.setItemText(2, _translate("MainWindow", "2026"))
+        self.year.setItemText(3, _translate("MainWindow", "2027"))
+        self.year.setItemText(4, _translate("MainWindow", "2028"))
+        self.year.setItemText(5, _translate("MainWindow", "2029"))
+        self.year.setItemText(6, _translate("MainWindow", "2030"))
+        self.year.setItemText(7, _translate("MainWindow", "2031"))
+        self.year.setItemText(8, _translate("MainWindow", "2032"))
+        self.year.setItemText(9, _translate("MainWindow", "2033"))
+        self.year.setItemText(10, _translate("MainWindow", "2034"))
+        self.year.setItemText(11, _translate("MainWindow", "2035"))
+        self.btn_clear_score.setText(_translate("MainWindow", "CLEAR"))
+        self.btn_save_new_score.setText(_translate("MainWindow", "SAVE"))
+        self.tabWidget_5.setTabText(self.tabWidget_5.indexOf(self.tab_12), _translate("MainWindow", "Individual Input"))
+        self.label_12.setText(_translate("MainWindow", "Month"))
+        self.month_group_input.setItemText(1, _translate("MainWindow", "1"))
+        self.month_group_input.setItemText(2, _translate("MainWindow", "2"))
+        self.month_group_input.setItemText(3, _translate("MainWindow", "3"))
+        self.month_group_input.setItemText(4, _translate("MainWindow", "4"))
+        self.month_group_input.setItemText(5, _translate("MainWindow", "5"))
+        self.month_group_input.setItemText(6, _translate("MainWindow", "6"))
+        self.month_group_input.setItemText(7, _translate("MainWindow", "7"))
+        self.month_group_input.setItemText(8, _translate("MainWindow", "8"))
+        self.month_group_input.setItemText(9, _translate("MainWindow", "9"))
+        self.month_group_input.setItemText(10, _translate("MainWindow", "10"))
+        self.month_group_input.setItemText(11, _translate("MainWindow", "11"))
+        self.month_group_input.setItemText(12, _translate("MainWindow", "12"))
+        self.label_13.setText(_translate("MainWindow", "Year"))
+        self.year_group_input.setItemText(1, _translate("MainWindow", "2025"))
+        self.year_group_input.setItemText(2, _translate("MainWindow", "2026"))
+        self.year_group_input.setItemText(3, _translate("MainWindow", "2027"))
+        self.year_group_input.setItemText(4, _translate("MainWindow", "2028"))
+        self.year_group_input.setItemText(5, _translate("MainWindow", "2029"))
+        self.year_group_input.setItemText(6, _translate("MainWindow", "2030"))
+        self.year_group_input.setItemText(7, _translate("MainWindow", "2031"))
+        self.year_group_input.setItemText(8, _translate("MainWindow", "2032"))
+        self.year_group_input.setItemText(9, _translate("MainWindow", "2033"))
+        self.year_group_input.setItemText(10, _translate("MainWindow", "2034"))
+        self.year_group_input.setItemText(11, _translate("MainWindow", "2035"))
+        self.btn_group_input.setText(_translate("MainWindow", "🔎"))
+        item = self.table_group_input.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "ID"))
+        item = self.table_group_input.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Date"))
+        item = self.table_group_input.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Supplier"))
+        item = self.table_group_input.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Number"))
+        item = self.table_group_input.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Quality - Supplier Package"))
+        item = self.table_group_input.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Quality of Pick Up"))
+        item = self.table_group_input.horizontalHeaderItem(6)
+        item.setText(_translate("MainWindow", "NIL"))
+        item = self.table_group_input.horizontalHeaderItem(7)
+        item.setText(_translate("MainWindow", "OTIF "))
+        self.tabWidget_5.setTabText(self.tabWidget_5.indexOf(self.tab_21), _translate("MainWindow", "Group Input"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Score"))
-        self.groupBox_7.setTitle(_translate("MainWindow", "Supplier"))
         self.label_56.setText(_translate("MainWindow", "id"))
-        self.label_61.setText(_translate("MainWindow", "Planner"))
-        self.label_26.setText(_translate("MainWindow", "Continuity"))
+        self.label_101.setText(_translate("MainWindow", "Year"))
+        self.year_timeline.setItemText(1, _translate("MainWindow", "2025"))
+        self.year_timeline.setItemText(2, _translate("MainWindow", "2026"))
+        self.year_timeline.setItemText(3, _translate("MainWindow", "2027"))
+        self.year_timeline.setItemText(4, _translate("MainWindow", "2028"))
+        self.year_timeline.setItemText(5, _translate("MainWindow", "2029"))
+        self.year_timeline.setItemText(6, _translate("MainWindow", "2030"))
+        self.year_timeline.setItemText(7, _translate("MainWindow", "2031"))
+        self.year_timeline.setItemText(8, _translate("MainWindow", "2032"))
+        self.year_timeline.setItemText(9, _translate("MainWindow", "2033"))
+        self.year_timeline.setItemText(10, _translate("MainWindow", "2034"))
+        self.year_timeline.setItemText(11, _translate("MainWindow", "2035"))
         self.label_40.setText(_translate("MainWindow", "BU"))
         self.label_2.setText(_translate("MainWindow", "Vendor"))
         self.btn_vendor_timeline.setText(_translate("MainWindow", "🔎"))
-        self.label_25.setText(_translate("MainWindow", "Sourcing"))
-        self.label_44.setText(_translate("MainWindow", "Supplier"))
-        self.label_23.setText(_translate("MainWindow", "SQIE"))
-        self.label_20.setText(_translate("MainWindow", "Category"))
-        self.label_38.setText(_translate("MainWindow", "Overall Average"))
-        self.label_46.setText(_translate("MainWindow", "12 month Average"))
-        self.label_47.setText(_translate("MainWindow", "6 month Average"))
-        self.label_48.setText(_translate("MainWindow", "Quartely Average"))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), _translate("MainWindow", "Timeline"))
+        self.label_47.setText(_translate("MainWindow", "6 month Avg"))
+        self.label_46.setText(_translate("MainWindow", "12 month Avg"))
+        self.label_38.setText(_translate("MainWindow", "Overall Avg"))
+        self.label_90.setText(_translate("MainWindow", "Q4"))
+        self.label_88.setText(_translate("MainWindow", "Q2"))
+        self.label_89.setText(_translate("MainWindow", "Q3"))
+        self.label_48.setText(_translate("MainWindow", "Q1"))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), _translate("MainWindow", "Timeline Chart"))
         item = self.tableDetails.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ID"))
         item = self.tableDetails.horizontalHeaderItem(1)
@@ -3089,71 +5051,164 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Comment"))
         self.btn_clear_register.setText(_translate("MainWindow", "Clear register"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_5), _translate("MainWindow", "Details"))
+        self.label_20.setText(_translate("MainWindow", "Category"))
+        self.label_44.setText(_translate("MainWindow", "Supplier"))
+        self.label_25.setText(_translate("MainWindow", "Sourcing"))
+        self.label_104.setText(_translate("MainWindow", "e-mail"))
+        self.label_108.setText(_translate("MainWindow", "Alias"))
+        self.label_105.setText(_translate("MainWindow", "e-mail"))
+        self.label_26.setText(_translate("MainWindow", "Continuity"))
+        self.label_112.setText(_translate("MainWindow", "Alias"))
+        self.label_106.setText(_translate("MainWindow", "e-mail"))
+        self.label_23.setText(_translate("MainWindow", "SQIE"))
+        self.label_109.setText(_translate("MainWindow", "Alias"))
+        self.label_107.setText(_translate("MainWindow", "e-mail"))
+        self.label_61.setText(_translate("MainWindow", "Planner"))
+        self.label_111.setText(_translate("MainWindow", "Alias"))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_17), _translate("MainWindow", "Responsibles"))
+        self.label_110.setText(_translate("MainWindow", "Recipients"))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_18), _translate("MainWindow", "Supplier Contacts"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Timeline"))
-        self.label_13.setText(_translate("MainWindow", "E-mail body (Preview)"))
-        self.label_12.setText(_translate("MainWindow", "TextLabel"))
-        self.pushButton.setText(_translate("MainWindow", "Send"))
-        self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">  <img src=\":/images/cummins-with-red-background.jpg\" /></p></body></html>"))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_12), _translate("MainWindow", "Tab 1"))
-        self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.tab_13), _translate("MainWindow", "Tab 2"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), _translate("MainWindow", "E-mail"))
-        self.total_geral2.setText(_translate("MainWindow", "150"))
+        self.label_57.setText(_translate("MainWindow", "*The data shown in the table above represents the average over the entire period available in the database."))
         self.label_54.setText(_translate("MainWindow", "Suppliers Underperforming:"))
-        self.label_57.setText(_translate("MainWindow", "The score shown represents the average performance over the entire evaluated period"))
-        self.total_risks.setText(_translate("MainWindow", "100"))
-        item = self.tableWidget_risks.horizontalHeaderItem(0)
+        item = self.table_risks.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Id"))
-        item = self.tableWidget_risks.horizontalHeaderItem(1)
+        item = self.table_risks.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Supplier"))
-        item = self.tableWidget_risks.horizontalHeaderItem(2)
+        item = self.table_risks.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Q1"))
+        item = self.table_risks.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Q2"))
+        item = self.table_risks.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Q3"))
+        item = self.table_risks.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Q4"))
+        item = self.table_risks.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "Average Score"))
+        self.groupBox_11.setTitle(_translate("MainWindow", "filters"))
+        self.label_100.setText(_translate("MainWindow", "Year"))
+        self.year_by_date_3.setItemText(1, _translate("MainWindow", "2025"))
+        self.year_by_date_3.setItemText(2, _translate("MainWindow", "2026"))
+        self.year_by_date_3.setItemText(3, _translate("MainWindow", "2027"))
+        self.year_by_date_3.setItemText(4, _translate("MainWindow", "2028"))
+        self.year_by_date_3.setItemText(5, _translate("MainWindow", "2029"))
+        self.year_by_date_3.setItemText(6, _translate("MainWindow", "2030"))
+        self.year_by_date_3.setItemText(7, _translate("MainWindow", "2031"))
+        self.year_by_date_3.setItemText(8, _translate("MainWindow", "2032"))
+        self.year_by_date_3.setItemText(9, _translate("MainWindow", "2033"))
+        self.year_by_date_3.setItemText(10, _translate("MainWindow", "2034"))
+        self.year_by_date_3.setItemText(11, _translate("MainWindow", "2035"))
+        self.btn_query_risks.setText(_translate("MainWindow", "🔎"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainWindow", "Risks"))
-        self.label_37.setText(_translate("MainWindow", "Target"))
-        self.label_34.setText(_translate("MainWindow", "OTIF"))
-        self.label_32.setText(_translate("MainWindow", "Quality of Pick Up"))
-        self.label_35.setText(_translate("MainWindow", "Quality - Supplier Package"))
-        self.label_33.setText(_translate("MainWindow", "NIL"))
-        self.btn_update_criteria.setText(_translate("MainWindow", "Update"))
-        self.btn_unlock_criteria_edit.setToolTip(_translate("MainWindow", "Unlocked the criteria fields for editing"))
-        self.btn_unlock_criteria_edit.setText(_translate("MainWindow", "🔒"))
-        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_9), _translate("MainWindow", "Criteria"))
-        self.btn_vendor_register.setText(_translate("MainWindow", "🔎"))
-        self.label_27.setText(_translate("MainWindow", "Vendor"))
+        self.checkBox_show_inactive.setText(_translate("MainWindow", "Show inactive suppliers on list selection"))
+        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_8), _translate("MainWindow", "App config"))
+        self.btn_register_new_supplier.setText(_translate("MainWindow", "Register"))
+        self.groupBox_12.setTitle(_translate("MainWindow", "Documents"))
+        self.label_73.setText(_translate("MainWindow", "SSID"))
+        self.label_74.setText(_translate("MainWindow", "Country"))
+        self.label_79.setText(_translate("MainWindow", "Region"))
+        self.label_77.setText(_translate("MainWindow", "Document"))
+        self.groupBox_13.setTitle(_translate("MainWindow", "Responsibles"))
+        self.label_80.setText(_translate("MainWindow", "Sourcing"))
+        self.label_81.setText(_translate("MainWindow", "SQIE"))
+        self.label_78.setText(_translate("MainWindow", "Continuity"))
+        self.label_83.setText(_translate("MainWindow", "Planer"))
+        self.groupBox_10.setTitle(_translate("MainWindow", "Supplier"))
+        self.label_82.setText(_translate("MainWindow", "BU"))
+        self.label_97.setText(_translate("MainWindow", "Supplier Number"))
+        self.label_72.setText(_translate("MainWindow", "Category"))
+        self.supplier_status_new.setItemText(1, _translate("MainWindow", "Active"))
+        self.supplier_status_new.setItemText(2, _translate("MainWindow", "Inactive"))
+        self.label_76.setText(_translate("MainWindow", "Vendor name"))
+        self.label_75.setText(_translate("MainWindow", "Supplier name"))
+        self.label_98.setText(_translate("MainWindow", "Status"))
+        self.toolBox_2.setItemText(self.toolBox_2.indexOf(self.page), _translate("MainWindow", "Supplier Data"))
+        self.label_84.setText(_translate("MainWindow", "e-mails"))
+        self.label_85.setText(_translate("MainWindow", "*Separate contacts with  ;"))
+        self.toolBox_2.setItemText(self.toolBox_2.indexOf(self.page_2), _translate("MainWindow", "E-mails"))
+        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_14), _translate("MainWindow", "New Supplier"))
+        self.groupBox_5.setTitle(_translate("MainWindow", "Responsibles"))
+        self.label_29.setText(_translate("MainWindow", "Continuity"))
+        self.label_30.setText(_translate("MainWindow", "SQIE"))
+        self.label_31.setText(_translate("MainWindow", "Sourcing"))
+        self.label_71.setText(_translate("MainWindow", "Planner"))
         self.groupBox_6.setTitle(_translate("MainWindow", "Documents"))
         self.label_49.setText(_translate("MainWindow", "SSID"))
         self.label_52.setText(_translate("MainWindow", "Document"))
         self.label_51.setText(_translate("MainWindow", "Region"))
         self.label_50.setText(_translate("MainWindow", "Country"))
+        self.groupBox_9.setTitle(_translate("MainWindow", "Supplier"))
+        self.label_42.setText(_translate("MainWindow", "Status"))
+        self.supplier_status_update.setItemText(1, _translate("MainWindow", "Active"))
+        self.supplier_status_update.setItemText(2, _translate("MainWindow", "Inactive"))
         self.label_41.setText(_translate("MainWindow", "BU"))
-        self.label_59.setText(_translate("MainWindow", "id"))
-        self.groupBox_5.setTitle(_translate("MainWindow", "Responsibles"))
-        self.label_45.setText(_translate("MainWindow", "Supplier"))
-        self.label_31.setText(_translate("MainWindow", "Sourcing"))
-        self.label_30.setText(_translate("MainWindow", "SQIE"))
-        self.label_29.setText(_translate("MainWindow", "Continuity"))
+        self.label_14.setText(_translate("MainWindow", "id"))
         self.label_28.setText(_translate("MainWindow", "Category"))
-        self.label_60.setText(_translate("MainWindow", "Supplier contacts"))
-        item = self.table_new_contact.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "id"))
-        item = self.table_new_contact.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Contact"))
-        item = self.table_new_contact.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "Name"))
+        self.label_27.setText(_translate("MainWindow", "Vendor"))
+        self.btn_vendor_register.setText(_translate("MainWindow", "🔎"))
+        self.label_45.setText(_translate("MainWindow", "Supplier"))
+        self.label_96.setText(_translate("MainWindow", "Supplier Number"))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page_3), _translate("MainWindow", "Supplier Data"))
+        self.label_11.setText(_translate("MainWindow", "e-mails"))
+        self.label_43.setText(_translate("MainWindow", "*Separate contacts with  ;"))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page_5), _translate("MainWindow", "E-mails"))
         self.btn_update_supplier.setText(_translate("MainWindow", "Update"))
         self.btn_clear_new_register.setText(_translate("MainWindow", "Clear"))
-        self.btn_register_new_supplier.setText(_translate("MainWindow", "Register"))
-        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_10), _translate("MainWindow", "Suppliers"))
-        self.btn_add_continuity.setText(_translate("MainWindow", "+ Add Continuity"))
-        self.btn_add_bu.setText(_translate("MainWindow", "+ Add BU"))
-        self.btn_add_category.setText(_translate("MainWindow", "+ Add Category"))
-        self.btn_add_sourcing.setText(_translate("MainWindow", "+ Add Sourcing"))
-        self.btn_add_sqie.setText(_translate("MainWindow", "+ Add SQIE"))
-        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_11), _translate("MainWindow", "Page"))
+        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_10), _translate("MainWindow", "Update Supplier"))
+        self.label_58.setText(_translate("MainWindow", "BU"))
+        self.btn_add_bu.setText(_translate("MainWindow", "+ Add"))
+        self.label.setText(_translate("MainWindow", "Category"))
+        self.btn_add_category.setText(_translate("MainWindow", "+ Add"))
+        self.groupBox_8.setTitle(_translate("MainWindow", "Cummins Responsibles"))
+        self.label_60.setText(_translate("MainWindow", "e-mail"))
+        self.btn_add_planner.setText(_translate("MainWindow", "+ Add"))
+        self.label_65.setText(_translate("MainWindow", "Planner"))
+        self.label_62.setText(_translate("MainWindow", "Sourcing"))
+        self.label_63.setText(_translate("MainWindow", "SQE"))
+        self.label_68.setText(_translate("MainWindow", "e-mail"))
+        self.btn_add_sourcing.setText(_translate("MainWindow", "+ Add "))
+        self.label_67.setText(_translate("MainWindow", "e-mail"))
+        self.label_64.setText(_translate("MainWindow", "Continuity"))
+        self.btn_add_sqie.setText(_translate("MainWindow", "+ Add"))
+        self.btn_add_continuity.setText(_translate("MainWindow", "+ Add"))
+        self.label_66.setText(_translate("MainWindow", "e-mail"))
+        self.label_70.setText(_translate("MainWindow", "Alias"))
+        self.label_93.setText(_translate("MainWindow", "Alias"))
+        self.label_94.setText(_translate("MainWindow", "Alias"))
+        self.label_95.setText(_translate("MainWindow", "Alias"))
+        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_11), _translate("MainWindow", "Cummins configs"))
+        self.label_33.setText(_translate("MainWindow", "NIL"))
+        self.label_32.setText(_translate("MainWindow", "Pick Up"))
+        self.label_35.setText(_translate("MainWindow", "Package"))
+        self.btn_update_criteria.setText(_translate("MainWindow", "Update"))
+        self.btn_unlock_criteria_edit.setToolTip(_translate("MainWindow", "Unlocked the criteria fields for editing"))
+        self.btn_unlock_criteria_edit.setText(_translate("MainWindow", "🔒"))
+        self.label_34.setText(_translate("MainWindow", "OTIF"))
+        self.label_37.setText(_translate("MainWindow", "Target"))
+        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_9), _translate("MainWindow", "Criteria"))
+        self.groupBox_new_user.setTitle(_translate("MainWindow", "New User"))
+        self.label_102.setText(_translate("MainWindow", "WWID"))
+        self.new_privilege.setItemText(1, _translate("MainWindow", "Admin"))
+        self.new_privilege.setItemText(2, _translate("MainWindow", "User"))
+        self.label_103.setText(_translate("MainWindow", "Privilege"))
+        self.label_86.setText(_translate("MainWindow", "Password"))
+        self.btn_save_new_user.setText(_translate("MainWindow", "SAVE"))
+        self.groupBox_edit_user.setTitle(_translate("MainWindow", "Edit User"))
+        self.label_36.setText(_translate("MainWindow", "WWID"))
+        self.btn_edit_user.setText(_translate("MainWindow", "UPDATE"))
+        self.label_59.setText(_translate("MainWindow", "Password"))
+        self.label_55.setText(_translate("MainWindow", "Privilege"))
+        self.edit_privilege.setItemText(1, _translate("MainWindow", "Admin"))
+        self.edit_privilege.setItemText(2, _translate("MainWindow", "User"))
+        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_16), _translate("MainWindow", "Users"))
+        item = self.table_log.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Date"))
+        item = self.table_log.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Time"))
+        item = self.table_log.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "User"))
+        item = self.table_log.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Event"))
+        self.tabWidget_config.setTabText(self.tabWidget_config.indexOf(self.tab_15), _translate("MainWindow", "LOG"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Configs"))
 import icons
-
-

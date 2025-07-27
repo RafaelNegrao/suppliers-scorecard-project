@@ -21,9 +21,9 @@ class Ui_LoginWindow(object):
         self.centralwidget = QtWidgets.QWidget(LoginWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.barra_progresso = QtWidgets.QProgressBar(self.centralwidget)
-        self.barra_progresso.setGeometry(QtCore.QRect(270, 294, 247, 10))
+        self.barra_progresso.setGeometry(QtCore.QRect(288, 294, 217, 10))
         self.barra_progresso.setStyleSheet("QProgressBar {\n"
-"    background: rgba(255, 255, 255, 180);\n"
+"    background: transparent;\n"
 "    border-style: none;\n"
 "    border-radius: 5px;\n"
 "    color: rgba(200, 200, 200, 0); /* Esta cor está transparente, então o texto não aparecerá */\n"
@@ -45,22 +45,90 @@ class Ui_LoginWindow(object):
         self.label.setPixmap(QtGui.QPixmap(":/images/cummins.ico"))
         self.label.setScaledContents(True)
         self.label.setObjectName("label")
-        self.campoStats = QtWidgets.QTextEdit(self.centralwidget)
-        self.campoStats.setEnabled(False)
-        self.campoStats.setGeometry(QtCore.QRect(264, 48, 247, 229))
-        self.campoStats.setStyleSheet("background-color: transparent;\n"
-"border: none")
-        self.campoStats.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.campoStats.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.campoStats.setObjectName("campoStats")
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(-1, -5, 253, 331))
         self.widget.setStyleSheet("background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 9, 1, 255), stop:1 rgba(255, 100, 0, 255))")
         self.widget.setObjectName("widget")
+        self.widget_2 = QtWidgets.QWidget(self.centralwidget)
+        self.widget_2.setGeometry(QtCore.QRect(288, 54, 217, 67))
+        self.widget_2.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_2.setObjectName("widget_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget_2)
+        self.verticalLayout.setContentsMargins(15, 15, 15, 15)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.wwid_user = QtWidgets.QLineEdit(self.widget_2)
+        self.wwid_user.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.wwid_user.setFont(font)
+        self.wwid_user.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.wwid_user.setObjectName("wwid_user")
+        self.verticalLayout.addWidget(self.wwid_user)
+        self.widget_3 = QtWidgets.QWidget(self.centralwidget)
+        self.widget_3.setGeometry(QtCore.QRect(288, 144, 217, 67))
+        self.widget_3.setStyleSheet("QWidget{\n"
+"background-color:rgb(220,220,220);\n"
+" border-radius:20px\n"
+"}")
+        self.widget_3.setObjectName("widget_3")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_3)
+        self.verticalLayout_2.setContentsMargins(15, 15, 15, 15)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.password_login = QtWidgets.QLineEdit(self.widget_3)
+        self.password_login.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        font.setBold(True)
+        font.setWeight(75)
+        self.password_login.setFont(font)
+        self.password_login.setStyleSheet("QLineEdit {\n"
+"    border: none;\n"
+"    border-bottom: 1px solid rgb(90, 54, 247);\n"
+"    border-radius: 0;\n"
+"    background-color: transparent;\n"
+"}\n"
+"\n"
+"QLineEdit:disabled, QLineEdit:!focus {\n"
+"    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"}")
+        self.password_login.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.password_login.setObjectName("password_login")
+        self.verticalLayout_2.addWidget(self.password_login)
+        self.btn_login = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_login.setGeometry(QtCore.QRect(414, 240, 91, 37))
+        font = QtGui.QFont()
+        font.setFamily("Poppins")
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btn_login.setFont(font)
+        self.btn_login.setObjectName("btn_login")
+        self.checkBox_remember_login = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_remember_login.setGeometry(QtCore.QRect(288, 252, 97, 17))
+        self.checkBox_remember_login.setObjectName("checkBox_remember_login")
         self.widget.raise_()
         self.barra_progresso.raise_()
-        self.campoStats.raise_()
         self.label.raise_()
+        self.widget_2.raise_()
+        self.widget_3.raise_()
+        self.btn_login.raise_()
+        self.checkBox_remember_login.raise_()
         LoginWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(LoginWindow)
@@ -69,4 +137,8 @@ class Ui_LoginWindow(object):
     def retranslateUi(self, LoginWindow):
         _translate = QtCore.QCoreApplication.translate
         LoginWindow.setWindowTitle(_translate("LoginWindow", "Preparing environment..."))
+        self.wwid_user.setPlaceholderText(_translate("LoginWindow", "WWID"))
+        self.password_login.setPlaceholderText(_translate("LoginWindow", "Password"))
+        self.btn_login.setText(_translate("LoginWindow", "Login"))
+        self.checkBox_remember_login.setText(_translate("LoginWindow", "Remember-me"))
 import icons

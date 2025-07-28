@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="images">
+    <file>marca-x.png</file>
+    <file>info.png</file>
     <file>add.png</file>
     <file>botao-de-menu.png</file>
     <file>a8abd29a96d4222680540c6bd2e3595e.png</file>

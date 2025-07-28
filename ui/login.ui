@@ -136,10 +136,12 @@ background-color:rgb(220,220,220);
     border-bottom: 1px solid rgb(90, 54, 247);
     border-radius: 0;
     background-color: transparent;
+outline: none;
 }
 
 QLineEdit:disabled, QLineEdit:!focus {
     border-bottom: 1px solid rgb(120, 120, 120);
+outline: none;
 }</string>
        </property>
        <property name="placeholderText">
@@ -199,10 +201,12 @@ background-color:rgb(220,220,220);
     border-bottom: 1px solid rgb(90, 54, 247);
     border-radius: 0;
     background-color: transparent;
+outline: none;
 }
 
 QLineEdit:disabled, QLineEdit:!focus {
     border-bottom: 1px solid rgb(120, 120, 120);
+outline: none;
 }</string>
        </property>
        <property name="echoMode">
@@ -232,6 +236,9 @@ QLineEdit:disabled, QLineEdit:!focus {
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">outline: none;</string>
+    </property>
     <property name="text">
      <string>Login</string>
     </property>
@@ -244,6 +251,9 @@ QLineEdit:disabled, QLineEdit:!focus {
       <width>97</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">outline: none;</string>
     </property>
     <property name="text">
      <string>Remember-me</string>
@@ -263,7 +273,7 @@ QLineEdit:disabled, QLineEdit:!focus {
   <include location="icon.qrc"/>
   <include location="icon.qrc"/>
   <include location="icon.qrc"/>
-  <include location="../../../.designer/backup/icon.qrc"/>
+  <include location="icon.qrc"/>
  </resources>
  <connections/>
 </ui>

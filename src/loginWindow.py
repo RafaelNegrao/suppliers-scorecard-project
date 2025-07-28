@@ -72,10 +72,12 @@ class Ui_LoginWindow(object):
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color: transparent;\n"
+"outline: none;\n"
 "}\n"
 "\n"
 "QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"outline: none;\n"
 "}")
         self.wwid_user.setObjectName("wwid_user")
         self.verticalLayout.addWidget(self.wwid_user)
@@ -102,10 +104,12 @@ class Ui_LoginWindow(object):
 "    border-bottom: 1px solid rgb(90, 54, 247);\n"
 "    border-radius: 0;\n"
 "    background-color: transparent;\n"
+"outline: none;\n"
 "}\n"
 "\n"
 "QLineEdit:disabled, QLineEdit:!focus {\n"
 "    border-bottom: 1px solid rgb(120, 120, 120);\n"
+"outline: none;\n"
 "}")
         self.password_login.setEchoMode(QtWidgets.QLineEdit.Password)
         self.password_login.setObjectName("password_login")
@@ -118,9 +122,11 @@ class Ui_LoginWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.btn_login.setFont(font)
+        self.btn_login.setStyleSheet("outline: none;")
         self.btn_login.setObjectName("btn_login")
         self.checkBox_remember_login = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_remember_login.setGeometry(QtCore.QRect(288, 252, 97, 17))
+        self.checkBox_remember_login.setStyleSheet("outline: none;")
         self.checkBox_remember_login.setObjectName("checkBox_remember_login")
         self.widget.raise_()
         self.barra_progresso.raise_()

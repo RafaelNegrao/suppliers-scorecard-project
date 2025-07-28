@@ -24,15 +24,15 @@ from pathlib import Path
 
 
 class Functions(QtCore.QObject):
-    def __init__(self, ui_login, janela_login,janela_register ,janela_principal, ui_main, janela_select,parent=None):
+    def __init__(self, ui_login, janela_login,janela_principal, ui_main, janela_select,parent=None):
         super().__init__(parent)
         self.ui_login = ui_login
         self.janela_login = janela_login
         self.janela_principal = janela_principal
         self.ui_main = ui_main 
         self.ui_select = janela_select
-        self.ui_register = janela_register
-       
+        
+
         
         tab_widget = self.ui_main.tabWidget  
 
@@ -134,23 +134,28 @@ class Functions(QtCore.QObject):
 
     def iniciar_splash(self):
         try:
+            self.ui_login.btn_login.setEnabled(False)
+
             wwid_digitado = self.ui_login.wwid_user.text().strip()
             senha_digitada = self.ui_login.password_login.text().strip()
 
             if not wwid_digitado or not senha_digitada:
                 QMessageBox.warning(self.janela_login, "Login Failed", "Please enter both WWID and password.")
+                self.ui_login.btn_login.setEnabled(True)  
                 return
 
             resultado = read("SELECT user_wwid, user_password, user_privilege FROM users_table WHERE user_wwid = ?", (wwid_digitado,))
 
             if not resultado:
                 QMessageBox.critical(self.janela_login, "Login Failed", f"WWID '{wwid_digitado}' not found.")
+                self.ui_login.btn_login.setEnabled(True)  
                 return
 
             wwid_banco, senha_banco, privilegio = resultado[0]
 
             if senha_digitada != senha_banco:
                 QMessageBox.critical(self.janela_login, "Login Failed", "Incorrect password.")
+                self.ui_login.btn_login.setEnabled(True)
                 return
 
             self.usuario_logado = {
@@ -158,7 +163,6 @@ class Functions(QtCore.QObject):
                 "privilege": privilegio
             }
 
-            # Barra suave de 2 segundos
             self.ui_login.barra_progresso.setValue(0)
             self.tempo_inicial = QtCore.QElapsedTimer()
             self.tempo_inicial.start()
@@ -174,15 +178,23 @@ class Functions(QtCore.QObject):
 
                 if progresso >= 100:
                     self.timer.stop()
-                    if ui_login.checkBox_remember_login.isChecked():
+                    if self.ui_login.checkBox_remember_login.isChecked():
                         funcoes.salvar_preferencia_login()
                     self.janela_login.close()
                     self.janela_principal.show()
                     self.verificar_privilegio(wwid_digitado, senha_digitada)
                     self.carregar_graficos()
+                
 
             self.timer.timeout.connect(atualizar_barra)
             self.timer.start()
+
+        except Exception as e:
+            QMessageBox.critical(self.janela_login, "Error", f"An unexpected error occurred:\n{str(e)}")
+            log_event(f"[Login Error] {str(e)}")
+            funcoes.preencher_table_log()
+            self.ui_login.btn_login.setEnabled(True)  
+
 
         except Exception as e:
             QMessageBox.critical(self.janela_login, "Error", f"An unexpected error occurred:\n{str(e)}")
@@ -198,9 +210,9 @@ class Functions(QtCore.QObject):
 
             privilegio = self.usuario_logado.get("privilege", "").strip().lower()
 
-            # Preenche os campos com os dados do login
             self.ui_main.edit_wwid.setText(wwid_digitado)
             self.ui_main.edit_password.setText(senha_digitada)
+            self.ui_main.edit_privilege.setCurrentText(self.usuario_logado["privilege"])
 
             if privilegio == "admin":
                 return
@@ -222,14 +234,14 @@ class Functions(QtCore.QObject):
             log_event(f"[Privilege Check Error] {str(e)}")
 
 
-
     def atualizar_senha(self):
         try:
-            wwid = self.ui_main.edit_wwid.text().strip()
-            nova_senha = self.ui_main.edit_password.text().strip()
+            wwid = self.ui_main.edit_wwid.text()
+            nova_senha = self.ui_main.edit_password.text()
+            novo_privilegio = self.ui_main.edit_privilege.currentText()
 
-            if not wwid or not nova_senha:
-                QMessageBox.warning(self.janela_principal, "Invalid Input", "Please fill in both WWID and the new password.")
+            if not wwid or not nova_senha or not novo_privilegio:
+                QMessageBox.warning(self.janela_principal, "Invalid Input", "Please fill in WWID, new password, and privilege.")
                 return
 
             resultado = read("SELECT 1 FROM users_table WHERE user_wwid = ?", (wwid,))
@@ -237,15 +249,21 @@ class Functions(QtCore.QObject):
                 QMessageBox.warning(self.janela_principal, "User Not Found", f"No user found with WWID '{wwid}'.")
                 return
 
-            update("UPDATE users_table SET user_password = ? WHERE user_wwid = ?", (nova_senha, wwid))
-            QMessageBox.information(self.janela_principal, "Success", f"Password updated successfully for WWID '{wwid}'.")
+            update(
+                "UPDATE users_table SET user_password = ?, user_privilege = ? WHERE user_wwid = ?",
+                (nova_senha, novo_privilegio, wwid)
+            )
+
+            QMessageBox.information(
+                self.janela_principal,
+                "Success",
+                f"Password and privilege updated successfully for WWID '{wwid}'."
+            )
 
         except Exception as e:
-            QMessageBox.critical(self.janela_principal, "Error", f"An error occurred while updating password:\n{str(e)}")
-            log_event(f"[Update Password Error] {str(e)}");funcoes.preencher_table_log()
-
-
-        
+            QMessageBox.critical(self.janela_principal, "Error", f"An error occurred while updating data:\n{str(e)}")
+            log_event(f"[Update Password/Privilege Error] {str(e)}")
+            funcoes.preencher_table_log()
 
 
     def atualizar_media_12_meses(self):
@@ -646,6 +664,9 @@ class Functions(QtCore.QObject):
         
         if ui.tabWidget.currentIndex() == 4:
             funcoes.verificar_riscos()
+        elif ui.tabWidget.currentIndex() == 2:
+            funcoes.preencher_tabela_resultados()
+            funcoes.carregar_graficos()
 
         buttons = [
             ui.btn_home,
@@ -1043,7 +1064,7 @@ class Functions(QtCore.QObject):
         ui.id_update.setText("")
         ui.supplier_status_update.setCurrentText("")
         ui.email_update.setPlainText("")
-        ui.supplier_number_update.setText()
+        ui.supplier_number_update.setText("")
     
 
     def apagar_todos_campos_query(self):
@@ -1062,173 +1083,271 @@ class Functions(QtCore.QObject):
 
 
     def adicionar_sqie(self):
-        dialog = QDialog()
-        dialog.setWindowTitle("Add New SQIE")
-        dialog.setFixedWidth(400)
+        name = ui.new_sqie.text().strip()
+        alias = ui.new_alias_sqie.text().strip().upper()
+        email = ui.new_sqie_email.text().strip()
+        registered_by = getpass.getuser()
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        layout = QVBoxLayout(dialog)
+        if not name or not alias or not email:
+            return  
 
-        label = QLabel("Enter the name of the new SQIE:")
-        campo = QLineEdit()
-        campo.setPlaceholderText("SQIE name")
-        campo.setMinimumWidth(350)
-
-        botoes = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        botoes.accepted.connect(dialog.accept)
-        botoes.rejected.connect(dialog.reject)
-
-        layout.addWidget(label)
-        layout.addWidget(campo)
-        layout.addWidget(botoes)
-
-        if dialog.exec() == QDialog.Accepted:
-            new_sqie = campo.text().strip()
-            if not new_sqie:
-                QMessageBox.warning(None, "Required Field", "The SQIE name cannot be empty.")
+        try:
+            resultado = read("SELECT sqie_id FROM sqie_table WHERE alias = ?", (alias,))
+            if resultado:
+                resposta = QMessageBox.question(
+                    None,
+                    "Alias Exists",
+                    f"The alias '{alias}' already exists. Do you want to edit the existing entry?",
+                    QMessageBox.Yes | QMessageBox.No
+                )
+                if resposta == QMessageBox.Yes:
+                    sqie_id = resultado[0][0]
+                    update(
+                        "UPDATE sqie_table SET name = ?, email = ?, change_date_change_by = ? WHERE sqie_id = ?",
+                        (name, email, f"{now} | {registered_by}", sqie_id)
+                    )
+                    log_event(f"[UPDATE] Edited SQIE alias '{alias}' by {registered_by}")
+                    self.carregar_todos_sqie()
+                    QMessageBox.information(None, "SQIE Updated", f"SQIE '{alias}' updated successfully.")
+                    ui.new_sqie.clear()
+                    ui.new_alias_sqie.clear()
+                    ui.new_sqie_email.clear()
+                    self.preencher_table_log()
                 return
 
-            try:
-                create("sqie", {"nome": new_sqie})
-                self.carregar_todos_sqie()
-                QMessageBox.information(None, "Success", f"SQIE '{new_sqie}' added successfully.")
-            except Exception as e:
-                QMessageBox.critical(None, "Error", f"Failed to add SQIE:\n{str(e)}")
+            create(
+                "INSERT INTO sqie_table (name, alias, email, register_date, registered_by) VALUES (?, ?, ?, ?, ?)",
+                (name, alias, email, now, registered_by),
+                log_description=f"Added new SQIE '{name}' with alias '{alias}' by {registered_by}"
+            )
+
+            self.carregar_todos_sqie()
+            QMessageBox.information(None, "SQIE Added", f"SQIE '{alias}' added successfully.")
+            ui.new_sqie.clear()
+            ui.new_alias_sqie.clear()
+            ui.new_sqie_email.clear()
+            self.preencher_table_log()
+
+        except Exception as e:
+            log_event(f"[ERROR] Failed to add/edit SQIE: {str(e)}")
+            self.preencher_table_log()
 
 
     def adicionar_continuity(self):
-        dialog = QDialog()
-        dialog.setWindowTitle("Add New Continuity")
-        dialog.setFixedWidth(400)
+        name = ui.new_continuity.text().strip()
+        alias = ui.new_alias_continuity.text().strip().upper()
+        email = ui.new_continuity_email.text().strip()
+        registered_by = getpass.getuser()
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        layout = QVBoxLayout(dialog)
+        if not name or not alias or not email:
+            return  
 
-        label = QLabel("Enter the name of the new Continuity:")
-        campo = QLineEdit()
-        campo.setPlaceholderText("Continuity name")
-        campo.setMinimumWidth(350)
-
-        botoes = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        botoes.accepted.connect(dialog.accept)
-        botoes.rejected.connect(dialog.reject)
-
-        layout.addWidget(label)
-        layout.addWidget(campo)
-        layout.addWidget(botoes)
-
-        if dialog.exec() == QDialog.Accepted:
-            new_continuity = campo.text().strip()
-            if not new_continuity:
-                QMessageBox.warning(None, "Required Field", "The Continuity name cannot be empty.")
+        try:
+            resultado = read("SELECT continuity_id FROM continuity_table WHERE alias = ?", (alias,))
+            if resultado:
+                resposta = QMessageBox.question(
+                    None,
+                    "Alias Exists",
+                    f"The alias '{alias}' already exists. Do you want to edit the existing entry?",
+                    QMessageBox.Yes | QMessageBox.No
+                )
+                if resposta == QMessageBox.Yes:
+                    continuity_id = resultado[0][0]
+                    update(
+                        "UPDATE continuity_table SET name = ?, email = ?, change_date_change_by = ? WHERE continuity_id = ?",
+                        (name, email, f"{now} | {registered_by}", continuity_id)
+                    )
+                    log_event(f"[UPDATE] Edited continuity alias '{alias}' by {registered_by}")
+                    self.carregar_todos_continuity()
+                    QMessageBox.information(None, "Continuity Updated", f"Continuity '{alias}' updated successfully.")
+                    ui.new_continuity.clear()
+                    ui.new_alias_continuity.clear()
+                    ui.new_continuity_email.clear()
+                    self.preencher_table_log()
                 return
 
-            try:
-                create("continuity", {"nome": new_continuity})
-                self.carregar_todos_continuity()
-                QMessageBox.information(None, "Success", f"Continuity '{new_continuity}' added successfully.")
-            except Exception as e:
-                QMessageBox.critical(None, "Error", f"Failed to add Continuity:\n{str(e)}")
+            create(
+                "INSERT INTO continuity_table (name, alias, email, register_date, registered_by) VALUES (?, ?, ?, ?, ?)",
+                (name, alias, email, now, registered_by),
+                log_description=f"Added new continuity '{name}' with alias '{alias}' by {registered_by}"
+            )
+
+            self.carregar_todos_continuity()
+            QMessageBox.information(None, "Continuity Added", f"Continuity '{alias}' added successfully.")
+            ui.new_continuity.clear()
+            ui.new_alias_continuity.clear()
+            ui.new_continuity_email.clear()
+            self.preencher_table_log()
+
+        except Exception as e:
+            log_event(f"[ERROR] Failed to add/edit continuity: {str(e)}")
+            self.preencher_table_log()
+
+
+    def adicionar_planner(self):
+        # CORRIGI
+        name = ui.new_planner.text().strip()
+        alias = ui.new_alias_planner.text().strip().upper()
+        email = ui.new_planner_email.text().strip()
+        registered_by = getpass.getuser()
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        if not name or not alias or not email:
+            return  
+
+        try:
+            resultado = read("SELECT planner_id FROM planner_table WHERE alias = ?", (alias,))
+            if resultado:
+                resposta = QMessageBox.question(
+                    None,
+                    "Alias Exists",
+                    f"The alias '{alias}' already exists. Do you want to edit the existing entry?",
+                    QMessageBox.Yes | QMessageBox.No
+                )
+                if resposta == QMessageBox.Yes:
+                    planner_id = resultado[0][0]
+                    update(
+                        "UPDATE planner_table SET name = ?, email = ?, change_date_change_by = ? WHERE planner_id = ?",
+                        (name, email, f"{now} | {registered_by}", planner_id)
+                    )
+                    log_event(f"[UPDATE] Edited planner alias '{alias}' by {registered_by}")
+                    self.carregar_todos_planner()
+                    QMessageBox.information(None, "Planner Updated", f"Planner '{alias}' updated successfully.")
+                    ui.new_planner.clear()
+                    ui.new_alias_planner.clear()
+                    ui.new_planner_email.clear()
+                    self.preencher_table_log()
+                return
+
+            create(
+                "INSERT INTO planner_table (name, alias, email, register_date, registered_by) VALUES (?, ?, ?, ?, ?)",
+                (name, alias, email, now, registered_by),
+                log_description=f"Added new planner '{name}' with alias '{alias}' by {registered_by}"
+            )
+
+            self.carregar_todos_planner()
+            QMessageBox.information(None, "Planner Added", f"Planner '{alias}' added successfully.")
+            ui.new_planner.clear()
+            ui.new_alias_planner.clear()
+            ui.new_planner_email.clear()
+            self.preencher_table_log()
+
+        except Exception as e:
+            log_event(f"[ERROR] Failed to add/edit planner: {str(e)}")
+            self.preencher_table_log()
 
 
     def adicionar_sourcing(self):
-        dialog = QDialog()
-        dialog.setWindowTitle("Add New Sourcing")
-        dialog.setFixedWidth(400)
+        name = ui.new_sourcing.text().strip()
+        alias = ui.new_alias_sourcing.text().strip().upper()
+        email = ui.new_sourcing_email.text().strip()
+        registered_by = getpass.getuser()
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        layout = QVBoxLayout(dialog)
+        if not name or not alias or not email:
+            return  
 
-        label = QLabel("Enter the name of the new Sourcing:")
-        campo = QLineEdit()
-        campo.setPlaceholderText("Sourcing name")
-        campo.setMinimumWidth(350)
-
-        botoes = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        botoes.accepted.connect(dialog.accept)
-        botoes.rejected.connect(dialog.reject)
-
-        layout.addWidget(label)
-        layout.addWidget(campo)
-        layout.addWidget(botoes)
-
-        if dialog.exec() == QDialog.Accepted:
-            new_sourcing = campo.text().strip()
-            if not new_sourcing:
-                QMessageBox.warning(None, "Required Field", "The Sourcing name cannot be empty.")
+        try:
+            resultado = read("SELECT sourcing_id FROM sourcing_table WHERE alias = ?", (alias,))
+            if resultado:
+                resposta = QMessageBox.question(
+                    None,
+                    "Alias Exists",
+                    f"The alias '{alias}' already exists. Do you want to edit the existing entry?",
+                    QMessageBox.Yes | QMessageBox.No
+                )
+                if resposta == QMessageBox.Yes:
+                    sourcing_id = resultado[0][0]
+                    update(
+                        "UPDATE sourcing_table SET name = ?, email = ?, change_date_change_by = ? WHERE sourcing_id = ?",
+                        (name, email, f"{now} | {registered_by}", sourcing_id)
+                    )
+                    log_event(f"[UPDATE] Edited sourcing alias '{alias}' by {registered_by}")
+                    self.carregar_todos_sourcing()
+                    QMessageBox.information(None, "Sourcing Updated", f"Sourcing '{alias}' updated successfully.")
+                    ui.new_sourcing.clear()
+                    ui.new_alias_sourcing.clear()
+                    ui.new_sourcing_email.clear()
+                    self.preencher_table_log()
                 return
 
-            try:
-                create("sourcing", {"nome": new_sourcing})
-                self.carregar_todos_sourcing()
-                QMessageBox.information(None, "Success", f"Sourcing '{new_sourcing}' added successfully.")
-            except Exception as e:
-                QMessageBox.critical(None, "Error", f"Failed to add Sourcing:\n{str(e)}")
+            create(
+                "INSERT INTO sourcing_table (name, alias, email, register_date, registered_by) VALUES (?, ?, ?, ?, ?)",
+                (name, alias, email, now, registered_by),
+                log_description=f"Added new sourcing '{name}' with alias '{alias}' by {registered_by}"
+            )
+
+            self.carregar_todos_sourcing()
+            QMessageBox.information(None, "Sourcing Added", f"Sourcing '{alias}' added successfully.")
+            ui.new_sourcing.clear()
+            ui.new_alias_sourcing.clear()
+            ui.new_sourcing_email.clear()
+            self.preencher_table_log()
+
+        except Exception as e:
+            log_event(f"[ERROR] Failed to add/edit sourcing: {str(e)}")
+            self.preencher_table_log()
 
 
     def adicionar_bu(self):
-        dialog = QDialog()
-        dialog.setWindowTitle("Add New Business Unit")
-        dialog.setFixedWidth(400)
+        bu = ui.new_bu.text().strip()
+        registered_by = getpass.getuser()
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        layout = QVBoxLayout(dialog)
+        if not bu:
+            return  
 
-        label = QLabel("Enter the name of the new Business Unit:")
-        campo = QLineEdit()
-        campo.setPlaceholderText("Business Unit name")
-        campo.setMinimumWidth(350)
-
-        botoes = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        botoes.accepted.connect(dialog.accept)
-        botoes.rejected.connect(dialog.reject)
-
-        layout.addWidget(label)
-        layout.addWidget(campo)
-        layout.addWidget(botoes)
-
-        if dialog.exec() == QDialog.Accepted:
-            new_bu = campo.text().strip()
-            if not new_bu:
-                QMessageBox.warning(None, "Required Field", "The Business Unit name cannot be empty.")
+        try:
+            resultado = read("SELECT business_id FROM business_unit_table WHERE bu = ?", (bu,))
+            if resultado:
+                QMessageBox.warning(None, "Already Exists", f"The Business Unit '{bu}' already exists.")
                 return
 
-            try:
-                create("business_units", {"bu": new_bu})
-                self.carregar_todos_bus()
-                QMessageBox.information(None, "Success", f"Business Unit '{new_bu}' added successfully.")
-            except Exception as e:
-                QMessageBox.critical(None, "Error", f"Failed to add Business Unit:\n{str(e)}")
+            create(
+                "INSERT INTO business_unit_table (bu, register_date, registered_by) VALUES (?, ?, ?)",
+                (bu, now, registered_by),
+                log_description=f"Added new Business Unit '{bu}' by {registered_by}"
+            )
+
+            self.carregar_todos_bus()
+            QMessageBox.information(None, "Success", f"Business Unit '{bu}' added successfully.")
+            ui.new_bu.clear()
+            self.preencher_table_log()
+
+        except Exception as e:
+            log_event(f"[ERROR] Failed to add Business Unit: {str(e)}")
+            self.preencher_table_log()
 
 
     def adicionar_category(self):
-        dialog = QDialog()
-        dialog.setWindowTitle("Add New Category")
-        dialog.setFixedWidth(400)
+        category = ui.new_category_2.text().strip()
+        registered_by = getpass.getuser()
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        layout = QVBoxLayout(dialog)
-
-        label = QLabel("Enter the name of the new category:")
-        campo = QLineEdit()
-        campo.setPlaceholderText("Category name")
-        campo.setMinimumWidth(350)
-
-        botoes = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        botoes.accepted.connect(dialog.accept)
-        botoes.rejected.connect(dialog.reject)
-
-        layout.addWidget(label)
-        layout.addWidget(campo)
-        layout.addWidget(botoes)
-
-        if dialog.exec() == QDialog.Accepted:
-            new_category = campo.text().strip()
-            if not new_category:
-                QMessageBox.warning(None, "Required Field", "Category name cannot be empty.")
+        if not category:
+            return  
+        try:
+            resultado = read("SELECT categories_id FROM categories_table WHERE category = ?", (category,))
+            if resultado:
+                QMessageBox.warning(None, "Already Exists", f"The category '{category}' already exists.")
                 return
 
-            try:
-                create("categories", {"category": new_category})
-                self.carregar_todos_categories()
-                QMessageBox.information(None, "Success", f"Category '{new_category}' added successfully.")
-            except Exception as e:
-                QMessageBox.critical(None, "Error", f"Failed to add category:\n{str(e)}")
+            create(
+                "INSERT INTO categories_table (category, register_date, registered_by) VALUES (?, ?, ?)",
+                (category, now, registered_by),
+                log_description=f"Added new category '{category}' by {registered_by}"
+            )
+
+            self.carregar_todos_categories()
+            QMessageBox.information(None, "Success", f"Category '{category}' added successfully.")
+            ui.new_category_2.clear()
+            self.preencher_table_log()
+
+        except Exception as e:
+            log_event(f"[ERROR] Failed to add category: {str(e)}")
+            self.preencher_table_log()
 
 
     def carregar_criterios_dos_campos(self):
@@ -1322,14 +1441,16 @@ class Functions(QtCore.QObject):
     def carregar_todos_bus(self):
         try:
             resultados = read("SELECT * FROM business_unit_table")
-
-            # Supondo que a coluna 'bu' é a segunda (índice 1)
             bus = sorted(set(row[1] for row in resultados))
 
             ui.bu_update.clear()
             ui.bu_update.addItem("")
+            ui.bu_register_new.clear()
+            ui.bu_register_new.addItem("")
+
             for b in bus:
                 ui.bu_update.addItem(b)
+                ui.bu_register_new.addItem(b)
 
         except Exception as e:
             print(f"Erro ao carregar business units: {e}")
@@ -1338,11 +1459,14 @@ class Functions(QtCore.QObject):
     def carregar_todos_continuity(self):
         try:
             resultados = read("SELECT * FROM continuity_table")
-            nomes = sorted(row[1] for row in resultados)  # Assumindo que 'nome' é a 2ª coluna (índice 1)
+            nomes = sorted(row[1] for row in resultados) 
 
             self.ui_main.continuity_update.clear()
             self.ui_main.continuity_update.addItem("")
             self.ui_main.continuity_update.addItems(nomes)
+            self.ui_main.continuity_register_new.clear()
+            self.ui_main.continuity_register_new.addItem("")
+            self.ui_main.continuity_register_new.addItems(nomes)
 
         except Exception as e:
             print(f"Erro ao carregar continuity: {e}")
@@ -1356,6 +1480,9 @@ class Functions(QtCore.QObject):
             self.ui_main.sourcing_update.clear()
             self.ui_main.sourcing_update.addItem("")
             self.ui_main.sourcing_update.addItems(nomes)
+            self.ui_main.sourcing_register_new.clear()
+            self.ui_main.sourcing_register_new.addItem("")
+            self.ui_main.sourcing_register_new.addItems(nomes)
 
         except Exception as e:
             print(f"Erro ao carregar sourcing: {e}")
@@ -1370,6 +1497,9 @@ class Functions(QtCore.QObject):
             self.ui_main.sqie_update.clear()
             self.ui_main.sqie_update.addItem("")
             self.ui_main.sqie_update.addItems(nomes)
+            self.ui_main.sqie_register_new.clear()
+            self.ui_main.sqie_register_new.addItem("")
+            self.ui_main.sqie_register_new.addItems(nomes)
 
         except Exception as e:
             pass
@@ -1384,14 +1514,20 @@ class Functions(QtCore.QObject):
             self.ui_main.planner_update.clear()
             self.ui_main.planner_update.addItem("")
             self.ui_main.planner_update.addItems(nomes)
+            self.ui_main.planner_register_new.clear()
+            self.ui_main.planner_register_new.addItem("")
+            self.ui_main.planner_register_new.addItems(nomes)
 
         except Exception as e:
             pass
 
 
+    def salvar_novo_supplier(self):
+        pass
+
     def atualizar_dados_supplier(self):
+        # ATUALIZA SUPPLIER JÁ REGISTRADO
         try:
-            # Coletar dados da interface
             supplier_id = ui.id_update.text()
             vendor_name = ui.vendor_update.text().strip().upper()
             supplier_name = ui.supplier_update.text().strip().upper()
@@ -1408,6 +1544,7 @@ class Functions(QtCore.QObject):
             country = ui.country_update.text().strip().upper()
             region = ui.region_update.text().strip().upper()
             document = ui.document_update.text().strip().upper()
+    
 
             if not vendor_name:
                 QMessageBox.warning(None, "Warning", "The 'Vendor' field cannot be empty.")
@@ -1471,7 +1608,7 @@ class Functions(QtCore.QObject):
 
             header = table.horizontalHeader()
             header.setSectionResizeMode(0, header.Fixed)
-            header.setSectionResizeMode(1, header.Stretch)  # Vendor se ajusta
+            header.setSectionResizeMode(1, header.Stretch)  
             header.setSectionResizeMode(2, header.Fixed)
             header.setSectionResizeMode(3, header.Fixed)
             header.setSectionResizeMode(4, header.Fixed)
@@ -1494,7 +1631,6 @@ class Functions(QtCore.QObject):
                     item = QTableWidgetItem(valor)
                     item.setFlags(item.flags() & ~Qt.ItemIsEditable)
 
-                    # Alinhar ao centro exceto Vendor (coluna 1)
                     if col_idx != 1:
                         item.setTextAlignment(Qt.AlignCenter)
 
@@ -1539,25 +1675,6 @@ class Functions(QtCore.QObject):
         ui.table_log.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
 
 
-    def evento_ao_abrir(self):
-        self.carregar_todos_sqie()
-        self.carregar_todos_continuity()
-        self.carregar_todos_sourcing()
-        self.carregar_todos_planner()
-        self.carregar_todos_categories()
-        self.carregar_todos_bus()
-        self.carregar_criterios_dos_campos()
-        self.preencher_table_log()
-        self.carregar_preferencia_checkbox()
-
-
-    def evento_ao_fechar(self, event):
-        janela_register.close()
-        janela_select.close()
-        
-        event.accept()
-
-
     def mostrar_info(self, checked=False):
     
         QMessageBox.information(
@@ -1571,7 +1688,8 @@ class Functions(QtCore.QObject):
 
     def apagar_registro_selecionado(self):
         tabela = self.ui_main.tableDetails
-        linha = tabela.currentRow()
+        index = tabela.currentIndex()
+        linha = index.row()
 
         if linha < 0:
             QMessageBox.warning(None, "Warning", "No row selected.")
@@ -1595,19 +1713,21 @@ class Functions(QtCore.QObject):
             return
 
         try:
-            delete("suppliers_timeline", {"row_id": id_registro})
+            delete("DELETE FROM supplier_score_records_table WHERE id = ?", (id_registro,))
 
-            QMessageBox.information(None, "Success", "Record successfully deleted.")
             self.preencher_tabela_resultados()
             self.carregar_graficos()
 
-            # Ajustar a última coluna para preencher o espaço restante
             self.ui_main.tableDetails.horizontalHeader().setSectionResizeMode(
                 self.ui_main.tableDetails.columnCount() - 1, QtWidgets.QHeaderView.Stretch
             )
 
         except Exception as e:
             QMessageBox.critical(None, "Error", f"Failed to delete record:\n{e}")
+            log_event(f"[ERROR] Failed to delete record: {e}")
+            self.preencher_table_log()
+
+
 
 
     def buscar_dados_supplier_por_id(self, id_fornecedor):
@@ -1648,11 +1768,11 @@ class Functions(QtCore.QObject):
         dados = dict(zip(colunas, dados_tuple))
 
         funcoes_params = {
-            "score": ["vendor_name", "supplier_name", "bu", "supplier_category", "sqie", "sourcing","continuity", "planner","ssid", "country", "region", "document","supplier_status","supplier_number"],
+            "score": ["vendor_name", "bu","supplier_status","supplier_number"],
             
-            "timeline": ["vendor_name", "supplier_name", "bu", "supplier_category", "sqie","sourcing", "continuity", "planner"],
+            "timeline": ["vendor_name",  "bu"],
             
-            "update": ["vendor_name", "supplier_name", "bu", "supplier_category", "sqie", "sourcing","continuity", "planner","ssid", "country", "region", "document","supplier_status","supplier_number"],
+            "update": ["vendor_name", "supplier_name", "bu", "supplier_category", "sqie", "sourcing","continuity", "planner","ssid", "country", "region", "document","supplier_status","supplier_number","supplier_email"],
             
             "email": ["vendor_name", "supplier_email"],
         }
@@ -1665,22 +1785,12 @@ class Functions(QtCore.QObject):
         janela_select.close()
 
 
-    def preencher_score(self,id, vendor, supplier, bu, category, sqie, sourcing, continuity,planner,ssid,country,region,document,status,number):
+    def preencher_score(self,id, vendor, bu,status,number):
         ui.id_query.setText(str(id))
         ui.vendor_select.setText(vendor)
-        #ui.category_query.setText(str(category) if category else "")
-        #ui.sqie_query.setText(str(sqie) if sqie else "")
-        #ui.sourcing_query.setText(str(sourcing) if sourcing else "")
-        #ui.continuity_query.setText(str(continuity) if continuity else "")
-        #ui.ssid_query.setText(str(ssid) if ssid else "")
-        #ui.country_query.setText(str(country) if country else "")
-        #ui.region_query.setText(str(region) if region else "")
-        #ui.document_query.setText(str(document) if document else "")
         ui.bu_query.setText(str(bu) if bu else "")
-        #ui.supplier_query.setText(str(supplier) if supplier else "")
         ui.status_query.setText(str(status) if status else "")
         ui.number_query.setText(str(number) if number else "")
-        #ui.planner_query.setText(str(planner) if planner else "")
 
 
     def preencher_email(self,id, vendor,email):
@@ -1690,20 +1800,15 @@ class Functions(QtCore.QObject):
         #preencher tambem campo emails
       
 
-    def preencher_timeline(self,id, vendor, supplier, bu, category, sqie, sourcing, continuity,planner):
+    def preencher_timeline(self,id, vendor, bu):
         ui.id_timeline.setText(id)
         ui.vendor_timeline.setText(vendor)
         ui.bu_query_2.setText(str(bu) if bu else "")
-        ui.category_timeline.setText(str(category) if category else "")
-        ui.sqie_timeline.setText(str(sqie) if sqie else "")
-        ui.sourcing_timeline.setText(str(sourcing) if sourcing else "")
-        ui.continuity_timeline.setText(str(continuity) if continuity else "")
-        ui.supplier_timeline.setText(str(supplier) if supplier else "")
-        ui.planner_timeline.setText(str(planner) if planner else "")
         self.carregar_graficos()
+        funcoes.preencher_infos_supplier(id)
 
 
-    def preencher_update(self,id, vendor, supplier, bu, category, sqie, sourcing, continuity,planner,ssid,country,region,document,status,number):
+    def preencher_update(self,id, vendor, supplier, bu, category, sqie, sourcing, continuity,planner,ssid,country,region,document,status,number,email):
         ui.id_update.setText(id)
         ui.vendor_update.setText(vendor)
         ui.bu_update.setCurrentText(str(bu) if bu else "")
@@ -1719,6 +1824,7 @@ class Functions(QtCore.QObject):
         ui.supplier_status_update.setCurrentText(str(status) if status else "")
         ui.supplier_number_update.setText(str(number) if number else "")
         ui.planner_update.setCurrentText(str(planner) if planner else "")
+        ui.email_update.setPlainText(str(email) if email else "")
 
 
     def verificar_riscos(self):
@@ -1839,7 +1945,15 @@ class Functions(QtCore.QObject):
         return resultado["valido"]
 
 
+
+    
+
     def ocultar_menu():
+        global em_animacao_sidebar
+        if em_animacao_sidebar:
+            return  # Bloqueia reentrada
+        em_animacao_sidebar = True
+
         largura_atual = ui.sidebar.width()
         largura_aberta = 180
         largura_fechada = 50
@@ -1873,6 +1987,133 @@ class Functions(QtCore.QObject):
             ui.label_version.setVisible(True)
             ui.label_version_number.setVisible(True)
 
+        em_animacao_sidebar = False  
+
+    def ocultar_right_sidebar():
+        global em_animacao_right_sidebar
+        if em_animacao_right_sidebar:
+            return  
+        em_animacao_right_sidebar = True
+
+        largura_atual = ui.right_sidebar.width()
+        largura_aberta = 300
+        largura_fechada = 0
+        passo = 20
+        delay_ms = 1
+        id = ui.id_timeline.text()
+
+        if largura_atual > largura_fechada:
+            funcoes.preencher_infos_supplier(id)
+            for largura in range(largura_atual, largura_fechada - 1, -passo):
+                ui.right_sidebar.setFixedWidth(largura)
+                loop = QEventLoop()
+                QTimer.singleShot(delay_ms, loop.quit)
+                loop.exec_()
+            ui.right_sidebar.setFixedWidth(largura_fechada)
+        else:
+            funcoes.preencher_infos_supplier(id)
+            for largura in range(largura_atual, largura_aberta + 1, passo):
+                ui.right_sidebar.setFixedWidth(largura)
+                loop = QEventLoop()
+                QTimer.singleShot(delay_ms, loop.quit)
+                loop.exec_()
+            ui.right_sidebar.setFixedWidth(largura_aberta)
+
+        em_animacao_right_sidebar = False  
+
+    def preencher_infos_supplier(self, id):
+        try:
+            resultado = read(
+                "SELECT supplier_name, supplier_category, planner, continuity, sourcing, sqie, supplier_number, supplier_email, supplier_status FROM supplier_database_table WHERE supplier_id = ?", 
+                (id,)
+            )
+
+            if not resultado:
+                ui.info_field.setPlainText("")
+                return
+
+            (supplier_name, supplier_category, planner, continuity, 
+            sourcing, sqie, supplier_number, supplier_email, supplier_status) = resultado[0]
+
+            def buscar_info(table, name):
+                if not name or not name.strip():
+                    return None
+                dados = read(f"SELECT alias, email FROM {table} WHERE name = ?", (name.strip(),))
+                return dados[0] if dados else None
+
+            seções = []
+
+            # Supplier Info (sempre exibido)
+            seções.append(f"""
+            <b>Supplier Info</b><br>
+            Name: {supplier_name}<br>
+            Category: {supplier_category}<br>
+            Number: {supplier_number}<br>
+            Status: {supplier_status}<br><br>
+            """)
+
+            if planner.strip():
+                info = buscar_info("planner_table", planner)
+                if info:
+                    planner_alias, planner_email = info
+                    seções.append(f"""
+                    <b>Planner</b><br>
+                    Name : {planner}<br>
+                    WWID: {planner_alias}<br>
+                    Email: {planner_email}<br><br>
+                    """)
+
+            if continuity.strip():
+                info = buscar_info("continuity_table", continuity)
+                if info:
+                    continuity_alias, continuity_email = info
+                    seções.append(f"""
+                    <b>Continuity</b><br>
+                    Name : {continuity}<br>
+                    WWID: {continuity_alias}<br>
+                    Email: {continuity_email}<br><br>
+                    """)
+
+            if sourcing.strip():
+                info = buscar_info("sourcing_table", sourcing)
+                if info:
+                    sourcing_alias, sourcing_email = info
+                    seções.append(f"""
+                    <b>Sourcing</b><br>
+                    Name : {sourcing}<br>
+                    WWID: {sourcing_alias}<br>
+                    Email: {sourcing_email}<br><br>
+                    """)
+
+            if sqie.strip():
+                info = buscar_info("sqie_table", sqie)
+                if info:
+                    sqie_alias, sqie_email = info
+                    seções.append(f"""
+                    <b>SQIE</b><br>
+                    Name : {sqie}<br>
+                    WWID: {sqie_alias}<br>
+                    Email: {sqie_email}<br><br>
+                    """)
+
+            if supplier_email and any(email.strip() for email in supplier_email.split(";")):
+                email_list = [email.strip() for email in supplier_email.split(";") if email.strip()]
+                email_formatado = "<br>".join(f"&nbsp;&nbsp;• {email}" for email in email_list)
+                seções.append(f"""
+                <b>Supplier Email</b><br>
+                {email_formatado}
+                """)
+
+            ui.info_field.setHtml("".join(seções))
+
+        except Exception as e:
+            log_event(f"[ERROR] Failed to fill supplier info: {str(e)}")
+            self.preencher_table_log()
+            ui.info_field.setPlainText("An error occurred while retrieving supplier information.")
+
+
+
+
 
     def atualizar_logo():
         ui.label_imagem_logo.setScaledContents(True)
@@ -1896,7 +2137,6 @@ class Functions(QtCore.QObject):
 
     def salvar_preferencia_checkbox(self):
         try:
-
             estado = ui.checkBox_show_inactive.isChecked()
 
             pasta_config = Path(os.getenv("APPDATA")) / "MeuSistema"
@@ -1904,8 +2144,15 @@ class Functions(QtCore.QObject):
 
             caminho_config = pasta_config / "config.json"
 
+            config = {}
+            if caminho_config.exists():
+                with open(caminho_config, "r") as f:
+                    config = json.load(f)
+
+            config["show_inactive"] = estado  
+
             with open(caminho_config, "w") as f:
-                json.dump({"show_inactive": estado}, f)
+                json.dump(config, f)
 
         except Exception as e:
             log_event(f"[Error] Saving checkbox preference failed: {e}")
@@ -1981,9 +2228,22 @@ class Functions(QtCore.QObject):
             log_event(f"[Error] Loading login preference failed: {e}")
 
 
+    def evento_ao_abrir(self):
+        self.carregar_todos_sqie()
+        self.carregar_todos_continuity()
+        self.carregar_todos_sourcing()
+        self.carregar_todos_planner()
+        self.carregar_todos_categories()
+        self.carregar_todos_bus()
+        self.carregar_criterios_dos_campos()
+        self.preencher_table_log()
+        self.carregar_preferencia_checkbox()
 
+
+    def evento_ao_fechar(self, event):
+        janela_select.close()
         
-
+        event.accept()
     
 
 
@@ -2003,7 +2263,6 @@ app = QtWidgets.QApplication(sys.argv)
 
 janela_principal = QtWidgets.QMainWindow()
 janela_login = QtWidgets.QMainWindow()
-janela_register = QtWidgets.QMainWindow()
 janela_select = QtWidgets.QMainWindow()
 
 
@@ -2018,7 +2277,7 @@ ui_select = Ui_windowSelectSupplier()
 ui_select.setupUi(janela_select)
 
 
-funcoes = Functions(ui_login, janela_login,janela_register, janela_principal, ui,ui_select, janela_register)
+funcoes = Functions(ui_login, janela_login, janela_principal, ui,ui_select)
 funcoes.evento_ao_abrir()
 
 
@@ -2029,11 +2288,11 @@ janela_principal.closeEvent = funcoes.evento_ao_fechar
 ui.btn_home.clicked.connect(lambda: Functions.mudar_pagina(0))
 ui.btn_score.clicked.connect(lambda: Functions.mudar_pagina(1))
 ui.btn_timeline.clicked.connect(lambda: Functions.mudar_pagina(2))
-#ui.btn_send_mail.clicked.connect(lambda: Functions.mudar_pagina(3))
 ui.btn_risks.clicked.connect(lambda: Functions.mudar_pagina(3));funcoes.verificar_riscos()
 ui.btn_configs.clicked.connect(lambda: Functions.mudar_pagina(4))
 ui.btn_ocultar.clicked.connect(lambda: Functions.ocultar_menu())
-
+ui.btn_show_info.clicked.connect(lambda:Functions.ocultar_right_sidebar())
+ui.btn_close_right_sidebar.clicked.connect(lambda: Functions.ocultar_right_sidebar())
 
 
 ui.btn_save_new_score.clicked.connect(Functions.salvar_score)
@@ -2065,21 +2324,19 @@ ui.quality_package_input.textChanged.connect(lambda: Functions.total_score_calcu
 ui.quality_pickup_input.textChanged.connect(lambda: Functions.total_score_calculate())
 ui.nil_input.textChanged.connect(lambda: Functions.total_score_calculate())
 ui.otif_input.textChanged.connect(lambda: Functions.total_score_calculate())
-#ui.vendor_register.currentTextChanged.connect(lambda: Functions.atualizar_campos_vendor_register())
 ui.tabWidget.currentChanged.connect(lambda index: funcoes.carregar_graficos() if index == 1 else None)
 ui_select.btn_select_vendor.clicked.connect(lambda:funcoes.selecionar_vendor_pelo_botao())
 ui_select.table_select_supplier.cellDoubleClicked.connect(lambda:funcoes.selecionar_vendor_pelo_botao())
 ui.checkBox_show_inactive.clicked.connect(lambda: funcoes.salvar_preferencia_checkbox())
 ui_login.checkBox_remember_login.clicked.connect(lambda:funcoes.salvar_preferencia_login())
 funcoes.carregar_preferencia_login()
+em_animacao_sidebar = False
+em_animacao_right_sidebar = False
 
 
 ui.tableDetails.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 janela_login.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#funcoes.iniciar_splash()
 
-#janela_principal.setFixedSize(janela_principal.size())
-#janela_login.setFixedSize(janela_login.size())
 
 janela_principal.setWindowFlags(
     QtCore.Qt.Window |
@@ -2087,7 +2344,6 @@ janela_principal.setWindowFlags(
     QtCore.Qt.WindowMaximizeButtonHint |
     QtCore.Qt.WindowCloseButtonHint
 )
-
 
 janela_login.show()
 

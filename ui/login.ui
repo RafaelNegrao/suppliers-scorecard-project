@@ -83,7 +83,7 @@ QProgressBar::chunk {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 9, 1, 255), stop:1 rgba(255, 100, 0, 255))</string>
+     <string notr="true">background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 1, 1, 255), stop:1 rgba(255, 75, 0, 255))</string>
     </property>
    </widget>
    <widget class="QWidget" name="widget_2" native="true">
@@ -237,20 +237,37 @@ outline: none;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">outline: none;</string>
+     <string notr="true">outline: none;
+</string>
     </property>
     <property name="text">
      <string>Login</string>
+    </property>
+    <property name="icon">
+     <iconset resource="icon.qrc">
+      <normaloff>:/images/login-svgrepo-com.svg</normaloff>:/images/login-svgrepo-com.svg</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>25</height>
+     </size>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_remember_login">
     <property name="geometry">
      <rect>
-      <x>288</x>
+      <x>294</x>
       <y>252</y>
-      <width>97</width>
+      <width>115</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Poppins</family>
+      <pointsize>8</pointsize>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">outline: none;</string>
@@ -269,10 +286,6 @@ outline: none;
   </widget>
  </widget>
  <resources>
-  <include location="icon.qrc"/>
-  <include location="icon.qrc"/>
-  <include location="icon.qrc"/>
-  <include location="icon.qrc"/>
   <include location="icon.qrc"/>
  </resources>
  <connections/>

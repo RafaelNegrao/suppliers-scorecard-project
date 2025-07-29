@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="images">
+    <file>login-svgrepo-com.svg</file>
+    <file>add-symbol.png</file>
+    <file>informacoes.png</file>
     <file>marca-x.png</file>
     <file>info.png</file>
     <file>add.png</file>

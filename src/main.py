@@ -7,19 +7,17 @@ from PyQt5 import QtWidgets, QtCore, QtWebEngineWidgets
 from PyQt5.QtWidgets import (
     QLabel, QMessageBox, QTableWidgetItem, QHeaderView, QVBoxLayout,
     QDialog, QLineEdit, QDialogButtonBox, QTableWidget,
-    QAbstractItemView, QProgressBar,QTextEdit, QApplication
+    QAbstractItemView, QProgressBar,QTextEdit, QApplication,QGraphicsOpacityEffect, QFrame, QHBoxLayout, QSizePolicy, QWidget, QScrollArea, QPushButton
 )
-from PyQt5.QtCore import Qt, QEventLoop, QTimer
-from PyQt5.QtGui import QIcon, QColor, QPixmap
+from PyQt5.QtCore import Qt, QEventLoop, QTimer,QPropertyAnimation,QEvent
+from PyQt5.QtGui import QIcon, QColor, QPixmap, QFont
 from selectSupplier import Ui_windowSelectSupplier
 from Interface import Ui_MainWindow
 from loginWindow import Ui_LoginWindow
 from crud import read, create, update, delete, log_event, buscar_logs
 import os, json
 from pathlib import Path
-
-
-
+from collections import defaultdict
 
 
 
@@ -46,90 +44,109 @@ class Functions(QtCore.QObject):
 
 
 
-    def salvar_novo_supplier(self, _=None):
-        vendor = ui.vendor_register_new.text().strip().upper()
-        supplier = ui.supplier_register.text().strip().upper()
-        bu = ui.bu_register_new.currentText().strip()
-        category = ui.new_category.currentText().strip()
-        sqie = ui.sqie_register_new.currentText().strip()
-        planner = ui.planner_register_new.currentText().strip()
-        sourcing = ui.sourcing_register_new.currentText().strip()
-        continuity = ui.continuity_register_new.currentText().strip()
-        ssid = ui.ssid_register_new.text().strip().upper()
-        country = ui.country_register_new.text().strip().upper()
-        region = ui.region_register_new.text().strip().upper()
-        document = ui.document_register_new.text().strip().upper()
-        supplier_number = ui.new_supplier_number.text()
-        supplier_mail = ui.new_supplier_number.text()
+    def mostrar_toast(self, parent, tipo_mensagem, titulo, mensagem):
+        """
+        1 - Warning
+        2 - Error
+        3 - Success
+        """
+        if tipo_mensagem not in (1, 2, 3):
+            return
 
-        campos_obrigatorios = {
-            "Vendor": vendor,
-            "Supplier": supplier,
-            "BU": bu,
-            "Planner": planner,
-            "Category": category,
-            "SQIE": sqie,
-            "Sourcing": sourcing,
-            "Continuity": continuity,
-            "SSID": ssid,
-            "Country": country,
-            "Region": region,
-            "Document": document,
-            "Supplier_number": supplier_number,
-            "Supplier_mail": supplier_mail
+        if not hasattr(self, 'toasts_ativos'):
+            self.toasts_ativos = []
+
+        toast = QLabel(None)
+
+        cores = {
+            1: "rgba(255, 193, 7, 230)",  
+            2: "rgba(244, 67, 54, 230)",   
+            3: "rgba(76, 175, 80, 230)"    
         }
 
-        for nome_campo, valor in campos_obrigatorios.items():
-            if not valor:
-                QMessageBox.warning(None, "Required Field", f"The field '{nome_campo}' is required.")
-                return
+        cor_fundo = cores[tipo_mensagem]
 
-        try:
-            # Usando o CRUD genérico
-            create("supplier_database_table", {
-                "vendor_name": vendor,
-                "bu": bu,
-                "supplier_name": supplier,
-                "supplier_mail": supplier_mail,
-                "supplier_number": supplier_number,
-                "supplier_category": category,
-                "planner": planner,
-                "continuity": continuity,
-                "sourcing": sourcing,
-                "sqie": sqie,
-                "category": category,
-                "ssid": ssid,
-                "country": country,
-                "region": region,
-                "document": document,
+        texto_html = f"""
+        <div>
+            <b>{titulo}</b><br>
+            <span>{mensagem}</span>
+        </div>
+        """
+        toast.setText(texto_html)
 
-            })
+        toast.setStyleSheet(f"""
+            background-color: {cor_fundo};
+            color: white;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-radius: 5px;
+        """)
 
-            QMessageBox.information(None, "Success", "Supplier saved successfully.")
+        toast.setAttribute(Qt.WA_StyledBackground, True)
+        toast.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint | Qt.Tool)
+        toast.setAttribute(Qt.WA_ShowWithoutActivating)
+        toast.adjustSize()
 
-            # Zera os campos
-            ui.vendor_register_new.setText("")
-            ui.supplier_register.setText("")
-            ui.bu_register_new.setCurrentIndex(0)
-            ui.new_category.setCurrentIndex(0)
-            ui.sqie_register_new.setCurrentIndex(0)
-            ui.sourcing_register_new.setCurrentIndex(0)
-            ui.continuity_register_new.setCurrentIndex(0)
-            ui.ssid_register_new.setText("")
-            ui.country_register_new.setText("")
-            ui.region_register_new.setText("")
-            ui.document_register_new.setText("")   
+        geo = parent.frameGeometry()
+        x = geo.x() + geo.width() - toast.width() - 20
+        y = geo.y() + 20 + len(self.toasts_ativos) * (toast.height() + 10)
 
-            # Atualiza vendor_register
-            self.carregar_fornecedores_do_banco()
-            self.verificar_riscos()
-            #ui.vendor_register.blockSignals(True)
-            ui.vendor_register.clear()
-            #ui.vendor_register.addItems(fornecedores)
-            #ui.vendor_register.blockSignals(False)
+        toast.move(x, y)
+        toast.show()
 
-        except Exception as erro:
-            QMessageBox.critical(None, "Error", f"Error while saving supplier:\n{erro}")
+        self.toasts_ativos.append(toast)
+
+        def fade_and_close():
+            effect = QGraphicsOpacityEffect(toast)
+            toast.setGraphicsEffect(effect)
+            toast.effect = effect
+
+            anim = QPropertyAnimation(effect, b"opacity")
+            anim.setDuration(1500)
+            anim.setStartValue(1)
+            anim.setEndValue(0)
+
+            def on_finished():
+                toast.close()
+                if toast in self.toasts_ativos:
+                    self.toasts_ativos.remove(toast)
+                    self.reorganizar_toasts(parent)
+
+            anim.finished.connect(on_finished)
+            anim.start()
+            toast.anim = anim
+
+        QTimer.singleShot(3000, fade_and_close)
+
+
+    def reorganizar_toasts(self, parent):
+        geo = parent.frameGeometry()
+        for i, toast in enumerate(self.toasts_ativos):
+            x = geo.x() + geo.width() - toast.width() - 20
+            y = geo.y() + 20 + i * (toast.height() + 10)
+            toast.move(x, y)
+
+
+    def eventFilter(self, source, event):
+
+        if event.type() == QEvent.Move and source == self.toast_parent:
+            if hasattr(self, 'toast') and self.toast.isVisible():
+
+                geo = source.frameGeometry()
+                x = geo.x() + geo.width() - self.toast.width() - 20
+                y = geo.y() + 20
+                self.toast.move(x, y)
+        
+        return super().eventFilter(source, event)
+
+
+    def total_score_possivel(self):
+        total = (int(ui.quality_packege_criteria.value())*10) + \
+                (int(ui.nil_criteria.value())*10) + \
+                (int(ui.otif_criteria.value())*10) + \
+                (int(ui.quality_pickup_criteria.value())*10)
+        
+        total_str = f" /{total}"
 
 
     def iniciar_splash(self):
@@ -140,21 +157,21 @@ class Functions(QtCore.QObject):
             senha_digitada = self.ui_login.password_login.text().strip()
 
             if not wwid_digitado or not senha_digitada:
-                QMessageBox.warning(self.janela_login, "Login Failed", "Please enter both WWID and password.")
+                QMessageBox.warning(self.janela_principal, "Login Failed", "Please enter both WWID and password.")
                 self.ui_login.btn_login.setEnabled(True)  
                 return
 
             resultado = read("SELECT user_wwid, user_password, user_privilege FROM users_table WHERE user_wwid = ?", (wwid_digitado,))
 
             if not resultado:
-                QMessageBox.critical(self.janela_login, "Login Failed", f"WWID '{wwid_digitado}' not found.")
+                self.mostrar_toast(janela_login,2,"Login Failed", f"WWID '{wwid_digitado}' not found.")
                 self.ui_login.btn_login.setEnabled(True)  
                 return
 
             wwid_banco, senha_banco, privilegio = resultado[0]
 
             if senha_digitada != senha_banco:
-                QMessageBox.critical(self.janela_login, "Login Failed", "Incorrect password.")
+                self.mostrar_toast(janela_login,2,"Login Failed","Incorrect password")
                 self.ui_login.btn_login.setEnabled(True)
                 return
 
@@ -166,7 +183,7 @@ class Functions(QtCore.QObject):
             self.ui_login.barra_progresso.setValue(0)
             self.tempo_inicial = QtCore.QElapsedTimer()
             self.tempo_inicial.start()
-            self.duracao_total = 2000  
+            self.duracao_total = 1000  
 
             self.timer = QtCore.QTimer()
             self.timer.setInterval(1)
@@ -190,14 +207,14 @@ class Functions(QtCore.QObject):
             self.timer.start()
 
         except Exception as e:
-            QMessageBox.critical(self.janela_login, "Error", f"An unexpected error occurred:\n{str(e)}")
+            self.mostrar_toast(janela_login,2,"Error",f"An unexpected error occurred:\n{str(e)}")
             log_event(f"[Login Error] {str(e)}")
             funcoes.preencher_table_log()
             self.ui_login.btn_login.setEnabled(True)  
 
 
         except Exception as e:
-            QMessageBox.critical(self.janela_login, "Error", f"An unexpected error occurred:\n{str(e)}")
+            QMessageBox.critical(self.janela_principal, "Error", f"An unexpected error occurred:\n{str(e)}")
             log_event(f"[Login Error] {str(e)}")
             funcoes.preencher_table_log()
 
@@ -241,28 +258,64 @@ class Functions(QtCore.QObject):
             novo_privilegio = self.ui_main.edit_privilege.currentText()
 
             if not wwid or not nova_senha or not novo_privilegio:
-                QMessageBox.warning(self.janela_principal, "Invalid Input", "Please fill in WWID, new password, and privilege.")
+                funcoes.mostrar_toast(janela_principal, 1, "Invalid Input", "Please fill in WWID, new password, and privilege.")
                 return
 
-            resultado = read("SELECT 1 FROM users_table WHERE user_wwid = ?", (wwid,))
+            resultado = read("SELECT user_privilege FROM users_table WHERE user_wwid = ?", (wwid,))
             if not resultado:
-                QMessageBox.warning(self.janela_principal, "User Not Found", f"No user found with WWID '{wwid}'.")
+                funcoes.mostrar_toast(janela_principal, 1, "User Not Found", f"No user found with WWID '{wwid}'.")
                 return
 
-            update(
-                "UPDATE users_table SET user_password = ?, user_privilege = ? WHERE user_wwid = ?",
-                (nova_senha, novo_privilegio, wwid)
-            )
+            privilegio_atual = resultado[0][0]
 
-            QMessageBox.information(
-                self.janela_principal,
-                "Success",
-                f"Password and privilege updated successfully for WWID '{wwid}'."
-            )
+            if privilegio_atual == "Admin":
+
+                update(
+                    "UPDATE users_table SET user_password = ? WHERE user_wwid = ?",
+                    (nova_senha, wwid)
+                )
+            else:
+
+                update(
+                    "UPDATE users_table SET user_password = ?, user_privilege = ? WHERE user_wwid = ?",
+                    (nova_senha, novo_privilegio, wwid)
+                )
+
+            funcoes.mostrar_toast(janela_principal, 3, "Success", "Password changed.")
 
         except Exception as e:
-            QMessageBox.critical(self.janela_principal, "Error", f"An error occurred while updating data:\n{str(e)}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while updating data:\n{str(e)}")
             log_event(f"[Update Password/Privilege Error] {str(e)}")
+            funcoes.preencher_table_log()
+
+
+    def adicionar_novo_usuario(self):
+        try:
+            wwid = self.ui_main.new_wwid.text().strip().upper()
+            senha = self.ui_main.new_password.text().strip()
+            privilegio = self.ui_main.new_privilege.currentText().strip()
+
+            if not wwid or not senha or not privilegio:
+                funcoes.mostrar_toast(janela_principal, 1, "Invalid Input", "Please fill in all fields to add a new user.")
+                return
+
+            # Verifica se já existe um usuário com esse WWID (independente de maiúsculas/minúsculas)
+            resultado = read("SELECT 1 FROM users_table WHERE UPPER(user_wwid) = ?", (wwid,))
+            if resultado:
+                funcoes.mostrar_toast(janela_principal, 1, "User Exists", f"User with WWID '{wwid}' already exists.")
+                return
+
+            # Insere novo usuário
+            create(
+                "INSERT INTO users_table (user_wwid, user_password, user_privilege) VALUES (?, ?, ?)",
+                (wwid, senha, privilegio)
+            )
+
+            funcoes.mostrar_toast(janela_principal, 3, "Success", f"User '{wwid}' added successfully.")
+
+        except Exception as e:
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while adding user:\n{str(e)}")
+            log_event(f"[Add User Error] {str(e)}")
             funcoes.preencher_table_log()
 
 
@@ -272,168 +325,243 @@ class Functions(QtCore.QObject):
             ui.average_12month.setText("")
             return
 
-        registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
-        if not registros:
-            ui.average_12month.setText("")
-            return
-
         try:
-            ordenado = sorted(registros, key=lambda r: (int(r[4]), int(r[3])), reverse=True)
-            max_ano, max_mes = int(ordenado[0][4]), int(ordenado[0][3])
+            registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
+            if not registros:
+                ui.average_12month.setText("")
+                return
+
+            hoje = QtCore.QDate.currentDate()
+            ultimos_12_meses = [(hoje.addMonths(-i).year(), hoje.addMonths(-i).month()) for i in range(11, -1, -1)]
+
+            dados = {}
+            for row in registros:
+                try:
+                    ano = int(row[4])   
+                    mes = int(row[3])   
+                    score = float(row[9])
+                    dados[(ano, mes)] = score
+                except:
+                    continue
+
+            # Monta a lista de valores dos últimos 12 meses (0 se não houver dado)
+            valores = [dados.get((ano, mes), 0) for ano, mes in ultimos_12_meses]
+
+            valores_validos = [v for v in valores if v > 0]
+            if not valores_validos:
+                ui.average_12month.setText("")
+                return
+
+            media_12_meses = sum(valores_validos) / len(valores_validos)
+            ui.average_12month.setText(f" {int(media_12_meses)}")
+
         except Exception as e:
-            print(f"Erro ao identificar último ano/mês: {e}")
+            print(f"Erro ao calcular média dos 12 meses: {e}")
             ui.average_12month.setText("")
-            return
-
-        data_base = QtCore.QDate(max_ano, max_mes, 1)
-        ultimos_12_meses = [(data_base.addMonths(-i).year(), data_base.addMonths(-i).month()) for i in range(11, -1, -1)]
-
-        dados = {}
-        for row in registros:
-            try:
-                ano = int(row[4])
-                mes = int(row[3])
-                score = float(row[9])
-                dados[(ano, mes)] = score
-            except:
-                pass
-
-        valores = [dados.get((ano, mes), 0) for ano, mes in ultimos_12_meses]
-        divisor = len([v for v in valores if v > 0]) or 1
-        media_12_meses = sum(valores) / divisor
-
-        ui.average_12month.setText(f" {int(media_12_meses)}")
 
 
-    def atualizar_media_6_meses(self):
+    def atualizar_media_anual(self):
         id = ui.id_timeline.text().strip()
+        ano_selecionado = ui.year_timeline.currentText().strip()
+
         if not id:
-            ui.average_6month.setText("")
+            ui.average_year.setText("")
             return
 
-        registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
+        if ano_selecionado == "":
+            # Se não selecionou ano, busca todos os anos
+            registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
+        else:
+            # Filtra pelo ano selecionado
+            registros = read(
+                "SELECT * FROM supplier_score_records_table WHERE supplier_id = ? AND year = ?",
+                (id, int(ano_selecionado))
+            )
+
         if not registros:
-            ui.average_6month.setText("")
+            ui.average_year.setText("")
             return
 
         try:
-            ordenado = sorted(registros, key=lambda r: (int(r[4]), int(r[3])), reverse=True)
-            max_ano, max_mes = int(ordenado[0][4]), int(ordenado[0][3])
-        except Exception as e:
-            print(f"Erro ao identificar último ano/mês: {e}")
-            ui.average_6month.setText("")
-            return
+            scores = []
+            # Se ano está vazio, calcula a média de todos os anos
+            if ano_selecionado == "":
+                for row in registros:
+                    score = float(row[9])
+                    if score > 0:
+                        scores.append(score)
+            else:
+                # Se ano selecionado, considera só meses até o mês atual
+                mes_atual = datetime.datetime.now().month
+                for row in registros:
+                    mes = int(row[3])
+                    score = float(row[9])
+                    if 1 <= mes <= mes_atual and score > 0:
+                        scores.append(score)
 
-        data_base = QtCore.QDate(max_ano, max_mes, 1)
-        ultimos_6_meses = [(data_base.addMonths(-i).year(), data_base.addMonths(-i).month()) for i in range(5, -1, -1)]
+            if not scores:
+                ui.average_year.setText("")
+                return
 
-        dados = {}
-        for row in registros:
-            try:
-                ano = int(row[4])
-                mes = int(row[3])
-                score = float(row[9])
-                dados[(ano, mes)] = score
-            except:
-                pass
+            media = sum(scores) / len(scores)
+            ui.average_year.setText(f" {int(media)}")
 
-        valores = [dados.get((ano, mes), 0) for ano, mes in ultimos_6_meses]
-        divisor = len([v for v in valores if v > 0]) or 1
-        media_6_meses = sum(valores) / divisor
-
-        ui.average_6month.setText(f" {int(media_6_meses)}")
+        except Exception:
+            ui.average_year.setText("")
 
 
     def atualizar_medias_trimestrais(self):
         id = ui.id_timeline.text().strip()
+        ano_selecionado = ui.year_timeline.currentText().strip()
+
+        # Limpa os textos e mostra todos widgets inicialmente
+        ui.average_q1.setText("")
+        ui.average_q2.setText("")
+        ui.average_q3.setText("")
+        ui.average_q4.setText("")
+
+        ui.widget_q1_timeline.setVisible(True)
+        ui.widget_q2_timeline.setVisible(True)
+        ui.widget_q3_timeline.setVisible(True)
+        ui.widget_q4_timeline.setVisible(True)
+
         if not id:
-            ui.average_q1.setText("")
-            ui.average_q2.setText("")
-            ui.average_q3.setText("")
-            ui.average_q4.setText("")
+            # Se não tem id, oculta todos widgets e sai
+            ui.widget_q1_timeline.setVisible(False)
+            ui.widget_q2_timeline.setVisible(False)
+            ui.widget_q3_timeline.setVisible(False)
+            ui.widget_q4_timeline.setVisible(False)
             return
 
-        registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
+        if ano_selecionado == "":
+            registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
+        else:
+            registros = read(
+                "SELECT * FROM supplier_score_records_table WHERE supplier_id = ? AND year = ?",
+                (id, int(ano_selecionado))
+            )
+
         if not registros:
-            ui.average_q1.setText("")
-            ui.average_q2.setText("")
-            ui.average_q3.setText("")
-            ui.average_q4.setText("")
+            ui.widget_q1_timeline.setVisible(False)
+            ui.widget_q2_timeline.setVisible(False)
+            ui.widget_q3_timeline.setVisible(False)
+            ui.widget_q4_timeline.setVisible(False)
             return
 
-        from collections import defaultdict
-        import datetime
-
-        ano_atual = datetime.datetime.now().year
-        trimestres = defaultdict(list)
+        trimestres = {
+            'q1': [],
+            'q2': [],
+            'q3': [],
+            'q4': []
+        }
 
         for row in registros:
             try:
-                ano = int(row[4])
                 mes = int(row[3])
                 score = float(row[9])
-
-                if ano == ano_atual:
-                    if mes in [1, 2, 3]:
-                        trimestres['q1'].append(score)
-                    elif mes in [4, 5, 6]:
-                        trimestres['q2'].append(score)
-                    elif mes in [7, 8, 9]:
-                        trimestres['q3'].append(score)
-                    elif mes in [10, 11, 12]:
-                        trimestres['q4'].append(score)
+                if mes in [1, 2, 3]:
+                    trimestres['q1'].append(score)
+                elif mes in [4, 5, 6]:
+                    trimestres['q2'].append(score)
+                elif mes in [7, 8, 9]:
+                    trimestres['q3'].append(score)
+                elif mes in [10, 11, 12]:
+                    trimestres['q4'].append(score)
             except:
                 continue
 
         def calcular_media(valores):
             if not valores:
-                return ""
-            return str(int(sum(valores) / len(valores)))
+                return None
+            return sum(valores) / len(valores)
 
-        ui.average_q1.setText(f" {calcular_media(trimestres['q1'])}")
-        ui.average_q2.setText(f" {calcular_media(trimestres['q2'])}")
-        ui.average_q3.setText(f" {calcular_media(trimestres['q3'])}")
-        ui.average_q4.setText(f" {calcular_media(trimestres['q4'])}")
+        medias = {
+            'q1': calcular_media(trimestres['q1']),
+            'q2': calcular_media(trimestres['q2']),
+            'q3': calcular_media(trimestres['q3']),
+            'q4': calcular_media(trimestres['q4']),
+        }
+
+        # Função para encontrar o trimestre anterior disponível, indo para trás
+        def trimestre_anterior_disponivel(atual):
+            ordem = ['q1', 'q2', 'q3', 'q4']
+            idx = ordem.index(atual)
+            for i in range(idx - 1, -1, -1):
+                if medias[ordem[i]] is not None:
+                    return ordem[i]
+            return None
+
+        # Função para montar texto com seta
+        def texto_com_seta(atual):
+            media_atual = medias[atual]
+            if media_atual is None:
+                return ""
+            anterior = trimestre_anterior_disponivel(atual)
+            if anterior is None:
+                return f" {int(round(media_atual))}"
+            media_anterior = medias[anterior]
+            if media_atual > media_anterior:
+                seta = '<span style="font-size:18px;"> ▲</span>'
+            elif media_atual < media_anterior:
+                seta = '<span style="font-size:20px;"> 🔻</span>'
+            else:
+                seta = '<span style="font-size:18px;"> ▶</span>'
+            return f' {int(round(media_atual))}{seta}'
+        
+        ui.average_q1.setText(texto_com_seta('q1'))
+        ui.average_q2.setText(texto_com_seta('q2'))
+        ui.average_q3.setText(texto_com_seta('q3'))
+        ui.average_q4.setText(texto_com_seta('q4'))
+
+        if medias['q1'] is None:
+            ui.widget_q1_timeline.setVisible(False)
+        if medias['q2'] is None:
+            ui.widget_q2_timeline.setVisible(False)
+        if medias['q3'] is None:
+            ui.widget_q3_timeline.setVisible(False)
+        if medias['q4'] is None:
+            ui.widget_q4_timeline.setVisible(False)
 
 
     def atualizar_media_geral(self):
         id = ui.id_timeline.text().strip()
-        if not id:
-            ui.overhall_average.setText("")
-            return
 
-        registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
-        if not registros:
+        if not id:
             ui.overhall_average.setText("")
             return
 
         try:
-            valores = [float(row[9]) for row in registros]  # total_score no índice 9
+            registros = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ?", (id,))
+            if not registros:
+                ui.overhall_average.setText("")
+                return
+
+            valores = [float(row[9]) for row in registros if float(row[9]) > 0]
+            if not valores:
+                ui.overhall_average.setText("")
+                return
+
             media_geral = sum(valores) / len(valores)
+            ui.overhall_average.setText(f" {int(media_geral)}")
+
         except Exception as e:
-            print(f"Erro ao calcular média geral: {e}")
             ui.overhall_average.setText("")
-            return
-
-        ui.overhall_average.setText(f" {int(media_geral)}")
-
-
-    def total_score_possivel(self):
-        total = (int(ui.quality_packege_criteria.value())*10) + \
-                (int(ui.nil_criteria.value())*10) + \
-                (int(ui.otif_criteria.value())*10) + \
-                (int(ui.quality_pickup_criteria.value())*10)
-        
-        total_str = f" /{total}"
 
 
     def criar_grafico_coluna(self, container_widget):
         id = self.ui_main.id_timeline.text().strip()
+        ano_selecionado = ui.year_timeline.currentText().strip()
+
         if not id:
             return
 
-        # Consulta ajustada
-        rows = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ? ORDER BY year, month", (id,))
+        if ano_selecionado == "":
+            rows = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ? ORDER BY year, month", (id,))
+        else:
+            rows = read(
+                "SELECT * FROM supplier_score_records_table WHERE supplier_id = ? AND year = ? ORDER BY year, month",
+                (id, int(ano_selecionado))
+            )
 
         layout = container_widget.layout()
         if layout is None:
@@ -454,7 +582,6 @@ class Functions(QtCore.QObject):
             layout.addWidget(label)
             return
 
-        # month = [3], year = [4], total_score = [9], comment = [10]
         rows = sorted(rows, key=lambda x: (int(x[4]), int(x[3])))
 
         meses_pt = {
@@ -588,23 +715,35 @@ class Functions(QtCore.QObject):
 
     def preencher_tabela_resultados(self):
         id_fornecedor = ui.id_timeline.text().strip()
+        ano_selecionado = ui.year_timeline.currentText().strip()
+
         if not id_fornecedor:
             ui.tableDetails.clearContents()
             ui.tableDetails.setRowCount(0)
             return
 
-        query = """
-            SELECT * 
-            FROM supplier_score_records_table 
-            WHERE supplier_id = ?
-        """
-        rows = read(query, (id_fornecedor,))
+        if ano_selecionado == "":
+            query = """
+                SELECT * 
+                FROM supplier_score_records_table 
+                WHERE supplier_id = ?
+            """
+            params = (id_fornecedor,)
+        else:
+            query = """
+                SELECT * 
+                FROM supplier_score_records_table 
+                WHERE supplier_id = ? AND year = ?
+            """
+            params = (id_fornecedor, int(ano_selecionado))
+
+        rows = read(query, params)
         if not rows:
             ui.tableDetails.clearContents()
             ui.tableDetails.setRowCount(0)
             return
 
-        # Ordenar manualmente pela data (ano e mês), do mais novo para o mais antigo
+        # Ordenar pela data (ano e mês), do mais novo para o mais antigo
         rows_ordenados = sorted(
             rows,
             key=lambda r: int(f"{int(r[4]):04}{int(r[3]):02}"),  # YYYYMM
@@ -621,7 +760,6 @@ class Functions(QtCore.QObject):
         ])
 
         for i, row in enumerate(rows_ordenados):
-            # row = (row_id, supplier_id, supplier_name, month, year, quality_package, quality_pickup, nil, otif, total_score, comment, register_date, created_by, updated_at, changed_by)
             row_id = row[0]
             mes = row[3]
             ano = row[4]
@@ -652,7 +790,7 @@ class Functions(QtCore.QObject):
     def carregar_graficos(self):
         self.criar_grafico_coluna(self.ui_main.lineChart)
         self.atualizar_media_12_meses()
-        self.atualizar_media_6_meses()
+        self.atualizar_media_anual()
         self.atualizar_medias_trimestrais()
         self.atualizar_media_geral()
         self.preencher_tabela_resultados()
@@ -662,8 +800,10 @@ class Functions(QtCore.QObject):
     def mudar_pagina(indice):
         ui.tabWidget.setCurrentIndex(indice)
         
-        if ui.tabWidget.currentIndex() == 4:
+        if ui.tabWidget.currentIndex() == 3:
             funcoes.verificar_riscos()
+            funcoes.fechar_grafico_risco()
+
         elif ui.tabWidget.currentIndex() == 2:
             funcoes.preencher_tabela_resultados()
             funcoes.carregar_graficos()
@@ -681,7 +821,6 @@ class Functions(QtCore.QObject):
         steps = 30      
         delay = duration / steps
 
-        # Primeiro aplica o estilo dos não selecionados (reset)
         for i, btn in enumerate(buttons):
             if i != indice:
                 style = f"""
@@ -706,7 +845,7 @@ class Functions(QtCore.QObject):
                 """
                 btn.setStyleSheet(style)
 
-        # Estilo para o botão **selecionado**
+       
         selected_btn = buttons[indice]
         style = f"""
             QPushButton#{selected_btn.objectName()} {{
@@ -760,21 +899,20 @@ class Functions(QtCore.QObject):
             user = getpass.getuser()
             register_date = datetime.datetime.now()
 
-            # Verifica se os campos obrigatórios foram preenchidos
-            if not id_fornecedor or fornecedor == "" or mes == "" or ano == "":
-                QMessageBox.warning(janela_principal, "Warning", "Supplier ID, name, month, and year are required to save the score.")
+            
+            if not id_fornecedor or fornecedor == "" or mes == "" or ano == "": 
+                funcoes.mostrar_toast(janela_principal,1,"Warning", "Supplier ID, name, month, and year are required to save the score.")
                 log_event("Error while saving score: Missing required fields."); funcoes.preencher_table_log()
                 funcoes.preencher_table_log()
                 return
 
-            # Verifica se já existe um registro com esse supplier_id, ano e mês
+
             existe = read(
                 "SELECT 1 FROM supplier_score_records_table WHERE supplier_id = ? AND month = ? AND year = ?",
                 (id_fornecedor, mes, ano)
             )
 
             if existe:
-                # Se já existir, pergunta ao usuário se ele quer sobrescrever (atualizar)
                 resposta = QMessageBox.question(
                     janela_principal,
                     "Duplicate Entry",
@@ -784,7 +922,7 @@ class Functions(QtCore.QObject):
                 if resposta == QMessageBox.No:
                     return
 
-                # Atualiza o registro existente
+                
                 query_update = """
                     UPDATE supplier_score_records_table
                     SET quality_package = ?, quality_pickup = ?, nil = ?, otif = ?,
@@ -797,9 +935,10 @@ class Functions(QtCore.QObject):
                     id_fornecedor, mes, ano
                 )
                 update(query_update, params_update)
-                QMessageBox.information(janela_principal, "Success", "Score updated successfully.")
+                funcoes.mostrar_toast(janela_principal,3,"Success", "Score updated successfully.")
+                
             else:
-                # Insere novo registro, pois não existe ainda
+                
                 query_insert = """
                     INSERT INTO supplier_score_records_table (
                         supplier_id, supplier_name, month, year,
@@ -813,9 +952,9 @@ class Functions(QtCore.QObject):
                     total, comment, register_date, user
                 )
                 create(query_insert, params_insert)
-                QMessageBox.information(janela_principal, "Success", "Score saved successfully.")
+                funcoes.mostrar_toast(janela_principal,3,"Success", "Score saved successfully.")
+                
 
-            # Limpa todos os campos da interface após salvar
             ui.id_query.setText("")
             ui.vendor_select.setText("")
             ui.month.setCurrentIndex(0)
@@ -833,7 +972,8 @@ class Functions(QtCore.QObject):
 
         except Exception as e:
             # Em caso de erro inesperado
-            QMessageBox.critical(janela_principal, "Error", f"An error occurred while saving:\n{str(e)}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", "An error occurred while saving")
+ 
             log_event(f"Error while saving score: {str(e)}"); funcoes.preencher_table_log() 
            
 
@@ -873,14 +1013,14 @@ class Functions(QtCore.QObject):
                     criterio_map["otif"] = valor
 
             if not all(k in criterio_map for k in ["package", "pickup", "nil", "otif"]):
-                QMessageBox.critical(janela_principal, "Error", "One or more scoring criteria are missing in criteria_table.")
+                funcoes.mostrar_toast(janela_principal,2,"Error", "One or more scoring criteria are missing in criteria_table.")
                 log_event("Error while generating scores: Missing criteria."); funcoes.preencher_table_log()
                 return
 
             fornecedores = read("SELECT supplier_id, vendor_name, supplier_status FROM supplier_database_table")
 
             if not fornecedores:
-                QMessageBox.information(janela_principal, "Info", "No suppliers found in database.")
+                funcoes.mostrar_toast(janela_principal,1,"Info", "No suppliers found in database.")
                 return
 
             user = getpass.getuser()
@@ -972,7 +1112,7 @@ class Functions(QtCore.QObject):
             )
 
         except Exception as e:
-            QMessageBox.critical(janela_principal, "Error", f"An error occurred while generating scores:\n{str(e)}")
+            funcoes.mostrar_toast(janela_principal,2,"Error", f"An error occurred while generating scores:\n{str(e)}")
             log_event(f"Error while generating scores: {str(e)}"); funcoes.preencher_table_log()
 
 
@@ -982,7 +1122,7 @@ class Functions(QtCore.QObject):
             ano = ui.year_group_input.currentText().strip()
 
             if not mes or not ano:
-                QMessageBox.warning(janela_principal, "Warning", "Month and year must be selected to load data.")
+                funcoes.mostrar_toast(janela_principal,1, "Warning", "Month and year must be selected to load data.")
                 return
 
             query = """
@@ -1044,7 +1184,7 @@ class Functions(QtCore.QObject):
             ui.table_group_input.setColumnWidth(2, largura_vendor)
 
         except Exception as e:
-            QMessageBox.critical(janela_principal, "Error", f"An error occurred while loading table data:\n{str(e)}")
+            funcoes.mostrar_toast(janela_principal,2,"Error", f"An error occurred while loading table data:\n{str(e)}")
             log_event(f"Error while loading table data: {str(e)}"); funcoes.preencher_table_log()
 
 
@@ -1083,13 +1223,14 @@ class Functions(QtCore.QObject):
 
 
     def adicionar_sqie(self):
-        name = ui.new_sqie.text().strip()
+        name = ui.new_sqe.text().strip()
         alias = ui.new_alias_sqie.text().strip().upper()
-        email = ui.new_sqie_email.text().strip()
+        email = ui.new_sqe_email.text().strip()
         registered_by = getpass.getuser()
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if not name or not alias or not email:
+            funcoes.mostrar_toast(janela_principal, 1, "Warning", "All fields are required: name, alias, and email.")
             return  
 
         try:
@@ -1109,7 +1250,7 @@ class Functions(QtCore.QObject):
                     )
                     log_event(f"[UPDATE] Edited SQIE alias '{alias}' by {registered_by}")
                     self.carregar_todos_sqie()
-                    QMessageBox.information(None, "SQIE Updated", f"SQIE '{alias}' updated successfully.")
+                    funcoes.mostrar_toast(janela_principal, 3, "Success", f"SQIE '{alias}' updated successfully.")
                     ui.new_sqie.clear()
                     ui.new_alias_sqie.clear()
                     ui.new_sqie_email.clear()
@@ -1123,7 +1264,7 @@ class Functions(QtCore.QObject):
             )
 
             self.carregar_todos_sqie()
-            QMessageBox.information(None, "SQIE Added", f"SQIE '{alias}' added successfully.")
+            funcoes.mostrar_toast(janela_principal, 3, "Success", f"SQIE '{alias}' added successfully.")
             ui.new_sqie.clear()
             ui.new_alias_sqie.clear()
             ui.new_sqie_email.clear()
@@ -1131,6 +1272,7 @@ class Functions(QtCore.QObject):
 
         except Exception as e:
             log_event(f"[ERROR] Failed to add/edit SQIE: {str(e)}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while adding/editing SQIE: {e}")
             self.preencher_table_log()
 
 
@@ -1142,6 +1284,7 @@ class Functions(QtCore.QObject):
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if not name or not alias or not email:
+            funcoes.mostrar_toast(janela_principal, 1, "Warning", "All fields are required: name, alias, and email.")
             return  
 
         try:
@@ -1161,7 +1304,7 @@ class Functions(QtCore.QObject):
                     )
                     log_event(f"[UPDATE] Edited continuity alias '{alias}' by {registered_by}")
                     self.carregar_todos_continuity()
-                    QMessageBox.information(None, "Continuity Updated", f"Continuity '{alias}' updated successfully.")
+                    funcoes.mostrar_toast(janela_principal, 3, "Success", f"Continuity '{alias}' updated successfully.")
                     ui.new_continuity.clear()
                     ui.new_alias_continuity.clear()
                     ui.new_continuity_email.clear()
@@ -1175,7 +1318,7 @@ class Functions(QtCore.QObject):
             )
 
             self.carregar_todos_continuity()
-            QMessageBox.information(None, "Continuity Added", f"Continuity '{alias}' added successfully.")
+            funcoes.mostrar_toast(janela_principal, 3, "Success", f"Continuity '{alias}' added successfully.")
             ui.new_continuity.clear()
             ui.new_alias_continuity.clear()
             ui.new_continuity_email.clear()
@@ -1183,11 +1326,11 @@ class Functions(QtCore.QObject):
 
         except Exception as e:
             log_event(f"[ERROR] Failed to add/edit continuity: {str(e)}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while adding/editing continuity: {e}")
             self.preencher_table_log()
 
 
     def adicionar_planner(self):
-        # CORRIGI
         name = ui.new_planner.text().strip()
         alias = ui.new_alias_planner.text().strip().upper()
         email = ui.new_planner_email.text().strip()
@@ -1195,7 +1338,8 @@ class Functions(QtCore.QObject):
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if not name or not alias or not email:
-            return  
+            funcoes.mostrar_toast(janela_principal, 1, "Warning", "All fields are required: name, alias, and email.")
+            return
 
         try:
             resultado = read("SELECT planner_id FROM planner_table WHERE alias = ?", (alias,))
@@ -1214,7 +1358,7 @@ class Functions(QtCore.QObject):
                     )
                     log_event(f"[UPDATE] Edited planner alias '{alias}' by {registered_by}")
                     self.carregar_todos_planner()
-                    QMessageBox.information(None, "Planner Updated", f"Planner '{alias}' updated successfully.")
+                    funcoes.mostrar_toast(janela_principal, 3, "Success", f"Planner '{alias}' updated successfully.")
                     ui.new_planner.clear()
                     ui.new_alias_planner.clear()
                     ui.new_planner_email.clear()
@@ -1228,7 +1372,7 @@ class Functions(QtCore.QObject):
             )
 
             self.carregar_todos_planner()
-            QMessageBox.information(None, "Planner Added", f"Planner '{alias}' added successfully.")
+            funcoes.mostrar_toast(janela_principal, 3, "Success", f"Planner '{alias}' added successfully.")
             ui.new_planner.clear()
             ui.new_alias_planner.clear()
             ui.new_planner_email.clear()
@@ -1236,6 +1380,7 @@ class Functions(QtCore.QObject):
 
         except Exception as e:
             log_event(f"[ERROR] Failed to add/edit planner: {str(e)}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while adding/editing planner: {e}")
             self.preencher_table_log()
 
 
@@ -1247,7 +1392,8 @@ class Functions(QtCore.QObject):
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if not name or not alias or not email:
-            return  
+            funcoes.mostrar_toast(janela_principal, 1, "Warning", "All fields are required: name, alias, and email.")
+            return
 
         try:
             resultado = read("SELECT sourcing_id FROM sourcing_table WHERE alias = ?", (alias,))
@@ -1266,7 +1412,7 @@ class Functions(QtCore.QObject):
                     )
                     log_event(f"[UPDATE] Edited sourcing alias '{alias}' by {registered_by}")
                     self.carregar_todos_sourcing()
-                    QMessageBox.information(None, "Sourcing Updated", f"Sourcing '{alias}' updated successfully.")
+                    funcoes.mostrar_toast(janela_principal, 3, "Success", f"Sourcing '{alias}' updated successfully.")
                     ui.new_sourcing.clear()
                     ui.new_alias_sourcing.clear()
                     ui.new_sourcing_email.clear()
@@ -1280,7 +1426,7 @@ class Functions(QtCore.QObject):
             )
 
             self.carregar_todos_sourcing()
-            QMessageBox.information(None, "Sourcing Added", f"Sourcing '{alias}' added successfully.")
+            funcoes.mostrar_toast(janela_principal, 3, "Success", f"Sourcing '{alias}' added successfully.")
             ui.new_sourcing.clear()
             ui.new_alias_sourcing.clear()
             ui.new_sourcing_email.clear()
@@ -1288,6 +1434,7 @@ class Functions(QtCore.QObject):
 
         except Exception as e:
             log_event(f"[ERROR] Failed to add/edit sourcing: {str(e)}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while adding/editing sourcing: {e}")
             self.preencher_table_log()
 
 
@@ -1302,7 +1449,7 @@ class Functions(QtCore.QObject):
         try:
             resultado = read("SELECT business_id FROM business_unit_table WHERE bu = ?", (bu,))
             if resultado:
-                QMessageBox.warning(None, "Already Exists", f"The Business Unit '{bu}' already exists.")
+                funcoes.mostrar_toast(janela_principal, 1, "Already Exists", f"The Business Unit '{bu}' already exists.")
                 return
 
             create(
@@ -1312,7 +1459,7 @@ class Functions(QtCore.QObject):
             )
 
             self.carregar_todos_bus()
-            QMessageBox.information(None, "Success", f"Business Unit '{bu}' added successfully.")
+            funcoes.mostrar_toast(janela_principal,3,"Success", f"Business Unit '{bu}' added successfully.")
             ui.new_bu.clear()
             self.preencher_table_log()
 
@@ -1327,11 +1474,13 @@ class Functions(QtCore.QObject):
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         if not category:
-            return  
+            funcoes.mostrar_toast(janela_principal, 1, "Warning", "Category name cannot be empty.")
+            return
+
         try:
             resultado = read("SELECT categories_id FROM categories_table WHERE category = ?", (category,))
             if resultado:
-                QMessageBox.warning(None, "Already Exists", f"The category '{category}' already exists.")
+                funcoes.mostrar_toast(janela_principal, 1, "Warning", f"The category '{category}' already exists.")
                 return
 
             create(
@@ -1341,12 +1490,13 @@ class Functions(QtCore.QObject):
             )
 
             self.carregar_todos_categories()
-            QMessageBox.information(None, "Success", f"Category '{category}' added successfully.")
+            funcoes.mostrar_toast(janela_principal, 3, "Success", f"Category '{category}' added successfully.")
             ui.new_category_2.clear()
             self.preencher_table_log()
 
         except Exception as e:
             log_event(f"[ERROR] Failed to add category: {str(e)}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while adding category: {e}")
             self.preencher_table_log()
 
 
@@ -1414,7 +1564,7 @@ class Functions(QtCore.QObject):
             ui.target_criteria.setEnabled(False)
             ui.btn_unlock_criteria_edit.setText("🔒")
 
-            QMessageBox.information(janela_principal, "Success", "Criteria updated")
+            funcoes.mostrar_toast(janela_principal,3,"Success", "Criteria updated")
         except Exception as e:
             log_event(f"[Error] Failed to update criteria: {e}"); funcoes.preencher_table_log()
 
@@ -1523,8 +1673,69 @@ class Functions(QtCore.QObject):
 
 
     def salvar_novo_supplier(self):
-        pass
+        vendor = ui.vendor_register_new.text().strip()
+        supplier = ui.supplier_register.text().strip()
+        category = ui.new_category.currentText().strip()
+        status = ui.supplier_status_new.currentText().strip()
+        bu = ui.bu_register_new.currentText().strip()
+        supplier_number = ui.new_supplier_number.text().strip()
+        ssid = ui.ssid_register_new.text().strip()
+        country = ui.country_register_new.text().strip()
+        region = ui.region_register_new.text().strip()
+        document = ui.document_register_new.text().strip()
+        sqie = ui.sqie_register_new.currentText().strip()
+        continuity = ui.continuity_register_new.currentText().strip()
+        sourcing = ui.sourcing_register_new.currentText().strip()
+        planner = ui.planner_register_new.currentText().strip()
+        email = ui.email_register_new.toPlainText().strip()
 
+        if not vendor or not supplier or not category or not status:
+            funcoes.mostrar_toast(janela_principal, 1, "Warning", "Please fill in all mandatory fields: Vendor, Supplier, Category, and Status.")
+            return
+
+        query = """
+            INSERT INTO supplier_database_table (
+                vendor_name, supplier_category, bu, supplier_name,
+                supplier_email, supplier_number, supplier_status, planner,
+                continuity, sourcing, sqie, ssid,
+                country, region, document
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """
+
+        params = (
+            vendor, category, bu, supplier,
+            email, supplier_number, status, planner,
+            continuity, sourcing, sqie, ssid,
+            country, region, document
+        )
+
+        try:
+            create(query, params, log_description=f"New supplier saved: {supplier}")
+
+            # Clear fields on success
+            ui.vendor_register_new.clear()
+            ui.supplier_register.clear()
+            ui.new_category.setCurrentIndex(0)
+            ui.supplier_status_new.setCurrentIndex(0)
+            ui.bu_register_new.setCurrentIndex(0)
+            ui.new_supplier_number.clear()
+            ui.ssid_register_new.clear()
+            ui.country_register_new.clear()
+            ui.region_register_new.clear()
+            ui.document_register_new.clear()
+            ui.sqie_register_new.setCurrentIndex(0)
+            ui.continuity_register_new.setCurrentIndex(0)
+            ui.sourcing_register_new.setCurrentIndex(0)
+            ui.planner_register_new.setCurrentIndex(0)
+            ui.email_register_new.clear()
+
+            funcoes.mostrar_toast(janela_principal, 3, "Success", "Supplier saved successfully.")
+
+        except Exception as e:
+            log_event(f"[ERROR SAVING SUPPLIER] {e}")
+            funcoes.mostrar_toast(janela_principal, 2, "Error", f"An error occurred while saving: {e}")
+
+       
     def atualizar_dados_supplier(self):
         # ATUALIZA SUPPLIER JÁ REGISTRADO
         try:
@@ -1547,16 +1758,15 @@ class Functions(QtCore.QObject):
     
 
             if not vendor_name:
-                QMessageBox.warning(None, "Warning", "The 'Vendor' field cannot be empty.")
+                funcoes.mostrar_toast(janela_principal,1,"Warning", "The 'Vendor' field cannot be empty.")
                 return
 
-            # Verifica se o fornecedor existe
             resultado = read("SELECT * FROM supplier_database_table WHERE supplier_id = ?", (supplier_id,))
             if not resultado:
-                QMessageBox.information(None, "Information", f"The vendor '{vendor_name}' was not found in the database.")
+                funcoes.mostrar_toast(janela_principal,1,"Information", f"The vendor '{vendor_name}' was not found in the database.")
                 return
 
-            # Atualiza dados na tabela
+
             update("""
                 UPDATE supplier_database_table SET 
                     vendor_name = ?, supplier_category = ?, bu = ?, supplier_name = ?, 
@@ -1574,10 +1784,11 @@ class Functions(QtCore.QObject):
 
             log_event(f"Updated supplier data for vendor '{vendor_name}' (ID {supplier_id})"); funcoes.preencher_table_log()
 
-            QMessageBox.information(None, "Success", f"Supplier data for '{vendor_name}' was successfully updated.")
+            funcoes.mostrar_toast(janela_principal,3,"Success", f"Supplier data for '{vendor_name}' was successfully updated.")
 
         except Exception as e:
-            QMessageBox.critical(None, "Error", f"An error occurred while updating supplier:\n{str(e)}")
+
+            funcoes.mostrar_toast(janela_principal,2,"Error", f"An error occurred while updating supplier:\n{str(e)}")
             log_event(f"[ERROR] Failed to update supplier ID {supplier_id}: {str(e)}"); funcoes.preencher_table_log()
 
 
@@ -1692,12 +1903,12 @@ class Functions(QtCore.QObject):
         linha = index.row()
 
         if linha < 0:
-            QMessageBox.warning(None, "Warning", "No row selected.")
+            funcoes.mostrar_toast(janela_principal,1,"Warning", "No row selected.")
             return
 
         item_id = tabela.item(linha, 0)
         if not item_id:
-            QMessageBox.warning(None, "Warning", "Record ID not found.")
+            funcoes.mostrar_toast(janela_principal,1,"Warning", "Record ID not found.")
             return
 
         id_registro = item_id.text()
@@ -1723,11 +1934,9 @@ class Functions(QtCore.QObject):
             )
 
         except Exception as e:
-            QMessageBox.critical(None, "Error", f"Failed to delete record:\n{e}")
+            funcoes.mostrar_toast(janela_principal,2,"Error", f"Failed to delete record:\n{e}")
             log_event(f"[ERROR] Failed to delete record: {e}")
             self.preencher_table_log()
-
-
 
 
     def buscar_dados_supplier_por_id(self, id_fornecedor):
@@ -1797,9 +2006,8 @@ class Functions(QtCore.QObject):
         ui.id_mail.setText(str(id))
         ui.supplier_individual_mail.setText(vendor)
         ui.individual_recipients.setPlainText(email)
-        #preencher tambem campo emails
+     
       
-
     def preencher_timeline(self,id, vendor, bu):
         ui.id_timeline.setText(id)
         ui.vendor_timeline.setText(vendor)
@@ -1827,10 +2035,283 @@ class Functions(QtCore.QObject):
         ui.email_update.setPlainText(str(email) if email else "")
 
 
-    def verificar_riscos(self):
+    def gerar_cards_risco(self, riscos):
+        antigo_layout = ui.widget_risks.layout()
+        if antigo_layout is not None:
+            while antigo_layout.count():
+                item = antigo_layout.takeAt(0)
+                widget = item.widget()
+                if widget:
+                    widget.setParent(None)
+            QtWidgets.QWidget().setLayout(antigo_layout)
+
+        altura_card = 130
+        margem_extra = 30
+
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QFrame.NoFrame)
+        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        scroll.setFixedHeight(altura_card + margem_extra)
+
+        container_widget = QWidget()
+        scroll.setWidget(container_widget)
+
+        hbox = QHBoxLayout()
+        hbox.setSpacing(10)
+        hbox.setContentsMargins(10, 10, 10, 10)
+
+        for supplier_id, supplier_name, bu, q1, q2, q3, q4, media in riscos:
+            card = QFrame()
+            card.setFixedSize(250, altura_card)
+            card.setStyleSheet("""
+                QFrame {
+                    background-color: #dddddd;
+                    border-radius: 20px;
+                }
+            """)
+
+            vbox = QVBoxLayout(card)
+            vbox.setContentsMargins(12, 12, 12, 12)
+            vbox.setSpacing(4)
+
+            # Coletar trimestres válidos
+            trimestres = []
+            if q1 and int(q1) > 0:
+                trimestres.append(('Q1', int(q1)))
+            if q2 and int(q2) > 0:
+                trimestres.append(('Q2', int(q2)))
+            if q3 and int(q3) > 0:
+                trimestres.append(('Q3', int(q3)))
+            if q4 and int(q4) > 0:
+                trimestres.append(('Q4', int(q4)))
+
+            # Comparar últimos dois trimestres
+            seta = ""
+            if len(trimestres) >= 2:
+                anterior = trimestres[-2][1]
+                atual = trimestres[-1][1]
+                if atual > anterior:
+                    seta = "  ▲ "
+                elif atual < anterior:
+                    seta = "  🔻"
+                elif atual == anterior:
+                    seta = "  ▶"
+
+            # Mostra valor principal com seta, se houver
+            valor = QLabel(f"{int(media)}{seta}")
+            valor.setFont(QFont("Arial", 20, QFont.Bold))
+            vbox.addWidget(valor)
+
+            nome = QLabel(supplier_name)
+            nome.setFont(QFont("Arial", 9, QFont.Bold))
+            nome.setWordWrap(False)
+            nome.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
+            vbox.addWidget(nome)
+
+            id_label = QLabel(f"ID: {supplier_id}")
+            id_label.setFont(QFont("Arial", 8))
+            vbox.addWidget(id_label)
+
+            # Texto dos trimestres
+            trimestres_texto = [f"{label}:{val}" for label, val in trimestres]
+            trimestre = QLabel("  ".join(trimestres_texto))
+            trimestre.setFont(QFont("Arial", 8))
+            vbox.addWidget(trimestre)
+
+            info_btn = QPushButton("ℹ")
+            info_btn.setFixedSize(20, 20)
+            info_btn.setStyleSheet("""
+                QPushButton {
+                    background-color: transparent;
+                    font-family: "Times New Roman";
+                    font-size: 18px;
+                    font-weight: bold;
+                    font-style: italic;
+                    border: none;
+                }
+                QPushButton:hover {
+                    color: blue;
+                }
+            """)
+            info_btn.setCursor(Qt.PointingHandCursor)
+            info_btn.clicked.connect(lambda _, sid=supplier_id: self.plotar_grafico_risco(sid))
+            vbox.addWidget(info_btn, alignment=Qt.AlignRight)
+
+            hbox.addWidget(card)
+
+        container_widget.setLayout(hbox)
+
+        layout_final = QVBoxLayout()
+        layout_final.setContentsMargins(0, 0, 0, 0)
+        layout_final.addWidget(scroll)
+
+        ui.widget_risks.setLayout(layout_final)
+        ui.widget_risks.setFixedHeight(altura_card + margem_extra)
+
+
+    def plotar_grafico_risco(self, supplier_id):
+        # Tornar visível e animar expansão do widget
+        ui.widget_chart_risks_expand.setVisible(True)
+        
+        anim = QPropertyAnimation(ui.widget_chart_risks_expand, b"maximumHeight")
+        anim.setDuration(100)  
+        anim.setStartValue(0)
+        anim.setEndValue(600)
+        anim.start()
+        self._anim_expand = anim  
+
+        year = ui.year_risks.currentText().strip()
+        rows = read("SELECT * FROM supplier_score_records_table WHERE supplier_id = ? ORDER BY year, month", (supplier_id,))
+
+        if year and year.isdigit():
+            ano_filtrado = int(year)
+            rows = [row for row in rows if int(row[4]) == ano_filtrado]
+
+        layout = ui.widget_chart_risks.layout()
+        if layout is None:
+            layout = QtWidgets.QVBoxLayout(ui.widget_chart_risks)
+            ui.widget_chart_risks.setLayout(layout)
+        else:
+            while layout.count():
+                item = layout.takeAt(0)
+                widget = item.widget()
+                if widget:
+                    widget.deleteLater()
+
+        if not rows:
+            label = QLabel("No data available for this supplier")
+            label.setAlignment(Qt.AlignCenter)
+            label.setStyleSheet("font-size: 16px; color: red;")
+            layout.addWidget(label)
+            return
+
+        fornecedor = read("SELECT vendor_name FROM supplier_database_table WHERE supplier_id = ?", (supplier_id,))
+        nome_fornecedor = fornecedor[0][0] if fornecedor else f"Supplier {supplier_id}"
+
+        meses_pt = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun",
+                    7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
+
+        meses, valores, customdata = [], [], []
+        for row in rows:
+            mes, ano, total, comment = int(row[3]), int(row[4]), float(row[9]), row[10]
+            meses.append(f"{meses_pt[mes]}/{str(ano)[2:]}")
+            valores.append(total)
+            customdata.append([comment if comment else "No comment"])
+
+        soma = 0
+        medias_total = []
+        for i, v in enumerate(valores):
+            soma += v
+            medias_total.append(soma / (i + 1))
+
         meta = ui.target_criteria.value()
 
-        query_base = """
+        textos = []
+        for i, v in enumerate(valores):
+            if i == 0:
+                textos.append(f"{v:.1f}")
+            else:
+                anterior = valores[i - 1]
+                variacao = ((v - anterior) / anterior) * 100 if anterior != 0 else 0
+                seta = "🔺" if variacao > 0 else "🔻" if variacao < 0 else "➡️"
+                textos.append(f"{v:.1f} ({seta} {abs(variacao):.1f}%)")
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=meses,
+            y=valores,
+            mode='lines+markers',
+            name="Score",
+            marker=dict(size=6),
+            line=dict(color="green", width=2, shape='spline'),
+            text=textos,
+            hovertemplate='<b>Score:</b> %{y}<br><b>Comment:</b> %{customdata[0]}<extra></extra>',
+            customdata=customdata,
+        ))
+
+        fig.add_trace(go.Scatter(
+            x=meses,
+            y=medias_total,
+            name="Avg Score",
+            mode='lines',
+            line=dict(color='blue', width=1, dash='dot')
+        ))
+
+        fig.add_shape(type='line', x0=0, x1=1, y0=meta, y1=meta,
+                    xref='paper', yref='y',
+                    line=dict(color='black', width=2, dash='dash'))
+
+        fig.add_trace(go.Scatter(
+            x=[None],
+            y=[None],
+            mode='lines',
+            line=dict(color='black', width=2, dash='dash'),
+            name='Target'
+        ))
+
+        titulo = f"{supplier_id} - {nome_fornecedor}"
+        titulo += f" ({year})" if year else " (All years)"
+
+        fig.update_layout(
+            title=dict(
+                text=titulo,
+                x=0.5,
+                pad=dict(t=20, b=20)
+            ),
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(color="black"),
+            margin=dict(l=20, r=20, t=80, b=60),
+            yaxis=dict(
+                range=[0, 400],
+                fixedrange=True,
+                showgrid=True,
+                gridcolor='rgba(200,200,200,0.3)',
+                gridwidth=1,
+                zeroline=True,
+                zerolinecolor='rgba(200,200,200,0.3)',
+                zerolinewidth=1
+            ),
+            xaxis=dict(
+                showgrid=True,
+                gridcolor='rgba(200,200,200,0.3)',
+                gridwidth=1
+            ),
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=1.02,
+                xanchor="right",
+                x=1
+            )
+        )
+
+        html = (
+            "<style>body { background-color: rgba(0,0,0,0); margin: 0; }</style>"
+            "<script>window.PlotlyConfig = {displayModeBar: false};</script>"
+            + pio.to_html(fig, full_html=False, include_plotlyjs='cdn')
+        )
+
+        web_view = QtWebEngineWidgets.QWebEngineView()
+        web_view.setStyleSheet("background: transparent")
+        web_view.setHtml(html, QtCore.QUrl("about:blank"))
+        layout.addWidget(web_view)
+
+
+    def fechar_grafico_risco(self):
+        ui.widget_chart_risks_expand.setVisible(False)
+
+
+    def verificar_riscos(self):
+        year = ui.year_risks.currentText().strip()
+        meta = ui.target_criteria.value()
+
+        filtro_ano = "WHERE s.year = ?" if year else ""
+        params = (year, meta) if year else (meta,)
+
+        query_base = f"""
             SELECT 
                 s.supplier_id, 
                 s.supplier_name, 
@@ -1842,60 +2323,25 @@ class Functions(QtCore.QObject):
                 AVG(CAST(s.total_score AS FLOAT)) AS media_score
             FROM supplier_score_records_table s
             JOIN supplier_database_table sl ON s.supplier_id = sl.supplier_id
+            {filtro_ano}
             GROUP BY s.supplier_id, s.supplier_name, sl.bu
-            HAVING media_score {op} ?
+            HAVING media_score {{op}} ?
         """
 
         query_riscos = query_base.format(op='<')
         query_ok = query_base.format(op='>=')
 
-        riscos = read(query_riscos, (meta,))
-        ok = read(query_ok, (meta,))  
-
-        headers = ["ID", "Supplier", "BU", "Q1", "Q2", "Q3", "Q4", "Average Score"]
-        table_risks = ui.table_risks
-
-        def preencher_tabela(tabela, dados):
-            tabela.clearContents()
-            tabela.setRowCount(len(dados))
-            tabela.setColumnCount(len(headers))
-            tabela.setHorizontalHeaderLabels(headers)
-
-            for i, (id_, fornecedor, bu, q1, q2, q3, q4, media) in enumerate(dados):
-                row_items = [
-                    QTableWidgetItem(str(id_)),
-                    QTableWidgetItem(str(fornecedor)),
-                    QTableWidgetItem(str(bu)),
-                    QTableWidgetItem(f"{q1:.1f}" if q1 is not None else "-"),
-                    QTableWidgetItem(f"{q2:.1f}" if q2 is not None else "-"),
-                    QTableWidgetItem(f"{q3:.1f}" if q3 is not None else "-"),
-                    QTableWidgetItem(f"{q4:.1f}" if q4 is not None else "-"),
-                    QTableWidgetItem(f"{media:.1f}")
-                ]
-
-                for j, item in enumerate(row_items):
-                    item.setTextAlignment(QtCore.Qt.AlignCenter)
-                    item.setFlags(QtCore.Qt.ItemIsEnabled)
-                    tabela.setItem(i, j, item)
-
-            tabela.setColumnWidth(0, 30)   # ID
-            tabela.setColumnWidth(2, 70)   # BU
-            tabela.setColumnWidth(3, 50)   # Q1
-            tabela.setColumnWidth(4, 50)   # Q2
-            tabela.setColumnWidth(5, 50)   # Q3
-            tabela.setColumnWidth(6, 50)   # Q4
-            tabela.setColumnWidth(7, 100)  # Média
-
-            tabela.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)  # Supplier
-
-        preencher_tabela(table_risks, riscos)
+        riscos = read(query_riscos, params)
+        ok = read(query_ok, params)
 
         ui.total_risks.setText(str(len(riscos)))
         ui.total_geral2.setText(f"/{len(riscos) + len(ok)}")
+        self.fechar_grafico_risco()
+
+        self.gerar_cards_risco(riscos)
 
 
     def comparar_senha_edicao_criteria(self) -> bool:
-        # Não crie tabela aqui, isso deve ser feito em setup do DB!
 
         dialog = QDialog()
         dialog.setWindowTitle("Password Verification")
@@ -1918,7 +2364,7 @@ class Functions(QtCore.QObject):
         def ao_clicar_ok():
             senha = campo.text().strip()
             if not senha:
-                QMessageBox.warning(dialog, "Input Error", "Please enter a password.")
+                funcoes.mostrar_toast(janela_principal,2,"Input Error", "Please enter a password.")
                 return
 
             # Consulta SQL para verificar senha (ajuste conforme seu schema)
@@ -1936,7 +2382,7 @@ class Functions(QtCore.QObject):
                 ui.otif_criteria.setEnabled(True)
                 ui.btn_unlock_criteria_edit.setText("🔓")
             else:
-                QMessageBox.warning(dialog, "Access Denied", "Incorrect password.")
+                funcoes.mostrar_toast(janela_principal,2,"Access Denied", "Incorrect password.")
 
         botoes.accepted.connect(ao_clicar_ok)
         botoes.rejected.connect(dialog.reject)
@@ -1944,9 +2390,6 @@ class Functions(QtCore.QObject):
         dialog.exec_()
         return resultado["valido"]
 
-
-
-    
 
     def ocultar_menu():
         global em_animacao_sidebar
@@ -1989,6 +2432,36 @@ class Functions(QtCore.QObject):
 
         em_animacao_sidebar = False  
 
+
+    def fechar_grafico_risco(self):
+        widget = ui.widget_chart_risks_expand
+        altura_atual = widget.height()
+        altura_final = 0
+        passo = 10
+        delay_ms = 1
+
+        if altura_atual <= altura_final:
+            widget.setVisible(False)
+            return
+
+        for altura in range(altura_atual, altura_final - 1, -passo):
+            widget.setMaximumHeight(altura)
+            loop = QEventLoop()
+            QTimer.singleShot(delay_ms, loop.quit)
+            loop.exec_()
+
+        widget.setMaximumHeight(0)
+        widget.setVisible(False)
+
+        layout = ui.widget_chart_risks.layout()
+        if layout:
+            while layout.count():
+                item = layout.takeAt(0)
+                widget_item = item.widget()
+                if widget_item:
+                    widget_item.deleteLater()
+
+
     def ocultar_right_sidebar():
         global em_animacao_right_sidebar
         if em_animacao_right_sidebar:
@@ -2020,6 +2493,7 @@ class Functions(QtCore.QObject):
             ui.right_sidebar.setFixedWidth(largura_aberta)
 
         em_animacao_right_sidebar = False  
+
 
     def preencher_infos_supplier(self, id):
         try:
@@ -2112,9 +2586,6 @@ class Functions(QtCore.QObject):
             ui.info_field.setPlainText("An error occurred while retrieving supplier information.")
 
 
-
-
-
     def atualizar_logo():
         ui.label_imagem_logo.setScaledContents(True)
         pixmap = QPixmap(":/imagens/logo.png")  # caminho no qrc
@@ -2176,9 +2647,6 @@ class Functions(QtCore.QObject):
 
     def salvar_preferencia_login(self):
         try:
-            import os, json
-            from pathlib import Path
-
             pasta_config = Path(os.getenv("APPDATA")) / "MeuSistema"
             pasta_config.mkdir(parents=True, exist_ok=True)
             caminho_config = pasta_config / "config.json"
@@ -2208,8 +2676,6 @@ class Functions(QtCore.QObject):
 
     def carregar_preferencia_login(self):
         try:
-            import os, json
-            from pathlib import Path
 
             caminho_config = Path(os.getenv("APPDATA")) / "MeuSistema" / "config.json"
 
@@ -2298,12 +2764,17 @@ ui.btn_close_right_sidebar.clicked.connect(lambda: Functions.ocultar_right_sideb
 ui.btn_save_new_score.clicked.connect(Functions.salvar_score)
 ui.btn_update_supplier.clicked.connect(funcoes.atualizar_dados_supplier)
 ui.btn_info.clicked.connect(funcoes.mostrar_info)
-ui.btn_register_new_supplier.clicked.connect(lambda: Functions.registrar_novo_usuario())
 ui.btn_update_criteria.clicked.connect(lambda: funcoes.atualizar_criterios_no_banco())
 ui.btn_vendor_score.clicked.connect(lambda: funcoes.abrir_janela_select_supplier("score"))
 ui.btn_vendor_timeline.clicked.connect(lambda: funcoes.abrir_janela_select_supplier("timeline"))
 ui.btn_vendor_register.clicked.connect(lambda: funcoes.abrir_janela_select_supplier("update"))
 ui_login.btn_login.clicked.connect(lambda: funcoes.iniciar_splash())
+ui.btn_fechar_grafico_risks.clicked.connect(lambda: funcoes.fechar_grafico_risco())
+ui.btn_register_new_supplier.clicked.connect(lambda: funcoes.salvar_novo_supplier())
+ui.btn_save_new_user.clicked.connect(lambda: funcoes.adicionar_novo_usuario())
+
+ui.year_risks.currentTextChanged.connect(lambda: funcoes.verificar_riscos())
+ui.year_timeline.currentTextChanged.connect(lambda: funcoes.carregar_graficos())
 
 
 ui.btn_clear_register.clicked.connect(funcoes.apagar_registro_selecionado)
